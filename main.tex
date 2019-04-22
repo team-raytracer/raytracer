@@ -29,7 +29,7 @@ In this project you will implement an extendable ray tracing engine.
 
 It is important to understand the setup. A scene to be rendered consists of \emph{geometry} whose appearance is determined through \emph{material}s which is a consequence of the \emph{BRDF} of the material. The scene is lit by one or more \emph{light} sources. An image is formed when the scene is \emph{sample}d by a \emph{camera} through a \emph{view plane}.
 
-The variety of objects of each of the above types is captured through class hierarchies in the accompanying folders. Each folder, e.g. \texttt{geometry}, defines an abstract class, e.g. \texttt{Geometry}, which is then inherited by different concrete classes, e.g. \texttt{Plane} and \texttt{Sphere}.
+The variety of objects of each of the above types is captured through class hierarchies in the accompanying \texttt{raytracer} directory. Each folder, e.g. \texttt{geometry}, defines an abstract class, e.g. \texttt{Geometry}, which is then inherited by different concrete classes, e.g. \texttt{Plane} and \texttt{Sphere}.
 
 The \texttt{utilities} folder includes utility classes, notably \texttt{Image} and \texttt{ShadeInfo}. \texttt{Image} holds pixel colors and writes an image to file in \href{https://en.wikipedia.org/wiki/Netpbm_format#PBM_example}{PPM format}. \texttt{ShadeInfo} contains all the information required for shading a point. These classes refer to classes from the \texttt{world} folder.
 
