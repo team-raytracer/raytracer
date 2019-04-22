@@ -13,24 +13,24 @@
 */
 
 class Sampler {
-protected:
-  Camera* camera_ptr;  // the camera that decides the projectors.
+ protected:
+  Camera* camera_ptr;        // the camera that decides the projectors.
   ViewPlane* viewplane_ptr;  // the view plane through which rays are shot.
-  
-public:
+
+ public:
   // Constructors.
-  Sampler();  // initializes members to NULL.
+  Sampler();                                 // initializes members to NULL.
   Sampler(Camera* c_ptr, ViewPlane* v_ptr);  // set members.
 
   // Copy constuctor and assignment operator.
   Sampler(const Sampler& camera);
-  Sampler& operator= (const Sampler& other);
+  Sampler& operator=(const Sampler& other);
 
   // Virtual copy constructor.
   virtual Sampler* clone() const = 0;
 
   // Desctructor.
-  virtual ~Sampler();   							
+  virtual ~Sampler();
 
   // Get rays corresponding to a pixel in the view plane. px and py are 0-based
   // indexes of the pixel in the view plane, with the origin at the top left of

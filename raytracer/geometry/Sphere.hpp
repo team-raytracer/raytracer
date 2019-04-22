@@ -7,12 +7,12 @@
    Courtesy Kevin Suffern.
 */
 
-class Sphere: public Geometry {	
-protected:
+class Sphere : public Geometry {
+ protected:
   Point3D c;  // center.
-  float r;  // radius. 
-								  	
-public:
+  float r;    // radius.
+
+ public:
   // Constructors.
   Sphere();  // sphere at origin with radius 0.
   Sphere(const Point3D& center, float radius);  // set center and radius,
@@ -20,9 +20,9 @@ public:
   // Copy constructor and assignment operator.
   Sphere(const Sphere& object);
   Sphere& operator=(const Sphere& rhs);
-	
+
   // Destructor.
-  virtual ~Sphere();	
+  virtual ~Sphere();
 
   // Virtual copy constructor.
   virtual Sphere* clone() const = 0;

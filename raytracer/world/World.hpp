@@ -10,20 +10,20 @@
    Courtesy Kevin Suffern.
 */
 
-class World {	
-public:
+class World {
+ public:
   ViewPlane vplane;
   RGBColor bg_color;
-  std::vector<Geometry*> geometry;		
+  std::vector<Geometry*> geometry;
   vector<Light*> lights;
-  Camera* camera_ptr;		
+  Camera* camera_ptr;
   Sampler* sampler_ptr;
 
   // Light* ambient_ptr;
-  // Tracer* tracer_ptr;  
+  // Tracer* tracer_ptr;
   // Acceleration* ;
-  
-public:
+
+ public:
   // Constructors.
   World();  // initialize members.
 
@@ -31,13 +31,13 @@ public:
   ~World();  // free memory.
 
   // Add to the scene.
-  void add_geometry(Geometry* geom_ptr);		
+  void add_geometry(Geometry* geom_ptr);
   void add_light(Light* light_ptr);
   void set_camera(Camera* c_ptr);
   // void set_ambient_light(Light* light_ptr);
   // void set_tracer(Tracer* tracer_ptr);
   // void set_acceleration(Acceleration* acceleration_ptr);
-  
+
   // Build scene - add all geometry, materials, lights, viewplane, camera,
   // samplers, and acceleration structures
   void build(void);

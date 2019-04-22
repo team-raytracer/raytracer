@@ -10,26 +10,26 @@
    Courtesy Kevin Suffern.
 */
 
-class Cosine: public Material {
-protected:
+class Cosine : public Material {
+ protected:
   RGBColor color;  // the color of the material.
 
-public:
+ public:
   // Constructors.
-  Cosine();  // set color to (0, 0, 0).
-  Cosine(float c);  // set color to (c, c, c).
+  Cosine();                           // set color to (0, 0, 0).
+  Cosine(float c);                    // set color to (c, c, c).
   Cosine(float r, float g, float b);  // set color to (r, g, b).
-  Cosine(const RGBColor& c);  // set color to c.
+  Cosine(const RGBColor& c);          // set color to c.
 
   // Copy constuctor and assignment operator.
   Cosine(const Cosine& other);
-  Cosine& operator= (const Cosine& other);
+  Cosine& operator=(const Cosine& other);
 
   // Virtual copy constructor.
   virtual Cosine* clone() const;
 
   // Desctructor.
-  virtual ~Cosine();   							
+  virtual ~Cosine();
 
   /* Returned shade is: color * cos \theta.
      \theta is the angle between the normal at the hit pont and the ray.

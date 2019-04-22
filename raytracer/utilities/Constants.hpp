@@ -1,8 +1,8 @@
 #pragma once
 
-/** 
+/**
     This file caches common values and constants.
-    
+    
     Courtesy Kevin Suffern.
 */
 
@@ -14,7 +14,7 @@ const float invPI = 0.3183098861837906715;
 const float invTWO_PI = 0.1591549430918953358;
 
 // Small and large values.
-const float kEpsilon = 0.0001; 
+const float kEpsilon = 0.0001;
 const float kHugeValue = 1.0E10;
 
 // Some standard colors.

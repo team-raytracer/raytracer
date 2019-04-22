@@ -8,19 +8,19 @@
 */
 
 class Camera {
-public:
+ public:
   // Constructors.
   Camera();  // does nothing.
 
   // Copy constuctor and assignment operator.
   Camera(const Camera& camera);
-  Camera& operator= (const Camera& other);
+  Camera& operator=(const Camera& other);
 
   // Virtual copy constructor.
   virtual Camera* clone() const = 0;
 
   // Desctructor.
-  virtual ~Camera();   							
+  virtual ~Camera();
 
   // Get direction of projection for a point.
   virtual Vector3D get_direction(const Point3D& p) const = 0;

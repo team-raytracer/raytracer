@@ -8,13 +8,14 @@
 */
 
 class Image {
-private:
-  int **colors;  // pixel colors.
+ private:
+  int** colors;  // pixel colors.
 
-public:
+ public:
   // Constructors.
   Image(int hres, int vres);  // initialize blank image of given size.
-  Image(const ViewPlane& vplane);  // initialize blank image of same size as vplane.
+  Image(const ViewPlane&
+            vplane);  // initialize blank image of same size as vplane.
 
   // Destructor.
   ~Image();  // free memory.
