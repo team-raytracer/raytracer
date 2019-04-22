@@ -1,0 +1,89 @@
+\documentclass[addpoints]{exam}
+
+\usepackage{fullpage}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{tabularx}
+
+% Header and footer.
+\pagestyle{headandfoot}
+\runningheadrule
+\runningfootrule
+\runningheader{CSCI 155}{Project II}{Spring 2019}
+\runningfooter{}{Page \thepage\ of \numpages}{}
+\firstpageheader{}{}{}
+
+\qformat{{\large\bf \thequestion. \thequestiontitle}\hfill}
+\boxedpoints
+% \printanswers
+
+\title{Project II: Ray Tracer}
+\author{CSCI 155 Computer Graphics\\Pitzer College\\Spring 2019}
+\date{Due: 10 p.m. on Wednesday, May 8}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+
+In this project you will implement an extendable ray tracing engine.
+
+It is important to understand the setup. A scene to be rendered consists of \emph{geometry} whose appearance is determined through \emph{material}s which is a consequence of the \emph{BRDF} of the material. The scene is lit by one or more \emph{light} sources. An image is formed when the scene is \emph{sample}d by a \emph{camera} through a \emph{view plane}.
+
+The variety of objects of each of the above types is captured through class hierarchies in the accompanying folders. Each folder, e.g. \texttt{geometry}, defines an abstract class, e.g. \texttt{Geometry}, which is then inherited by different concrete classes, e.g. \texttt{Plane} and \texttt{Sphere}.
+
+The \texttt{utilities} folder includes utility classes, notably \texttt{Image} and \texttt{ShadeInfo}. \texttt{Image} holds pixel colors and writes an image to file in \href{https://en.wikipedia.org/wiki/Netpbm_format#PBM_example}{PPM format}. \texttt{ShadeInfo} contains all the information required for shading a point. These classes refer to classes from the \texttt{world} folder.
+
+The \texttt{world} folder includes 2 classes. \texttt{ViewPlane} contains information on the view plane. \texttt{World} contains all the information required to render the scene--the geometry and associated materials, the light sources, the view plane, the camera and sampler, and the background color. \texttt{World::build} populates the world. You will reimplement this function each time to define a new image to be rendered. The \texttt{build} folder includes 2 implementations as described below.
+
+  Go over the provided files to make sure that you understand the overall structure. The provided classes are suggestions. In working with them for the problems below, you may extend or modify them if necessary. You will also add new classes to existing hierarchies, and create and populate new hierarchies.
+
+\begin{questions}
+  
+  \titledquestion{Hello World}
+  To get things started, a \texttt{Cosine} material is included in the \texttt{materials} folder which does not use any BRDF; \texttt{raytracer.cpp} includes a basic ray tracer; \texttt{buildHelloWorld.cpp} contains an implementation of \texttt{World::build} to define a simple scene; and \texttt{buildChapter14.cpp} contains an implementation of \texttt{World::build} that defines a scene similar (but not identical) to the title picture of Chapter 3.
+  Implement the necessary files in order to render the 2 scenes and share the resulting images on Workplace. You may use exhaustive ray tracing for now.
+
+  \titledquestion{Acceleration}
+  Add a new folder called \texttt{acceleration} and populate with a hierarchy of acceleration structures. Add an \texttt{Acceleration*} member to \texttt{World} and use it to compute ray intersections.
+
+  \titledquestion{Ray Tracing}
+  The ray tracer in \texttt{raytracer.cpp} is very basic - it shades based on primary rays only. Add a new folder called \texttt{tracers} and populate it with a hierarchy of \texttt{Tracer} classes. You can begin the hierarchy by moving the ray tracer in \texttt{raytracer.cpp} to the \texttt{Basic} class derived from \texttt{Tracer}. Add other ray tracers that implement other ray tracing features like computation of shadows, variable level of reflections, and transparency. Add a \texttt{Tracer*} member to \texttt{World} and use it for ray tracing.
+  
+  \titledquestion{Appearance}
+  Implement some \texttt{BRDF}s and correspondingly define new \texttt{Material} subclasses that use them.
+
+  \newpage
+  \titledquestion{Showcase}
+  We now want to showcase your ray tracing engine -- how good it is and how it can be used to create stunning images. Your task is to:
+  \begin{itemize}
+  \item \textbf{Create an original scene}. The scene should be \emph{original}. You can get inspiration from past rendering competitions at other institutions, e.g. at Uni Saarland (\href{https://graphics.cg.uni-saarland.de/courses/cg1-2018/#rendering-competition}{2018}, \href{https://graphics.cg.uni-saarland.de/courses/cg1-2017/#rendering-competition}{2017}) and at \href{https://graphics.stanford.edu/courses/cs348b-competition/}{Stanford}, or from the various ray-traced images available on the web, e.g. at \href{http://www.irtc.org/stills/}{Internet Raytracing Competition}, but the final scene should be the product of your own imagination.
+  
+  You may use third-party assets, such as models or textures (e.g. from \href{https://3dwarehouse.sketchup.com}{3D Warehouse}, \href{https://www.blendswap.com}{Blend Swap}, repositories at \href{http://graphics.stanford.edu/data/3Dscanrep/}{Stanford}, \href{https://www.cc.gatech.edu/projects/large_models/}{Georgia Tech}, \href{http://visionair.ge.imati.cnr.it/ontologies/shapes/viewmodels.jsp}{the VisionAir project} (occasionally down), and by \href{https://www.cs.cmu.edu/~kmcrane/Projects/ModelRepository/}{Keenan Crane}). Those assets must be publicly available for free. You can use those assets to build your original scene, but it is not allowed for the whole, or major part of the scene to be straight reused from somewhere. Alternatively, you can model everything yourself, e.g. using \href{https://www.blender.org}{Blender}, \href{https://www.autodesk.com/products/maya/overview}{Maya}, \href{https://www.autodesk.com/products/3ds-max/overview}{3DS Max}, or \href{https://www.sketchup.com}{SketchUp}.
+
+  \item \textbf{Use your engine to render the scene}. You must render two images of your scene: a low quality at around 480x360 and high quality with resolution 1920x1080 or higher. You may use different aspect ratios if they better fit your scene.
+  
+  The images must be rendered by your engine. Any post-process operation must be implemented within your framework. The images need not be realistic. You can use features that do not follow real life physics if your artistic concept demands it.
+  
+The high quality image must render in less than 12 hours on a modern computer.
+
+\item \textbf{Create a web page to showcase your work}. The website should feature your image and its title. It should also
+\begin{itemize}
+\item summarize your concept and how you arrived at it,
+\item shortly describe how you built your scene,
+\item highlight interesting parts or features of your image. Additional images may be included for this purpose.
+\item list all the additional features and changes you have implemented on top of the code provided for the project. This includes changes made for the problems above.
+\item include a table comparing rendering times with and without an acceleration structure. Supporting renderings must be included.
+\item link for every included image to the corresponding implementation of {\tt World::build},
+\item acknowledge all third party sources of used assets or resources, once where they are used, e.g. in the caption of a rendered image,  and again as part of a master list toward the bottom of the page.
+\item include the names of all team members and a photograph of your team.
+\item include any other comments the team would like to include.
+\end{itemize}
+  \end{itemize}
+
+\end{questions}
+
+\section*{Credits}
+
+This project is adapted from the rendering competition run by \href{https://graphics.cg.uni-saarland.de/people/slusallek.html}{Philipp Slusallek} in his \href{https://graphics.cg.uni-saarland.de/courses/cg1-2018/}{Computer Graphics 1 course}. The code is adapted from that provided by \href{http://www.raytracegroundup.com/}{Kevin Suffern}.
+
+\end{document}
