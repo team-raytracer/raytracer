@@ -1,22 +1,27 @@
 // Copyright 2019 Group D
 
 #include <vector>
+#include "build/buildHelloWorld.cpp"
+#include "utilities/Image.hpp"
+#include "utilities/ShadeInfo.hpp"
+#include "world/World.hpp"
+
 
 int main(int argc, char** argv) {
   World world;
   world.build();
 
-  Sampler* sampler = world->sampler;
-  ViewPlane& viewplane = world.viewplane;
+  Sampler* sampler = world.sampler_ptr;
+  ViewPlane& viewplane = world.vplane;
   Image image(viewplane);
 
   std::vector<Ray> rays;
   for (int x = 0; x < viewplane.hres; x++) {    // across.
-    for (int y = 0; y < viewplane.yres; y++) {  // down.
+    for (int y = 0; y < viewplane.vres; y++) {  // down.
       // Get rays for the pixel from the sampler. The pixel color is the
       // weighted sum of the shades for each ray.
       RGBColor pixel_color(0);
-      rays = sampler.get_rays(x, y);
+      rays = sampler->get_rays(x, y);
       for (const auto&& ray : rays) {
         float weight = ray.w;  // ray weight for the pixel.
         ShadeInfo sinfo = world.hit_objects(ray);
