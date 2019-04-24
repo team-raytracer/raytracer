@@ -6,12 +6,9 @@
    Courtesy Kevin Suffern.
 */
 
-#include "Vector3D.h"
+class Vector3D;
 
 class Point3D {
- public:
-  float x, y, z;  // the co-ordinates.
-
  public:
   float x, y, z;  // the co-ordinates.
   // Constructors.

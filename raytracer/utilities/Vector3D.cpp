@@ -15,7 +15,7 @@ Vector3D::Vector3D()
 }
 
 // Construct vector to (c, c, c)
-Vector3D::Vector3D(double c);
+Vector3D::Vector3D(double c)
     : x(c), y(c), z(c) {
     // nothing else to do
 }

@@ -7,6 +7,9 @@
    Courtesy Kevin Suffern.
 */
 
+class Vector3D;
+class Point3D;
+
 class Camera {
  public:
   // Constructors.

@@ -7,6 +7,9 @@
    Courtesy Kevin Suffern.
 */
 
+#include "Geometry.hpp"
+#include "../utilities/Point3D.hpp"
+
 class Sphere : public Geometry {
  protected:
   Point3D c;  // center.
@@ -18,11 +21,11 @@ class Sphere : public Geometry {
   Sphere(const Point3D& center, float radius);  // set center and radius,
 
   // Copy constructor and assignment operator.
-  Sphere(const Sphere& object);
-  Sphere& operator=(const Sphere& rhs);
+  Sphere(const Sphere& object) = default;
+  Sphere& operator=(const Sphere& rhs) = default;
 
   // Destructor.
-  virtual ~Sphere();
+  virtual ~Sphere() = default;
 
   // Virtual copy constructor.
   virtual Sphere* clone() const = 0;

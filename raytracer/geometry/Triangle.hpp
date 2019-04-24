@@ -7,6 +7,8 @@
    Courtesy Kevin Suffern.
 */
 
+#include "Geometry.hpp"
+
 class Triangle : public Geometry {
  protected:
   Point3D a, b, c;  // the vertices. they must not be colinear.
@@ -17,11 +19,11 @@ class Triangle : public Geometry {
   Triangle(const Point3D&, const Point3D&, const Point3D&);  // set vertices.
 
   // Copy constructor and assignment operator.
-  Triangle(const Triangle& object);
-  Triangle& operator=(const Triangle& rhs);
+  Triangle(const Triangle& object) = default;
+  Triangle& operator=(const Triangle& rhs) = default;
 
   // Destructor.
-  virtual ~Triangle();
+  virtual ~Triangle() = default;
 
   // Virtual copy constructor.
   virtual Triangle* clone() const = 0;

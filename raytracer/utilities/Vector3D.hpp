@@ -1,11 +1,12 @@
 #pragma once
-#include "Point3D.hpp"
 
 /**
    This file declares the class Vector3D which represents a 3D vector.
 
    Courtesy Kevin Suffern.
 */
+
+class Point3D;
 
 class Vector3D {
  public:

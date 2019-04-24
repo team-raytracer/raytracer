@@ -7,6 +7,11 @@
    Courtesy Kevin Suffern.
 */
 
+#include "../materials/Material.hpp"
+
+class Ray;
+class ShadeInfo;
+
 class Geometry {
  protected:
   Material* material_ptr;  // this object's material.

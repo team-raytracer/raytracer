@@ -7,6 +7,9 @@
    Courtesy Kevin Suffern.
 */
 
+#include "Camera.hpp"
+#include "../utilities/Vector3D.hpp"
+
 class Parallel : public Camera {
  protected:
   Vector3D dir;  // direction of projection, stored as a unit vector.
@@ -19,14 +22,14 @@ class Parallel : public Camera {
   Parallel(const Vector3D& d);          // set dir parallel to d.
 
   // Copy constuctor and assignment operator.
-  Parallel(const Parallel& camera);
-  Parallel& operator=(const Parallel& other);
+  Parallel(const Parallel& camera) = default;
+  Parallel& operator=(const Parallel& other) = default;
 
   // Virtual copy constructor.
   virtual Parallel* clone() const;
 
   // Desctructor.
-  virtual ~Parallel();
+  virtual ~Parallel() = default;
 
   // Get direction of projection for a point.
   virtual Vector3D get_direction(const Point3D& p) const = 0;
