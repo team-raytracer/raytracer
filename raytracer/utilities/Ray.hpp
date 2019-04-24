@@ -6,6 +6,9 @@
    Courtesy Kevin Suffern.
 */
 
+#include "Point3D.hpp"
+#include "Vector3D.hpp"
+
 class Ray {
  public:
   Point3D o;   // origin
@@ -18,9 +21,9 @@ class Ray {
   Ray(const Point3D& origin, const Vector3D& dir);  // set origin, dir; w is 1.
 
   // Copy constructor and assignment operator.
-  Ray(const Ray& ray);
-  Ray& operator=(const Ray& rhs);
+  Ray(const Ray& ray) = default;
+  Ray& operator=(const Ray& rhs) = default;
 
   // Destructor.
-  ~Ray(void);
+  ~Ray() = default;
 };

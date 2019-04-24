@@ -9,6 +9,8 @@
    Courtesy Kevin Suffern.
 */
 
+#include "../utilities/Point3D.hpp"
+
 class ViewPlane {
  public:
   Point3D top_left;      // top left corner of the view plane.
@@ -22,9 +24,9 @@ class ViewPlane {
                 // size 1.
 
   // Copy constructor and assignment operator.
-  ViewPlane(const ViewPlane& other);
-  ViewPlane& operator=(const ViewPlane& rhs);
+  ViewPlane(const ViewPlane& other) = default;
+  ViewPlane& operator=(const ViewPlane& rhs) = default;
 
   // Destructor.
-  ~ViewPlane();
+  ~ViewPlane() = default;
 };

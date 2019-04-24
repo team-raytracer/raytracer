@@ -30,7 +30,7 @@ class Plane : public Geometry {
   virtual ~Plane() = default;
 
   // Virtual copy constructor.
-  virtual Plane* clone() const = 0;
+  virtual Plane* clone() const;
 
   // Ray intersection. Set t and sinfo as per intersection with this object.
   virtual bool hit(const Ray& ray, float& t, ShadeInfo& s) const;

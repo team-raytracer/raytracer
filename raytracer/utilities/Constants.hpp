@@ -27,6 +27,7 @@ const RGBColor white(1.0);
 const RGBColor red(1.0, 0.0, 0.0);
 const RGBColor green(0.0, 1.0, 0.0);
 const RGBColor blue(0.0, 0.0, 1.0);
+const RGBColor brown(0.5, 0.25, 0.0);
 
 // Useful for scaling the output of rand() to [0,1].
 const float invRAND_MAX = 1.0 / (float)RAND_MAX;

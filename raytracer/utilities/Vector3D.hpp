@@ -20,8 +20,9 @@ class Vector3D {
   Vector3D(const Point3D& p);                 // construct from a point.
 
   // Copy constructor and assignment operator.
-  Vector3D(const Vector3D& v);
-  Vector3D& operator=(const Vector3D& rhs);
+  Vector3D(const Vector3D& v) = default;
+  Vector3D& operator=(const Vector3D& rhs) = default;
+
   // Assign vector from other entitites.
   Vector3D& operator=(const Point3D& rhs);  // from a point.
 
@@ -38,7 +39,7 @@ class Vector3D {
   // Scaling.
   Vector3D operator*(const double a) const;
   Vector3D operator/(const double a) const;
-  void normalize();  // nomalize - convert to a unit vector.
+  Vector3D& normalize();  // nomalize - convert to a unit vector.
 
   // Length.
   double length();       // length.

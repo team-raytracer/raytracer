@@ -7,15 +7,19 @@
    x increases to the right, and y to the bottom.
 */
 
+#include <string>
+
+class ViewPlane;
+class RGBColor;
+
 class Image {
  private:
   int** colors;  // pixel colors.
 
  public:
   // Constructors.
-  Image(int hres, int vres);  // initialize blank image of given size.
-  Image(const ViewPlane&
-            vplane);  // initialize blank image of same size as vplane.
+  Image(int hres, int vres);      // initialize blank image of given size.
+  Image(const ViewPlane& vplane); // initialize blank image same size as vplane.
 
   // Destructor.
   ~Image();  // free memory.

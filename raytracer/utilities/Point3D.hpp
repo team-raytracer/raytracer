@@ -18,18 +18,18 @@ class Point3D {
           const float z);  // set point to (x,y,z).
 
   // Destructor.
-  ~Point3D();
+  ~Point3D() = default;
 
   // Copy constructor and assignment operator.
-  Point3D(const Point3D& p);
-  Point3D& operator=(const Point3D& p);
+  Point3D(const Point3D& p) = default;
+  Point3D& operator=(const Point3D& p) = default;
 
   // Arithmetic.
-  Point3D operator-(void) const;               // unary minus.
-  Vector3D operator-(const Point3D& p) const;  // vector joining two points
-  Point3D operator+(const Vector3D& v) const;  // addition of a vector
-  Point3D operator-(const Vector3D& v) const;  // subtraction of a vector
-  Point3D operator*(const float s) const;  // scale the point by a factor, s.
+  Point3D operator-() const;                  // unary minus.
+  Vector3D operator-(const Point3D& p) const; // vector joining two points
+  Point3D operator+(const Vector3D& v) const; // addition of a vector
+  Point3D operator-(const Vector3D& v) const; // subtraction of a vector
+  Point3D operator*(const float s) const; // scale the point by a factor, s.
 
   // Distance between points.
   float d_squared(const Point3D& p) const;  // square of distance

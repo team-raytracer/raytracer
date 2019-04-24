@@ -10,12 +10,23 @@
    Courtesy Kevin Suffern.
 */
 
+#include <vector>
+#include "ViewPlane.hpp"
+#include "../utilities/RGBColor.hpp"
+
+class Geometry;
+class Light;
+class Camera;
+class Sampler;
+class ShadeInfo;
+class Ray;
+
 class World {
  public:
   ViewPlane vplane;
   RGBColor bg_color;
   std::vector<Geometry*> geometry;
-  vector<Light*> lights;
+  std::vector<Light*> lights;
   Camera* camera_ptr;
   Sampler* sampler_ptr;
 
@@ -40,7 +51,7 @@ class World {
 
   // Build scene - add all geometry, materials, lights, viewplane, camera,
   // samplers, and acceleration structures
-  void build(void);
+  void build();
 
   // Returns appropriate shading information corresponding to intersection of
   // the ray with the scene geometry.

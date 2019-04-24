@@ -25,14 +25,14 @@ class Cosine : public Material {
   Cosine(const RGBColor& c);          // set color to c.
 
   // Copy constuctor and assignment operator.
-  Cosine(const Cosine& other);
-  Cosine& operator=(const Cosine& other);
+  Cosine(const Cosine& other) = default;
+  Cosine& operator=(const Cosine& other) = default;
 
   // Virtual copy constructor.
   virtual Cosine* clone() const;
 
   // Desctructor.
-  virtual ~Cosine();
+  virtual ~Cosine() = default;
 
   /* Returned shade is: color * cos \theta.
      \theta is the angle between the normal at the hit pont and the ray.

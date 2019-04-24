@@ -12,10 +12,16 @@
    Courtesy Kevin Suffern.
 */
 
+#include <vector>
+
+class Camera;
+class ViewPlane;
+class Ray;
+
 class Sampler {
  protected:
-  Camera* camera_ptr;        // the camera that decides the projectors.
-  ViewPlane* viewplane_ptr;  // the view plane through which rays are shot.
+  Camera* camera_ptr;       // the camera that decides the projectors.
+  ViewPlane* viewplane_ptr; // the view plane through which rays are shot.
 
  public:
   // Constructors.
@@ -35,5 +41,5 @@ class Sampler {
   // Get rays corresponding to a pixel in the view plane. px and py are 0-based
   // indexes of the pixel in the view plane, with the origin at the top left of
   // the view plane.
-  std::vector<Ray> get_rays(int px, int py) const = 0;
+  std::vector<Ray> virtual get_rays(int px, int py) const = 0;
 };

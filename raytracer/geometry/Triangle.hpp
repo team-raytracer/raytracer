@@ -27,7 +27,7 @@ class Triangle : public Geometry {
   virtual ~Triangle() = default;
 
   // Virtual copy constructor.
-  virtual Triangle* clone() const = 0;
+  virtual Triangle* clone() const;
 
   // Ray intersection. Set t and sinfo as per intersection with this object.
   virtual bool hit(const Ray& ray, float& t, ShadeInfo& s) const;

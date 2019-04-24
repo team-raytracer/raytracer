@@ -32,5 +32,5 @@ class Perspective : public Camera {
   virtual ~Perspective() = default;
 
   // Get direction of projection for a point.
-  virtual Vector3D get_direction(const Point3D& p) const = 0;
+  virtual Vector3D get_direction(const Point3D& p) const;
 };

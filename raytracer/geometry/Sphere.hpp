@@ -28,7 +28,7 @@ class Sphere : public Geometry {
   virtual ~Sphere() = default;
 
   // Virtual copy constructor.
-  virtual Sphere* clone() const = 0;
+  virtual Sphere* clone() const;
 
   // Ray intersection. Set t and sinfo as per intersection with this object.
   virtual bool hit(const Ray& ray, float& t, ShadeInfo& s) const;

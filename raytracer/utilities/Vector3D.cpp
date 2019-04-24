@@ -1,10 +1,10 @@
-#include <cmath>
-#include "Vector3D.hpp"
-#include "Point3D.hpp"
-
 /**
    This file implements the class Vector3D which represents a 3D vector.
 */
+
+#include <cmath>
+#include "Vector3D.hpp"
+#include "Point3D.hpp"
 
 /* Vector3D Constructors */
 
@@ -32,21 +32,6 @@ Vector3D::Vector3D(const Point3D& p)
     // nothing else to do
 }
 
-// Copy Constructor
-Vector3D::Vector3D(const Vector3D& v)
-    : x(v.x), y(v.y), z(v.z) {
-    // nothing else to do
-}
-
-
-// Assignment Operator
-Vector3D& Vector3D::operator=(const Vector3D& rhs) {
-    x = rhs.x;
-    y = rhs.y;
-    z = rhs.z;
-    return *this;
-}
-
 // Assignment Operator from a point
 Vector3D& Vector3D::operator=(const Point3D& rhs) {
     x = rhs.x;
@@ -62,12 +47,12 @@ Vector3D Vector3D::operator-() const {
     return Vector3D(-x, -y, -z);
 }
 
-// addition
+// Addition
 Vector3D Vector3D::operator+(const Vector3D& v) const {
     return Vector3D(x + v.x, y + v.y, z + v.z);
 }
 
-// compound additon
+// Compound additon
 Vector3D& Vector3D::operator+=(const Vector3D& v) {
     x += v.x;
     y += v.y;
@@ -75,12 +60,12 @@ Vector3D& Vector3D::operator+=(const Vector3D& v) {
     return *this;
 }
 
-// subtraction
+// Subtraction
 Vector3D Vector3D::operator-(const Vector3D& v) const {
     return Vector3D(x - v.x, y - v.y, z - v.z);
 }
 
-// compound subtraction
+// Compound subtraction
 Vector3D& Vector3D::operator-=(const Vector3D& v) {
     x -= v.x;
     y -= v.y;
@@ -90,21 +75,23 @@ Vector3D& Vector3D::operator-=(const Vector3D& v) {
 
 /* Scaling */
 
-// Multiplicaiton
+// Multiplication
 Vector3D Vector3D::operator*(const double a) const {
     return Vector3D(x * a, y * a, z * a);
 }
 
+// Division
 Vector3D Vector3D::operator/(const double a) const {
     return Vector3D(x / a, y / a, z / a);
 }
 
-// nomalize - convert to a unit vector.
-void Vector3D::normalize() {
+// Nomalize - convert to a unit vector.
+Vector3D& Vector3D::normalize() {
     double len = length();
-    x *= len;
-    y *= len;
-    z *= len;
+    x /= len;
+    y /= len;
+    z /= len;
+    return *this;
 }
 
 // Length

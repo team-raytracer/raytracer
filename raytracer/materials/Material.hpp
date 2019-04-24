@@ -13,17 +13,17 @@ class ShadeInfo;
 class Material {
  public:
   // Constructors.
-  Material();  // does nothing.
+  Material() = default;
 
   // Copy constuctor and assignment operator.
-  Material(const Material& other);
-  Material& operator=(const Material& other);
+  Material(const Material& other) = default;
+  Material& operator=(const Material& other) = default;
 
   // Virtual copy constructor.
   virtual Material* clone() const = 0;
 
   // Desctructor.
-  virtual ~Material();
+  virtual ~Material() = default;
 
   // Get color.
   virtual RGBColor shade(const ShadeInfo& sinfo) const = 0;
