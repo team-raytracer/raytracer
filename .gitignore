@@ -8,5 +8,6 @@
 *.fdb_latexmk
 *.fls
 *.gz
+*.vscode
 *.o
 raytracer
