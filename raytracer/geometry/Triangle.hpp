@@ -8,6 +8,7 @@
 */
 
 #include "Geometry.hpp"
+#include "../utilities/Point3D.hpp"
 
 class Triangle : public Geometry {
  protected:

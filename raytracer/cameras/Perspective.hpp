@@ -7,6 +7,9 @@
    Courtesy Kevin Suffern.
 */
 
+#include "Camera.hpp"
+#include "../utilities/Point3D.hpp"
+
 class Perspective : public Camera {
  protected:
   Point3D pos;  // center of projection.
@@ -19,14 +22,14 @@ class Perspective : public Camera {
   Perspective(const Point3D& pt);          // set pos parallel to pt.
 
   // Copy constuctor and assignment operator.
-  Perspective(const Perspective& camera);
-  Perspective& operator=(const Perspective& other);
+  Perspective(const Perspective& camera) = default;
+  Perspective& operator=(const Perspective& other) = default;
 
   // Virtual copy constructor.
   virtual Perspective* clone() const;
 
   // Desctructor.
-  virtual ~Perspective();
+  virtual ~Perspective() = default;
 
   // Get direction of projection for a point.
   virtual Vector3D get_direction(const Point3D& p) const = 0;

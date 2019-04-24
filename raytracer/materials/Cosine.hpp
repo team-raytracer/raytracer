@@ -10,6 +10,9 @@
    Courtesy Kevin Suffern.
 */
 
+#include "Material.hpp"
+#include "../utilities/RGBColor.hpp"
+
 class Cosine : public Material {
  protected:
   RGBColor color;  // the color of the material.

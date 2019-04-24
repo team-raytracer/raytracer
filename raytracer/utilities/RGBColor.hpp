@@ -44,4 +44,3 @@ class RGBColor {
 
 // Multiplication by a float.
 RGBColor operator*(const float a, const RGBColor& c);
-}

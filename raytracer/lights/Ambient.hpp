@@ -7,6 +7,8 @@
    Courtesy Kevin Suffern.
 */
 
+#include "Light.hpp"
+
 class Ambient : public Light {
  public:
   // Constructors.
@@ -16,14 +18,14 @@ class Ambient : public Light {
   Ambient(const RGBColor& _color);     // set color to _color.
 
   // Copy constructor and assignment operator.
-  Ambient(const Ambient& rhs);
-  Ambient& operator=(const Ambient& rhs);
+  Ambient(const Ambient& rhs) = default;
+  Ambient& operator=(const Ambient& rhs) = default;
 
   // Virtual copy constructor.
   virtual Ambient* clone() const;
 
   // Desctructor.
-  virtual ~Ambient(void);  // dummy function.
+  virtual ~Ambient() = default;
 
   // Normalized direction vector from light source to hit point.
   virtual Vector3D get_direction(ShadeInfo& sinfo) const;

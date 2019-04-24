@@ -6,6 +6,9 @@
    Courtesy Kevin Suffern.
 */
 
+#include "Light.hpp"
+#include "../utilities/Point3D.hpp"
+
 class Point : public Light {
  protected:
   Point3D pos;  // the position of the light source.
@@ -18,14 +21,14 @@ class Point : public Light {
   Point(const RGBColor& _color);     // set color to _color.
 
   // Copy constructor and assignment operator.
-  Point(const Point& rhs);
-  Point& operator=(const Point& rhs);
+  Point(const Point& rhs) = default;
+  Point& operator=(const Point& rhs) = default;
 
   // Virtual copy constructor.
   virtual Point* clone() const;
 
   // Desctructor.
-  virtual ~Point(void);  // dummy function.
+  virtual ~Point() = default;
 
   // Set position of point light source.
   void set_position(float c);                    // position at (c, c, c).

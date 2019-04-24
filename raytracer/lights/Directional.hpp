@@ -7,6 +7,9 @@
    Courtesy Kevin Suffern.
 */
 
+#include "light.hpp"
+#include "../utilities/Vector3D.hpp"
+
 class Directional : public Light {
  protected:
   Vector3D dir;  // the direction of emitted light, stored as a unit vector.
@@ -19,14 +22,14 @@ class Directional : public Light {
   Directional(const RGBColor& _color);     // set color to _color.
 
   // Copy constructor and assignment operator.
-  Directional(const Directional& rhs);
-  Directional& operator=(const Directional& rhs);
+  Directional(const Directional& rhs) = default;
+  Directional& operator=(const Directional& rhs) = default;
 
   // Virtual copy constructor.
   virtual Directional* clone() const;
 
   // Desctructor.
-  virtual ~Directional(void);  // dummy function.
+  virtual ~Directional() = default;
 
   // Set light direction. Supplied direction must be normalized for storing.
   void set_direction(const Vector3D& d);

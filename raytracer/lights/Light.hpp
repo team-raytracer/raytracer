@@ -7,6 +7,11 @@
    Courtesy Kevin Suffern.
 */
 
+#include "../utilities/RGBColor.hpp"
+
+class Vector3D;
+class ShadeInfo;
+
 class Light {
  protected:
   RGBColor color;  // the light's color.
@@ -19,14 +24,14 @@ class Light {
   Light(const RGBColor& _color);     // set color to _color.
 
   // Copy constructor and assignment operator.
-  Light(const Light& rhs);
-  Light& operator=(const Light& rhs);
+  Light(const Light& rhs) = default;
+  Light& operator=(const Light& rhs) = default;
 
   // Virtual copy constructor.
   virtual Light* clone() const = 0;
 
   // Desctructor.
-  virtual ~Light(void);  // dummy function.
+  virtual ~Light() = default;
 
   // Set color.
   void set_color(const float c);              // to (c, c, c)

@@ -2,9 +2,13 @@
 
 /**
     This file caches common values and constants.
-    
+    
+
     Courtesy Kevin Suffern.
 */
+
+#include <cstdlib>
+#include "RGBColor.hpp"
 
 // Precompute commonly used values.
 const float PI = 3.1415926535897932384;

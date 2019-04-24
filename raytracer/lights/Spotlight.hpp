@@ -7,6 +7,9 @@
    Courtesy Kevin Suffern.
 */
 
+#include "Point.hpp"
+#include "../utilities/Vector3D.hpp"
+
 class Spotlight : public Point {
  private:
   Vector3D dir;  // the direction of emitted light, stored as a unit vector.
@@ -20,14 +23,14 @@ class Spotlight : public Point {
   Spotlight(const RGBColor& _color);     // set color to _color.
 
   // Copy constructor and assignment operator.
-  Spotlight(const Spotlight& rhs);
-  Spotlight& operator=(const Spotlight& rhs);
+  Spotlight(const Spotlight& rhs) = default;
+  Spotlight& operator=(const Spotlight& rhs) = default;
 
   // Virtual copy constructor.
   virtual Spotlight* clone() const;
 
   // Desctructor.
-  virtual ~Spotlight(void);
+  virtual ~Spotlight() = default;
 
   // Set spotlight position and angle.
   void set_theta(float t);  // set theta to t which must be in radians.

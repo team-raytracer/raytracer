@@ -7,6 +7,9 @@
    Courtesy Kevin Suffern.
 */
 
+class RGBColor;
+class ShadeInfo;
+
 class Material {
  public:
   // Constructors.
