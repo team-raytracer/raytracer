@@ -1,5 +1,7 @@
 #include "RGBColor.hpp"
 
+RGBColor::RGBColor() {}
+
 RGBColor::RGBColor(float c) {}
 
 RGBColor::RGBColor(float _r, float _g, float _b) {}

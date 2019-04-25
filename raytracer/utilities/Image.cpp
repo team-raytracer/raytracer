@@ -1,7 +1,6 @@
-#include "Image.hpp"
 #include <string>
-
-#include "utilities/RGBColor.hpp"
+#include "Image.hpp"
+#include "RGBColor.hpp"
 
 Image::Image(int hres, int vres) {}
 

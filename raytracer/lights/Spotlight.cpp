@@ -18,12 +18,12 @@ void Spotlight::set_direction(float x, float y, float z) {}
 
 void Spotlight::set_direction(const Vector3D& pt) {}
 
-Vector3D Spotlight::get_direction(ShadeInfo& sinfo) const {
+Vector3D Spotlight::get_direction(const ShadeInfo& sinfo) const {
   Vector3D temp;
   return temp;
 }
 
-RGBColor Spotlight::L(ShadeInfo& sinfo) const {
+RGBColor Spotlight::L(const ShadeInfo& sinfo) const {
   RGBColor temp;
   return temp;
 }

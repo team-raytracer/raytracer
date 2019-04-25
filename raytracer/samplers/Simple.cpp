@@ -1,5 +1,6 @@
-#include "Simple.hpp"
 #include <vector>
+#include "Simple.hpp"
+#include "../utilities/Ray.hpp"
 
 Simple::Simple(Camera* c_ptr, ViewPlane* v_ptr) : Sampler(c_ptr, v_ptr) {}
 

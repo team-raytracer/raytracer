@@ -17,12 +17,12 @@ void Point::set_position(float x, float y, float z) {}
 
 void Point::set_position(const Point3D& pt) {}
 
-Vector3D Point::get_direction(ShadeInfo& sinfo) const {
+Vector3D Point::get_direction(const ShadeInfo& sinfo) const {
   Vector3D temp;
   return temp;
 }
 
-RGBColor Point::L(ShadeInfo& sinfo) const {
+RGBColor Point::L(const ShadeInfo& sinfo) const {
   RGBColor temp;
   return temp;
 }

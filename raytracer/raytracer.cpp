@@ -1,7 +1,8 @@
 // Copyright 2019 Group D
 
 #include <vector>
-#include "build/buildHelloWorld.cpp"
+#include "materials/Material.hpp"
+#include "samplers/Sampler.hpp"
 #include "utilities/Image.hpp"
 #include "utilities/ShadeInfo.hpp"
 #include "world/World.hpp"
@@ -21,7 +22,7 @@ int main(int argc, char** argv) {
       // weighted sum of the shades for each ray.
       RGBColor pixel_color(0);
       rays = sampler->get_rays(x, y);
-      for (const auto&& ray : rays) {
+      for (const auto& ray : rays) {
         float weight = ray.w;  // ray weight for the pixel.
         ShadeInfo sinfo = world.hit_objects(ray);
         if (sinfo.hit) {

@@ -14,12 +14,12 @@ void Directional::set_direction(float x, float y, float z) {}
 
 void Directional::set_direction(const Vector3D& d) {}
 
-Vector3D Directional::get_direction(ShadeInfo& sinfo) const {
+Vector3D Directional::get_direction(const ShadeInfo& sinfo) const {
   Vector3D temp;
   return temp;
 }
 
-RGBColor Directional::L(ShadeInfo& sinfo) const {
+RGBColor Directional::L(const ShadeInfo& sinfo) const {
   RGBColor temp;
   return temp;
 }

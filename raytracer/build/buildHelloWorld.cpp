@@ -186,7 +186,7 @@ void World::build() {
   add_geometry(sphere_ptr35);
 
   // vertical plane
-  Plane* plane_ptr = new Plane(Point3D(0, 0, -150), Vector3D(0, 0, 1));
-  plane_ptr->set_material(new Cosine(gray));
-  add_geometry(plane_ptr);
+  Plane* plane_ptr2 = new Plane(Point3D(0, 0, -150), Vector3D(0, 0, 1));
+  plane_ptr2->set_material(new Cosine(gray));
+  add_geometry(plane_ptr2);
 }

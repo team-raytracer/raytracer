@@ -1,6 +1,6 @@
 #include "ShadeInfo.hpp"
 
-ShadeInfo::ShadeInfo(World& wr) {}
+ShadeInfo::ShadeInfo(const World& wr) {}
 
 ShadeInfo::ShadeInfo(const ShadeInfo& sr) {}
 

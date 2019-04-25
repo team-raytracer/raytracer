@@ -11,8 +11,6 @@ void World::add_light(Light* light_ptr) {}
 
 void World::set_camera(Camera* c_ptr) {}
 
-void World::build() {}
-
 ShadeInfo World::hit_objects(const Ray& ray) {
   ShadeInfo temp(*this);
   return temp;

@@ -1,21 +1,33 @@
 CXX = clang++
-CXXFLAGS = -g -std=c++1z -Wall -Wextra -pedantic -Qunused-arguments
+CXXFLAGS = -g -std=c++1z -Wall -Wextra -pedantic
 
 all: raytracer
+
+# Be careful to only list the build that you are using as a dependency
+raytracer: buildHelloWorld.o Parallel.o Perspective.o \
+	Geometry.o Plane.o Sphere.o Triangle.o Light.o Ambient.o Directional.o \
+	Point.o Spotlight.o Cosine.o Sampler.o Simple.o Image.o Point3D.o Ray.o \
+	RGBColor.o ShadeInfo.o Vector3D.o ViewPlane.o World.o raytracer.o
+	$(CXX) -o $@ $^
+
+raytracer.o: raytracer.cpp build/buildHelloWorld.cpp materials/Material.hpp \
+	samplers/Sampler.hpp utilities/Image.hpp utilities/ShadeInfo.hpp \
+	world/World.hpp
+	$(CXX) -c $(CXXFLAGS) raytracer.cpp
 
 ################################################################################
 # Build 
 ################################################################################
 
-bulidHelloWorld.o: build/buildHelloWorld.cpp cameras/Perspective.hpp \
+buildHelloWorld.o: build/buildHelloWorld.cpp cameras/Perspective.hpp \
 	geometry/Plane.hpp geometry/Sphere.hpp geometry/Triangle.hpp \
-	samplers/Simple.hpp materials/Cosine.hpp utilites/Constants.hpp \
+	samplers/Simple.hpp materials/Cosine.hpp utilities/Constants.hpp \
 	world/World.hpp
 	$(CXX) -c $(CXXFLAGS) build/buildHelloWorld.cpp
 
 buildChapter14.o: build/buildChapter14.cpp cameras/Perspective.hpp \
 	geometry/Plane.hpp geometry/Sphere.hpp \
-	samplers/Simple.hpp materials/Cosine.hpp utilites/Constants.hpp \
+	samplers/Simple.hpp materials/Cosine.hpp utilities/Constants.hpp \
 	world/World.hpp
 	$(CXX) -c $(CXXFLAGS) build/buildChapter14.cpp
 
@@ -54,8 +66,8 @@ Triangle.o: geometry/Triangle.cpp geometry/Geometry.hpp materials/Material.hpp \
 # Lights 
 ################################################################################
 
-Light.o: lights/Light.cpp utilities/RGBColor.hpp lights/Light.hpp \
-	$(CXX) -c $(CXXFLAGS) lights/Ambient.cpp
+Light.o: lights/Light.cpp utilities/RGBColor.hpp lights/Light.hpp
+	$(CXX) -c $(CXXFLAGS) lights/Light.cpp
 
 Ambient.o: lights/Ambient.cpp lights/Light.hpp utilities/RGBColor.hpp \
 	utilities/Vector3D.hpp lights/Ambient.hpp
@@ -89,31 +101,32 @@ Cosine.o: materials/Cosine.cpp materials/Material.hpp utilities/RGBColor.hpp \
 Sampler.o: samplers/Sampler.cpp samplers/Sampler.hpp
 	$(CXX) -c $(CXXFLAGS) samplers/Sampler.cpp
 
-Simple.o: samplers/Simple.cpp samplers/Sampler.hpp samplers/Simple.hpp
+Simple.o: samplers/Simple.cpp samplers/Sampler.hpp utilities/Ray.hpp \
+	samplers/Simple.hpp
 	$(CXX) -c $(CXXFLAGS) samplers/Simple.cpp
 
 ################################################################################
 # Utilities 
 ################################################################################
 
-Image.o: utilities/Image.cpp utilities/RGBColor.hpp utilities/Impage.hpp
+Image.o: utilities/Image.cpp utilities/RGBColor.hpp utilities/Image.hpp
 	$(CXX) -c $(CXXFLAGS) utilities/Image.cpp
 
 Point3D.o: utilities/Point3d.cpp utilities/Vector3D.hpp utilities/Point3D.hpp
 	$(CXX) -c $(CXXFLAGS) utilities/Point3D.cpp
 
-Ray.o: utilities/Point3d.cpp utilites/Point3D.hpp utilities/Vector3D.hpp \
+Ray.o: utilities/Point3d.cpp utilities/Point3D.hpp utilities/Vector3D.hpp \
 	utilities/Ray.hpp
 	$(CXX) -c $(CXXFLAGS) utilities/Ray.cpp
 
-RGBColor.o: utilites/RGBColor.cpp utilities/RGBColor.hpp
+RGBColor.o: utilities/RGBColor.cpp utilities/RGBColor.hpp
 	$(CXX) -c $(CXXFLAGS) utilities/RGBColor.cpp
 
-ShadeInfo.o: utilites/ShadeInfo.cpp utilities/Point3D.hpp \
+ShadeInfo.o: utilities/ShadeInfo.cpp utilities/Point3D.hpp \
 	utilities/Vector3D.hpp utilities/Ray.hpp utilities/ShadeInfo.hpp
 	$(CXX) -c $(CXXFLAGS) utilities/ShadeInfo.cpp
 
-Vector3D.o: utilites/Vector3D.cpp utilities/Point3D.hpp utilities/Vector3D.hpp
+Vector3D.o: utilities/Vector3D.cpp utilities/Point3D.hpp utilities/Vector3D.hpp
 	$(CXX) -c $(CXXFLAGS) utilities/Vector3D.cpp
 
 ################################################################################

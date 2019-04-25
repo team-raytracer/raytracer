@@ -4,10 +4,10 @@ Geometry::Geometry() {}
 
 Geometry::Geometry(const Geometry& object) {}
 
-Geometry& Geometry::operator=(const Geometry& rhs) {}
+Geometry& Geometry::operator=(const Geometry& rhs) { return *this; }
 
 Geometry::~Geometry() {}
 
-Material* Geometry::get_material() const {}
+Material* Geometry::get_material() const { return material_ptr; }
 
 void Geometry::set_material(Material* mPtr) {}
