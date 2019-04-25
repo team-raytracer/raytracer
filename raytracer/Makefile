@@ -133,3 +133,8 @@ World.o: world/World.cpp utilities/Point3D.hpp utilities/RGBColor.hpp \
 
 clean: 
 	rm -f raytracer *.o
+
+clean-code:
+	clang-format --style=google -i **/*.*pp
+	cpplint **/*.cpp
+	cpplint **/*.hpp
