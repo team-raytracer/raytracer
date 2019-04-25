@@ -15,8 +15,8 @@ class Point3D {
   // Constructors.
   Point3D();                        // set point to (0, 0, 0).
   explicit Point3D(const float c);  // set point to (c, c, c).
-  Point3D(const float x, const float y,
-          const float z);  // set point to (x,y,z).
+  Point3D(const float _x, const float _y,
+          const float _z);  // set point to (x,y,z).
 
   // Destructor.
   ~Point3D() = default;
