@@ -1,4 +1,5 @@
-#pragma once
+#ifndef RAYTRACER_CAMERAS_PERSPECTIVE_HPP_
+#define RAYTRACER_CAMERAS_PERSPECTIVE_HPP_
 
 /**
    This file declares the Perspective class which represents a perspective
@@ -7,8 +8,8 @@
    Courtesy Kevin Suffern.
 */
 
-#include "Camera.hpp"
 #include "../utilities/Point3D.hpp"
+#include "Camera.hpp"
 
 class Perspective : public Camera {
  protected:
@@ -16,10 +17,10 @@ class Perspective : public Camera {
 
  public:
   // Constructors.
-  Perspective();                           // set pos to origin.
-  Perspective(float c);                    // set pos to (c, c, c).
-  Perspective(float x, float y, float z);  // set pos to (x, y, z)
-  Perspective(const Point3D& pt);          // set pos parallel to pt.
+  Perspective();                            // set pos to origin.
+  explicit Perspective(float c);            // set pos to (c, c, c).
+  Perspective(float x, float y, float z);   // set pos to (x, y, z)
+  explicit Perspective(const Point3D& pt);  // set pos parallel to pt.
 
   // Copy constuctor and assignment operator.
   Perspective(const Perspective& camera) = default;
@@ -34,3 +35,5 @@ class Perspective : public Camera {
   // Get direction of projection for a point.
   virtual Vector3D get_direction(const Point3D& p) const;
 };
+
+#endif  // RAYTRACER_CAMERAS_PERSPECTIVE_HPP_

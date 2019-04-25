@@ -1,4 +1,5 @@
-#pragma once
+#ifndef RAYTRACER_WORLD_VIEWPLANE_HPP_
+#define RAYTRACER_WORLD_VIEWPLANE_HPP_
 
 /**
    This file declares the ViewPlane class which represents a view plane.
@@ -30,3 +31,5 @@ class ViewPlane {
   // Destructor.
   ~ViewPlane() = default;
 };
+
+#endif  // RAYTRACER_WORLD_VIEWPLANE_HPP_

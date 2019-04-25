@@ -1,4 +1,5 @@
-#pragma once
+#ifndef RAYTRACER_UTILITIES_IMAGE_HPP_
+#define RAYTRACER_UTILITIES_IMAGE_HPP_
 
 /**
    This file declares the Image class which is a utility for storing image
@@ -18,8 +19,9 @@ class Image {
 
  public:
   // Constructors.
-  Image(int hres, int vres);      // initialize blank image of given size.
-  Image(const ViewPlane& vplane); // initialize blank image same size as vplane.
+  Image(int hres, int vres);  // initialize blank image of given size.
+  Image(
+      const ViewPlane& vplane);  // initialize blank image same size as vplane.
 
   // Destructor.
   ~Image();  // free memory.
@@ -30,3 +32,5 @@ class Image {
   // Write image to file in PPM format.
   void write_ppm(std::string path);
 };
+
+#endif  // RAYTRACER_UTILITIES_IMAGE_HPP_

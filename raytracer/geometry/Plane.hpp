@@ -1,4 +1,5 @@
-#pragma once
+#ifndef RAYTRACER_GEOMETRY_PLANE_HPP_
+#define RAYTRACER_GEOMETRY_PLANE_HPP_
 
 /**
    This file declares the Plane class which represents a plane defined by an
@@ -7,9 +8,9 @@
    Courtesy Kevin Suffern.
 */
 
-#include "Geometry.hpp"
 #include "../utilities/Point3D.hpp"
 #include "../utilities/Vector3D.hpp"
+#include "Geometry.hpp"
 
 class Plane : public Geometry {
  protected:
@@ -33,5 +34,7 @@ class Plane : public Geometry {
   virtual Plane* clone() const;
 
   // Ray intersection. Set t and sinfo as per intersection with this object.
-  virtual bool hit(const Ray& ray, float& t, ShadeInfo& s) const;
+  virtual bool hit(const Ray& ray, const float& t, const ShadeInfo& s) const;
 };
+
+#endif  // RAYTRACER_GEOMETRY_PLANE_HPP_

@@ -9,16 +9,14 @@ Ambient::Ambient(float r, float g, float b) {}
 
 Ambient::Ambient(const RGBColor& _color) {}
 
-Ambient* Ambient::clone() const {
-    return nullptr;
-}
+Ambient* Ambient::clone() const { return nullptr; }
 
 Vector3D Ambient::get_direction(ShadeInfo& sinfo) const {
-    Vector3D temp;
-    return temp;
+  Vector3D temp;
+  return temp;
 }
 
 RGBColor Ambient::L(ShadeInfo& sinfo) const {
-    RGBColor temp;
-    return temp;
+  RGBColor temp;
+  return temp;
 }

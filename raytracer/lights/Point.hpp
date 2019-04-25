@@ -1,4 +1,5 @@
-#pragma once
+#ifndef RAYTRACER_LIGHTS_POINT_HPP_
+#define RAYTRACER_LIGHTS_POINT_HPP_
 
 /**
    This file declares the Point class which represents a point light source.
@@ -6,8 +7,8 @@
    Courtesy Kevin Suffern.
 */
 
-#include "Light.hpp"
 #include "../utilities/Point3D.hpp"
+#include "Light.hpp"
 
 class Point : public Light {
  protected:
@@ -15,10 +16,10 @@ class Point : public Light {
 
  public:
   // Constructors.
-  Point();                           // set color to white (1, 1, 1).
-  Point(float c);                    // set color to (c, c, c).
-  Point(float r, float g, float b);  // set color to (r, g, b).
-  Point(const RGBColor& _color);     // set color to _color.
+  Point();                                 // set color to white (1, 1, 1).
+  explicit Point(float c);                 // set color to (c, c, c).
+  Point(float r, float g, float b);        // set color to (r, g, b).
+  explicit Point(const RGBColor& _color);  // set color to _color.
 
   // Copy constructor and assignment operator.
   Point(const Point& rhs) = default;
@@ -36,8 +37,10 @@ class Point : public Light {
   void set_position(const Point3D& pt);          // position at pt.
 
   // Normalized direction vector from light source to hit point.
-  virtual Vector3D get_direction(ShadeInfo& sinfo) const;
+  virtual Vector3D get_direction(const ShadeInfo& sinfo) const;
 
   // Luminance from this light source at hit point.
-  virtual RGBColor L(ShadeInfo& sinfo) const;
+  virtual RGBColor L(const ShadeInfo& sinfo) const;
 };
+
+#endif  // RAYTRACER_LIGHTS_POINT_HPP_

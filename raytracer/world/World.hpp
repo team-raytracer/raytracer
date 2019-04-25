@@ -1,4 +1,5 @@
-#pragma once
+#ifndef RAYTRACER_WORLD_WORLD_HPP_
+#define RAYTRACER_WORLD_WORLD_HPP_
 
 /**
    This file declares the World class which contains all the information about
@@ -11,8 +12,8 @@
 */
 
 #include <vector>
-#include "ViewPlane.hpp"
 #include "../utilities/RGBColor.hpp"
+#include "ViewPlane.hpp"
 
 class Geometry;
 class Light;
@@ -57,3 +58,5 @@ class World {
   // the ray with the scene geometry.
   ShadeInfo hit_objects(const Ray& ray);
 };
+
+#endif  // RAYTRACER_WORLD_WORLD_HPP_

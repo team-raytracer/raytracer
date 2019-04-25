@@ -2,4 +2,4 @@
 
 Ray::Ray() {}
 
-Ray::Ray(const Point3D& origin, const Vector3D& dir) {};
+Ray::Ray(const Point3D& origin, const Vector3D& dir) {}

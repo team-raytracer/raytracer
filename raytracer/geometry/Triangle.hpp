@@ -1,4 +1,5 @@
-#pragma once
+#ifndef RAYTRACER_GEOMETRY_TRIANGLE_HPP_
+#define RAYTRACER_GEOMETRY_TRIANGLE_HPP_
 
 /**
    This file declares the Triangle class which represents a triangle defined by
@@ -7,8 +8,8 @@
    Courtesy Kevin Suffern.
 */
 
-#include "Geometry.hpp"
 #include "../utilities/Point3D.hpp"
+#include "Geometry.hpp"
 
 class Triangle : public Geometry {
  protected:
@@ -30,5 +31,7 @@ class Triangle : public Geometry {
   virtual Triangle* clone() const;
 
   // Ray intersection. Set t and sinfo as per intersection with this object.
-  virtual bool hit(const Ray& ray, float& t, ShadeInfo& s) const;
+  virtual bool hit(const Ray& ray, const float& t, const ShadeInfo& s) const;
 };
+
+#endif  // RAYTRACER_GEOMETRY_TRIANGLE_HPP_

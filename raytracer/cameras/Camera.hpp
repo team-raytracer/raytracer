@@ -1,4 +1,5 @@
-#pragma once
+#ifndef RAYTRACER_CAMERAS_CAMERA_HPP_
+#define RAYTRACER_CAMERAS_CAMERA_HPP_
 
 /**
    This file declares the Camera class which is an abstract class for concrete
@@ -28,3 +29,5 @@ class Camera {
   // Get direction of projection for a point.
   virtual Vector3D get_direction(const Point3D& p) const = 0;
 };
+
+#endif  // RAYTRACER_CAMERAS_CAMERA_HPP_

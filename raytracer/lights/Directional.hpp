@@ -1,4 +1,5 @@
-#pragma once
+#ifndef RAYTRACER_LIGHTS_DIRECTIONAL_HPP_
+#define RAYTRACER_LIGHTS_DIRECTIONAL_HPP_
 
 /**
    This file declares the Directional class which represents a direcitonal light
@@ -7,8 +8,8 @@
    Courtesy Kevin Suffern.
 */
 
-#include "light.hpp"
 #include "../utilities/Vector3D.hpp"
+#include "light.hpp"
 
 class Directional : public Light {
  protected:
@@ -17,9 +18,9 @@ class Directional : public Light {
  public:
   // Constructors.
   Directional();                           // set color to white (1, 1, 1).
-  Directional(float c);                    // set color to (c, c, c).
+  explicit Directional(float c);           // set color to (c, c, c).
   Directional(float r, float g, float b);  // set color to (r, g, b).
-  Directional(const RGBColor& _color);     // set color to _color.
+  explicit Directional(const RGBColor& _color);  // set color to _color.
 
   // Copy constructor and assignment operator.
   Directional(const Directional& rhs) = default;
@@ -36,8 +37,10 @@ class Directional : public Light {
   void set_direction(float x, float y, float z);
 
   // Normalized direction vector from light source to hit point.
-  virtual Vector3D get_direction(ShadeInfo& sinfo) const;
+  virtual Vector3D get_direction(const ShadeInfo& sinfo) const;
 
   // Luminance from this light source at hit point.
-  virtual RGBColor L(ShadeInfo& sinfo) const;
+  virtual RGBColor L(const ShadeInfo& sinfo) const;
 };
+
+#endif  // RAYTRACER_LIGHTS_DIRECTIONAL_HPP_

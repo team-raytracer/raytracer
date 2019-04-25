@@ -1,4 +1,5 @@
-#pragma once
+#ifndef RAYTRACER_LIGHTS_SPOTLIGHT_HPP_
+#define RAYTRACER_LIGHTS_SPOTLIGHT_HPP_
 
 /**
    This file declares the Spotlight class which represents a spotlight. It
@@ -7,8 +8,8 @@
    Courtesy Kevin Suffern.
 */
 
-#include "Point.hpp"
 #include "../utilities/Vector3D.hpp"
+#include "Point.hpp"
 
 class Spotlight : public Point {
  private:
@@ -17,10 +18,10 @@ class Spotlight : public Point {
 
  public:
   // Constructors.
-  Spotlight();                           // set color to white (1, 1, 1).
-  Spotlight(float c);                    // set color to (c, c, c).
-  Spotlight(float r, float g, float b);  // set color to (r, g, b).
-  Spotlight(const RGBColor& _color);     // set color to _color.
+  Spotlight();                                 // set color to white (1, 1, 1).
+  explicit Spotlight(float c);                 // set color to (c, c, c).
+  Spotlight(float r, float g, float b);        // set color to (r, g, b).
+  explicit Spotlight(const RGBColor& _color);  // set color to _color.
 
   // Copy constructor and assignment operator.
   Spotlight(const Spotlight& rhs) = default;
@@ -41,8 +42,10 @@ class Spotlight : public Point {
   void set_direction(const Vector3D& d);          // to d and normalize.
 
   // Normalized direction vector from light source to hit point.
-  virtual Vector3D get_direction(ShadeInfo& sinfo) const;
+  virtual Vector3D get_direction(const ShadeInfo& sinfo) const;
 
   // Luminance from this light source at hit point.
-  virtual RGBColor L(ShadeInfo& sinfo) const;
+  virtual RGBColor L(const ShadeInfo& sinfo) const;
 };
+
+#endif  // RAYTRACER_LIGHTS_SPOTLIGHT_HPP_

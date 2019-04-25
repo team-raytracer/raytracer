@@ -1,4 +1,5 @@
-#pragma once
+#ifndef RAYTRACER_GEOMETRY_SPHERE_HPP_
+#define RAYTRACER_GEOMETRY_SPHERE_HPP_
 
 /**
    This file declares the Sphere class which represents a sphere defined by its
@@ -7,8 +8,8 @@
    Courtesy Kevin Suffern.
 */
 
-#include "Geometry.hpp"
 #include "../utilities/Point3D.hpp"
+#include "Geometry.hpp"
 
 class Sphere : public Geometry {
  protected:
@@ -31,5 +32,7 @@ class Sphere : public Geometry {
   virtual Sphere* clone() const;
 
   // Ray intersection. Set t and sinfo as per intersection with this object.
-  virtual bool hit(const Ray& ray, float& t, ShadeInfo& s) const;
+  virtual bool hit(const Ray& ray, const float& t, const ShadeInfo& s) const;
 };
+
+#endif  // RAYTRACER_GEOMETRY_SPHERE_HPP_

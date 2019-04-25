@@ -1,4 +1,5 @@
-#pragma once
+#ifndef RAYTRACER_GEOMETRY_GEOMETRY_HPP_
+#define RAYTRACER_GEOMETRY_GEOMETRY_HPP_
 
 /**
    This file declares the Geometry class which is an abstract class from which
@@ -35,5 +36,8 @@ class Geometry {
   void set_material(Material* mPtr);
 
   // Ray intersection. Set t and sinfo as per intersection with this object.
-  virtual bool hit(const Ray& ray, float& t, ShadeInfo& sinfo) const = 0;
+  virtual bool hit(const Ray& ray, const float& t,
+                   const ShadeInfo& sinfo) const = 0;
 };
+
+#endif  // RAYTRACER_GEOMETRY_GEOMETRY_HPP_

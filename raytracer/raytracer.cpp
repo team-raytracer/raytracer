@@ -6,7 +6,6 @@
 #include "utilities/ShadeInfo.hpp"
 #include "world/World.hpp"
 
-
 int main(int argc, char** argv) {
   World world;
   world.build();

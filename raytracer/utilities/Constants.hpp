@@ -1,8 +1,8 @@
-#pragma once
+#ifndef RAYTRACER_UTILITIES_CONSTANTS_HPP_
+#define RAYTRACER_UTILITIES_CONSTANTS_HPP_
 
 /**
     This file caches common values and constants.
-    
 
     Courtesy Kevin Suffern.
 */
@@ -38,6 +38,7 @@ const RGBColor red(1.0, 0.0, 0.0);
 const RGBColor white(1.0);
 const RGBColor yellow(1, 1, 0);
 
-
 // Useful for scaling the output of rand() to [0,1].
-const float invRAND_MAX = 1.0 / (float)RAND_MAX;
+const float invRAND_MAX = 1.0 / static_cast<float>(RAND_MAX);
+
+#endif  // RAYTRACER_UTILITIES_CONSTANTS_HPP_

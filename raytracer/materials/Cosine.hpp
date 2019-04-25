@@ -1,4 +1,5 @@
-#pragma once
+#ifndef RAYTRACER_MATERIALS_COSINE_HPP_
+#define RAYTRACER_MATERIALS_COSINE_HPP_
 
 /**
    This file declares the Cosine class which represents a simple cosine
@@ -10,8 +11,8 @@
    Courtesy Kevin Suffern.
 */
 
-#include "Material.hpp"
 #include "../utilities/RGBColor.hpp"
+#include "Material.hpp"
 
 class Cosine : public Material {
  protected:
@@ -19,10 +20,10 @@ class Cosine : public Material {
 
  public:
   // Constructors.
-  Cosine();                           // set color to (0, 0, 0).
-  Cosine(float c);                    // set color to (c, c, c).
-  Cosine(float r, float g, float b);  // set color to (r, g, b).
-  Cosine(const RGBColor& c);          // set color to c.
+  Cosine();                            // set color to (0, 0, 0).
+  explicit Cosine(float c);            // set color to (c, c, c).
+  Cosine(float r, float g, float b);   // set color to (r, g, b).
+  explicit Cosine(const RGBColor& c);  // set color to c.
 
   // Copy constuctor and assignment operator.
   Cosine(const Cosine& other) = default;
@@ -40,3 +41,5 @@ class Cosine : public Material {
   */
   virtual RGBColor shade(const ShadeInfo& sinfo) const;
 };
+
+#endif  // RAYTRACER_MATERIALS_COSINE_HPP_

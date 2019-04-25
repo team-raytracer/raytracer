@@ -1,4 +1,5 @@
-#pragma once
+#ifndef RAYTRACER_SAMPLERS_SAMPLER_HPP_
+#define RAYTRACER_SAMPLERS_SAMPLER_HPP_
 
 /**
    This file declares the Sampler class which is an abstract class for concrete
@@ -20,8 +21,8 @@ class Ray;
 
 class Sampler {
  protected:
-  Camera* camera_ptr;       // the camera that decides the projectors.
-  ViewPlane* viewplane_ptr; // the view plane through which rays are shot.
+  Camera* camera_ptr;        // the camera that decides the projectors.
+  ViewPlane* viewplane_ptr;  // the view plane through which rays are shot.
 
  public:
   // Constructors.
@@ -43,3 +44,5 @@ class Sampler {
   // the view plane.
   std::vector<Ray> virtual get_rays(int px, int py) const = 0;
 };
+
+#endif  // RAYTRACER_SAMPLERS_SAMPLER_HPP_

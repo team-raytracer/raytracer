@@ -1,4 +1,5 @@
-#pragma once
+#ifndef RAYTRACER_BRDFS_BRDF_HPP_
+#define RAYTRACER_BRDFS_BRDF_HPP_
 
 /**
    This file declares the BRDF class which is an abstract class for concrete
@@ -26,8 +27,10 @@ class BRDF {
   virtual RGBColor f(const ShadeInfo& sinfo, const Vector3D& wo,
                      const Vector3D& wi) const = 0;
   virtual RGBColor sample_f(const ShadeInfo& sinfo, const Vector3D& wo,
-                            Vector3D& wi) const = 0;
+                            const Vector3D& wi) const = 0;
   virtual RGBColor sample_f(const ShadeInfo& sinfo, const Vector3D& wo,
-                            Vector3D& wi, float& pdf) const = 0;
+                            const Vector3D& wi, const float& pdf) const = 0;
   virtual RGBColor rho(const ShadeInfo& sinfo, const Vector3D& wo) const = 0;
 };
+
+#endif  // RAYTRACER_BRDFS_BRDF_HPP_
