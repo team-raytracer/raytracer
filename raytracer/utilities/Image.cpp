@@ -1,5 +1,5 @@
-#include <string>
 #include "Image.hpp"
+#include <string>
 #include "RGBColor.hpp"
 
 Image::Image(int hres, int vres) {}
