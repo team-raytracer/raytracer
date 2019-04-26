@@ -28,13 +28,13 @@ class ShadeInfo {
 
  public:
   // Constructor.
-  explicit ShadeInfo(const World& wr);  // set the world.
+  explicit ShadeInfo(const World* wr);  // set the world.
 
   // Copy constructor.
-  ShadeInfo(const ShadeInfo& sr);
+  ShadeInfo(const ShadeInfo& sr) = default;
 
   // Destructor.
-  ~ShadeInfo();
+  ~ShadeInfo() = default;
 };
 
 #endif  // RAYTRACER_UTILITIES_SHADEINFO_HPP_

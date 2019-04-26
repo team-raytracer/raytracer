@@ -39,8 +39,9 @@ void Image::write_ppm(std::string path) {
 
   for (size_t r = 0; r < vres; ++r) {
     for (size_t c = 0; c < hres; ++c) {
-      file << (int)(colors[r][c].r * 255) << " " << (int)(colors[r][c].g * 255)
-           << " " << (int)(colors[r][c].b * 255) << "  ";
+      file << static_cast<int>(colors[r][c].r * 255) << " "
+           << static_cast<int>(colors[r][c].g * 255) << " "
+           << static_cast<int>(colors[r][c].b * 255) << "  ";
     }
     file << std::endl;
   }
