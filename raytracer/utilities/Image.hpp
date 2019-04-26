@@ -9,25 +9,28 @@
 */
 
 #include <string>
+#include "RGBColor.hpp"
 
 class ViewPlane;
 class RGBColor;
 
 class Image {
  private:
-  int** colors;  // pixel colors.
+  size_t hres;
+  size_t vres;
+  RGBColor** colors;  // pixel colors.
 
  public:
   // Constructors.
-  Image(int hres, int vres);  // initialize blank image of given size.
+  Image(size_t _hres, size_t _vres);  // initialize blank image of given size.
   Image(
       const ViewPlane& vplane);  // initialize blank image same size as vplane.
 
   // Destructor.
   ~Image();  // free memory.
 
-  // Set pixel color. Convert to integer values.
-  void set_pixel(int x, int y, RGBColor color);
+  // Set pixel color, (0,0) is upper left corner
+  void set_pixel(size_t x, size_t y, RGBColor color);
 
   // Write image to file in PPM format.
   void write_ppm(std::string path);

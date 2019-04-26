@@ -16,8 +16,8 @@ class ViewPlane {
  public:
   Point3D top_left;      // top left corner of the view plane.
   Point3D bottom_right;  // bottom right corner of the view plane.
-  int hres;              // horizontal resolution
-  int vres;              // vertical resolution
+  size_t hres;           // horizontal resolution
+  size_t vres;           // vertical resolution
 
  public:
   // Constructor

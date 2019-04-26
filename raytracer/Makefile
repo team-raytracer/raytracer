@@ -109,7 +109,8 @@ Simple.o: samplers/Simple.cpp samplers/Sampler.hpp utilities/Ray.hpp \
 # Utilities 
 ################################################################################
 
-Image.o: utilities/Image.cpp utilities/RGBColor.hpp utilities/Image.hpp
+Image.o: utilities/Image.cpp utilities/RGBColor.hpp world/ViewPlane.hpp \
+	utilities/Image.hpp
 	$(CXX) -c $(CXXFLAGS) utilities/Image.cpp
 
 Point3D.o: utilities/Point3d.cpp utilities/Vector3D.hpp utilities/Point3D.hpp
