@@ -28,7 +28,7 @@ class ShadeInfo {
 
  public:
   // Constructor.
-  explicit ShadeInfo(const World* wr);  // set the world.
+  explicit ShadeInfo(World* wr);  // set the world.
 
   // Copy constructor.
   ShadeInfo(const ShadeInfo& sr) = default;

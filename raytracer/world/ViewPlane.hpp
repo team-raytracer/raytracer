@@ -10,6 +10,7 @@
    Courtesy Kevin Suffern.
 */
 
+#include <stddef.h>
 #include "../utilities/Point3D.hpp"
 
 class ViewPlane {

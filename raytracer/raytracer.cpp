@@ -1,5 +1,6 @@
 // Copyright 2019 Group D
 
+#include <stddef.h>
 #include <vector>
 #include "materials/Material.hpp"
 #include "samplers/Sampler.hpp"
@@ -16,8 +17,8 @@ int main(int argc, char** argv) {
   Image image(viewplane);
 
   std::vector<Ray> rays;
-  for (int x = 0; x < viewplane.hres; x++) {    // across.
-    for (int y = 0; y < viewplane.vres; y++) {  // down.
+  for (size_t x = 0; x < viewplane.hres; x++) {    // across.
+    for (size_t y = 0; y < viewplane.vres; y++) {  // down.
       // Get rays for the pixel from the sampler. The pixel color is the
       // weighted sum of the shades for each ray.
       RGBColor pixel_color(0);
