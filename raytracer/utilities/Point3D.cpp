@@ -19,9 +19,7 @@ Point3D Point3D::operator+(const Vector3D& v) const {
   return Point3D(x + v.x, y + v.y, z + v.z);
 }
 
-Point3D Point3D::operator-(const Vector3D& v) const {
-  return Point3D(x - v.x, y - v.y, z - v.z);
-}
+Point3D Point3D::operator-(const Vector3D& v) const { return *this + -v; }
 
 Point3D Point3D::operator*(const float s) const {
   return Point3D(x * s, y * s, z * s);
@@ -33,6 +31,4 @@ float Point3D::d_squared(const Point3D& p) const {
 
 float Point3D::distance(const Point3D& p) const { return sqrt(d_squared(p)); }
 
-Point3D operator*(const float a, const Point3D& pt) {
-  return Point3D(a * pt.x, a * pt.y, a * pt.z);
-}
+Point3D operator*(const float a, const Point3D& pt) { return pt * a; }
