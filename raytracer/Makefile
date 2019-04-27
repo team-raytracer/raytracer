@@ -150,5 +150,5 @@ clean:
 
 clean-code:
 	clang-format --style=google -i **/*.*pp
-	cpplint **/*.cpp
-	cpplint **/*.hpp
+	-cpplint **/*.cpp
+	-cpplint **/*.hpp
