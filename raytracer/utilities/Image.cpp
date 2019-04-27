@@ -1,7 +1,6 @@
 #include "Image.hpp"
 #include <fstream>
 #include <iostream>
-#include <string>
 #include "../world/ViewPlane.hpp"
 
 Image::Image(size_t _hres, size_t _vres)
