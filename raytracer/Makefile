@@ -113,10 +113,10 @@ Image.o: utilities/Image.cpp utilities/RGBColor.hpp world/ViewPlane.hpp \
 	utilities/Image.hpp
 	$(CXX) -c $(CXXFLAGS) utilities/Image.cpp
 
-Point3D.o: utilities/Point3d.cpp utilities/Vector3D.hpp utilities/Point3D.hpp
+Point3D.o: utilities/Point3D.cpp utilities/Vector3D.hpp utilities/Point3D.hpp
 	$(CXX) -c $(CXXFLAGS) utilities/Point3D.cpp
 
-Ray.o: utilities/Point3d.cpp utilities/Point3D.hpp utilities/Vector3D.hpp \
+Ray.o: utilities/Point3D.cpp utilities/Point3D.hpp utilities/Vector3D.hpp \
 	utilities/Ray.hpp
 	$(CXX) -c $(CXXFLAGS) utilities/Ray.cpp
 
