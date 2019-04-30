@@ -8,6 +8,7 @@
    Courtesy Kevin Suffern.
 */
 
+#include "../utilities/ShadeInfo.hpp"
 #include "Light.hpp"
 
 class Ambient : public Light {
