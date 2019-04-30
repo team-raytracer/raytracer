@@ -1,4 +1,6 @@
 #include "Sphere.hpp"
+#include "../utilities/Point3D.hpp"
+#include "Geometry.hpp"
 
 Sphere::Sphere() {}
 
