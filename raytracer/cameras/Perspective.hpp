@@ -17,10 +17,18 @@ class Perspective : public Camera {
 
  public:
   // Constructors.
-  Perspective();                            // set pos to origin.
-  explicit Perspective(float c);            // set pos to (c, c, c).
-  Perspective(float x, float y, float z);   // set pos to (x, y, z)
-  explicit Perspective(const Point3D& pt);  // set pos parallel to pt.
+
+  // set pos to origin.
+  Perspective();
+
+  // set pos to (c, c, c).
+  explicit Perspective(float c);
+
+  // set pos to (x, y, z)
+  Perspective(float x, float y, float z);
+
+  // set pos parallel to pt.
+  explicit Perspective(const Point3D& pt);
 
   // Copy constuctor and assignment operator.
   Perspective(const Perspective& camera) = default;

@@ -13,16 +13,26 @@
 
 class Parallel : public Camera {
  protected:
-  Vector3D dir;  // direction of projection, stored as a unit vector.
+  // direction of projection, stored as a unit vector.
+  Vector3D dir;
 
  public:
   // Constructors.
-  Parallel();                  // set dir parallel to -z (negative z) axis.
-  explicit Parallel(float c);  // set dir parallel to (c, c, c).
-  Parallel(float x, float y, float z);   // set dir parallel to (x, y, z)
-  explicit Parallel(const Vector3D& d);  // set dir parallel to d.
+
+  // set dir parallel to -z (negative z) axis.
+  Parallel();
+
+  // set dir parallel to (c, c, c).
+  explicit Parallel(float c);
+
+  // set dir parallel to (x, y, z)
+  Parallel(float x, float y, float z);
+
+  // set dir parallel to d.
+  explicit Parallel(const Vector3D& d);
 
   // Copy constuctor and assignment operator.
+
   Parallel(const Parallel& camera) = default;
   Parallel& operator=(const Parallel& other) = default;
 
