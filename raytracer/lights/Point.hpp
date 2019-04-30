@@ -8,6 +8,7 @@
 */
 
 #include "../utilities/Point3D.hpp"
+#include "../utilities/ShadeInfo.hpp"
 #include "Light.hpp"
 
 class Point : public Light {
