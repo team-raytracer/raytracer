@@ -9,7 +9,7 @@
 */
 
 #include "../utilities/Vector3D.hpp"
-#include "light.hpp"
+#include "Light.hpp"
 
 class Directional : public Light {
  protected:
