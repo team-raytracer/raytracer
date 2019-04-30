@@ -28,7 +28,7 @@ class Plane : public Geometry {
   Plane& operator=(const Plane& rhs);
 
   // Destructor.
-  virtual ~Plane();
+  virtual ~Plane() = default;
 
   // Virtual copy constructor.
   virtual Plane* clone() const;
