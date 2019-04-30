@@ -53,17 +53,17 @@ Geometry.o: geometry/Geometry.cpp materials/Material.hpp geometry/Geometry.hpp \
 
 Plane.o: geometry/Plane.cpp geometry/Geometry.hpp materials/Material.hpp \
 	utilities/Point3D.hpp utilities/Vector3D.hpp geometry/Plane.hpp \
-	utilities/ShadeInfo.hpp utilities/Ray.hpp
+	utilities/ShadeInfo.hpp utilities/Ray.hpp utilities/Constants.hpp
 	$(CXX) -c $(CXXFLAGS) geometry/Plane.cpp
 
 Sphere.o: geometry/Sphere.cpp geometry/Geometry.hpp materials/Material.hpp \
 	utilities/Point3D.hpp geometry/Sphere.hpp utilities/ShadeInfo.hpp \
-	utilities/Ray.hpp
+	utilities/Ray.hpp utilities/Constants.hpp
 	$(CXX) -c $(CXXFLAGS) geometry/Sphere.cpp
 
 Triangle.o: geometry/Triangle.cpp geometry/Geometry.hpp materials/Material.hpp \
 	utilities/Point3D.hpp geometry/Triangle.hpp utilities/ShadeInfo.hpp \
-	utilities/Ray.hpp
+	utilities/Ray.hpp utilities/Constants.hpp utilities/Vector3D.hpp
 	$(CXX) -c $(CXXFLAGS) geometry/Triangle.cpp
 
 ################################################################################

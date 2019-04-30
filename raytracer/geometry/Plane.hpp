@@ -9,9 +9,9 @@
 */
 
 #include "../utilities/Point3D.hpp"
-#include "../utilities/Vector3D.hpp"
-#include "../utilities/ShadeInfo.hpp"
 #include "../utilities/Ray.hpp"
+#include "../utilities/ShadeInfo.hpp"
+#include "../utilities/Vector3D.hpp"
 
 #include "Geometry.hpp"
 
@@ -37,7 +37,7 @@ class Plane : public Geometry {
   virtual Plane* clone() const;
 
   // Ray intersection. Set t and sinfo as per intersection with this object.
-  virtual bool hit(const Ray& ray, const float& t, const ShadeInfo& s) const;
+  virtual bool hit(const Ray& ray, float& t, ShadeInfo& s) const;
 };
 
 #endif  // RAYTRACER_GEOMETRY_PLANE_HPP_

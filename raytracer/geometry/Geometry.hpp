@@ -38,8 +38,7 @@ class Geometry {
   void set_material(Material* mPtr);
 
   // Ray intersection. Set t and sinfo as per intersection with this object.
-  virtual bool hit(const Ray& ray, const float& t,
-                   const ShadeInfo& sinfo) const = 0;
+  virtual bool hit(const Ray& ray, float& t, ShadeInfo& s) const = 0;
 };
 
 #endif  // RAYTRACER_GEOMETRY_GEOMETRY_HPP_

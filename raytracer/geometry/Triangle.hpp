@@ -9,18 +9,21 @@
 */
 
 #include "../utilities/Point3D.hpp"
-#include "../utilities/ShadeInfo.hpp"
 #include "../utilities/Ray.hpp"
+#include "../utilities/ShadeInfo.hpp"
+#include "../utilities/Vector3D.hpp"
 #include "Geometry.hpp"
 
 class Triangle : public Geometry {
  protected:
   Point3D a, b, c;  // the vertices. they must not be colinear.
+  Vector3D n;
 
  public:
   // Constructors. Passed vertices are assumed to be ordered for orientation,
   Triangle();  // triangle with vertices at origin.
-  Triangle(const Point3D&, const Point3D&, const Point3D&);  // set vertices.
+  Triangle(const Point3D& ap, const Point3D& bp,
+           const Point3D& cp);  // set vertices.
 
   // Copy constructor and assignment operator.
   Triangle(const Triangle& object) = default;
@@ -33,7 +36,7 @@ class Triangle : public Geometry {
   virtual Triangle* clone() const;
 
   // Ray intersection. Set t and sinfo as per intersection with this object.
-  virtual bool hit(const Ray& ray, const float& t, const ShadeInfo& s) const;
+  virtual bool hit(const Ray& ray, float& t, ShadeInfo& s) const;
 };
 
 #endif  // RAYTRACER_GEOMETRY_TRIANGLE_HPP_

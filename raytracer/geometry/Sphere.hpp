@@ -24,7 +24,7 @@ class Sphere : public Geometry {
   Sphere(const Point3D& center, float radius);  // set center and radius,
 
   // Copy constructor and assignment operator.
-  Sphere(const Sphere& object);
+  Sphere(const Sphere& object) = default;
   Sphere& operator=(const Sphere& rhs) = default;
 
   // Destructor.
@@ -34,7 +34,7 @@ class Sphere : public Geometry {
   virtual Sphere* clone() const;
 
   // Ray intersection. Set t and sinfo as per intersection with this object.
-  virtual bool hit(const Ray& ray, const float& t, const ShadeInfo& s) const;
+  virtual bool hit(const Ray& ray, float& t, ShadeInfo& s) const;
 };
 
 #endif  // RAYTRACER_GEOMETRY_SPHERE_HPP_
