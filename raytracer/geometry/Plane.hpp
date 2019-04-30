@@ -10,6 +10,9 @@
 
 #include "../utilities/Point3D.hpp"
 #include "../utilities/Vector3D.hpp"
+#include "../utilities/ShadeInfo.hpp"
+#include "../utilities/Ray.hpp"
+
 #include "Geometry.hpp"
 
 class Plane : public Geometry {
@@ -24,11 +27,11 @@ class Plane : public Geometry {
         const Vector3D& n);  // set point and normal, then normalize.
 
   // Copy constructor and assignment operator.
-  Plane(const Plane& object);
-  Plane& operator=(const Plane& rhs);
+  Plane(const Plane& object) = default;
+  Plane& operator=(const Plane& rhs) = default;
 
   // Destructor.
-  virtual ~Plane();
+  virtual ~Plane() = default;
 
   // Virtual copy constructor.
   virtual Plane* clone() const;

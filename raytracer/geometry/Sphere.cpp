@@ -1,10 +1,10 @@
 #include "Sphere.hpp"
 #include "../utilities/Point3D.hpp"
-#include "Geometry.hpp"
 
-Sphere::Sphere() {}
+Sphere::Sphere() : c{Point3D()}, r{0} {}
 
-Sphere::Sphere(const Point3D& center, float radius) {}
+Sphere::Sphere(const Point3D& center, float radius)
+  : c{center}, r{radius} {}
 
 Sphere* Sphere::clone() const { return nullptr; }
 

@@ -9,6 +9,8 @@
 */
 
 #include "../materials/Material.hpp"
+#include "../utilities/Ray.hpp"
+#include "../utilities/ShadeInfo.hpp"
 
 class Ray;
 class ShadeInfo;

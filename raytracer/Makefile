@@ -16,7 +16,7 @@ raytracer.o: raytracer.cpp build/buildHelloWorld.cpp materials/Material.hpp \
 	$(CXX) -c $(CXXFLAGS) raytracer.cpp
 
 ################################################################################
-# Build 
+# Build
 ################################################################################
 
 buildHelloWorld.o: build/buildHelloWorld.cpp cameras/Perspective.hpp \
@@ -32,7 +32,7 @@ buildChapter14.o: build/buildChapter14.cpp cameras/Perspective.hpp \
 	$(CXX) -c $(CXXFLAGS) build/buildChapter14.cpp
 
 ################################################################################
-# Cameras 
+# Cameras
 ################################################################################
 
 Parallel.o: cameras/Parallel.cpp cameras/Camera.hpp utilities/Vector3D.hpp \
@@ -44,26 +44,30 @@ Perspective.o: cameras/Perspective.cpp cameras/Camera.hpp \
 	$(CXX) -c $(CXXFLAGS) cameras/Perspective.cpp
 
 ################################################################################
-# Geometry 
+# Geometry
 ################################################################################
 
-Geometry.o: geometry/Geometry.cpp materials/Material.hpp geometry/Geometry.hpp
+Geometry.o: geometry/Geometry.cpp materials/Material.hpp geometry/Geometry.hpp \
+	utilities/Ray.hpp utilities/ShadeInfo.hpp
 	$(CXX) -c $(CXXFLAGS) geometry/Geometry.cpp
 
 Plane.o: geometry/Plane.cpp geometry/Geometry.hpp materials/Material.hpp \
-	utilities/Point3D.hpp utilities/Vector3D.hpp geometry/Plane.hpp
+	utilities/Point3D.hpp utilities/Vector3D.hpp geometry/Plane.hpp \
+	utilities/ShadeInfo.hpp utilities/Ray.hpp
 	$(CXX) -c $(CXXFLAGS) geometry/Plane.cpp
 
 Sphere.o: geometry/Sphere.cpp geometry/Geometry.hpp materials/Material.hpp \
-	utilities/Point3D.hpp geometry/Sphere.hpp
+	utilities/Point3D.hpp geometry/Sphere.hpp utilities/ShadeInfo.hpp \
+	utilities/Ray.hpp
 	$(CXX) -c $(CXXFLAGS) geometry/Sphere.cpp
 
 Triangle.o: geometry/Triangle.cpp geometry/Geometry.hpp materials/Material.hpp \
-	utilities/Point3D.hpp geometry/Triangle.hpp
+	utilities/Point3D.hpp geometry/Triangle.hpp utilities/ShadeInfo.hpp \
+	utilities/Ray.hpp
 	$(CXX) -c $(CXXFLAGS) geometry/Triangle.cpp
 
 ################################################################################
-# Lights 
+# Lights
 ################################################################################
 
 Light.o: lights/Light.cpp utilities/RGBColor.hpp lights/Light.hpp
@@ -87,7 +91,7 @@ Spotlight.o: lights/Spotlight.cpp lights/Light.hpp utilities/RGBColor.hpp \
 
 
 ################################################################################
-# Materials 
+# Materials
 ################################################################################
 
 Cosine.o: materials/Cosine.cpp materials/Material.hpp utilities/RGBColor.hpp \
@@ -95,7 +99,7 @@ Cosine.o: materials/Cosine.cpp materials/Material.hpp utilities/RGBColor.hpp \
 	$(CXX) -c $(CXXFLAGS) materials/Cosine.cpp
 
 ################################################################################
-# Samplers 
+# Samplers
 ################################################################################
 
 Sampler.o: samplers/Sampler.cpp samplers/Sampler.hpp
@@ -106,7 +110,7 @@ Simple.o: samplers/Simple.cpp samplers/Sampler.hpp utilities/Ray.hpp \
 	$(CXX) -c $(CXXFLAGS) samplers/Simple.cpp
 
 ################################################################################
-# Utilities 
+# Utilities
 ################################################################################
 
 Image.o: utilities/Image.cpp utilities/RGBColor.hpp world/ViewPlane.hpp \
@@ -131,7 +135,7 @@ Vector3D.o: utilities/Vector3D.cpp utilities/Point3D.hpp utilities/Vector3D.hpp
 	$(CXX) -c $(CXXFLAGS) utilities/Vector3D.cpp
 
 ################################################################################
-# World 
+# World
 ################################################################################
 
 ViewPlane.o: world/ViewPlane.cpp utilities/Point3D.hpp world/ViewPlane.hpp
@@ -142,10 +146,10 @@ World.o: world/World.cpp utilities/Point3D.hpp utilities/RGBColor.hpp \
 	$(CXX) -c $(CXXFLAGS) world/World.cpp
 
 ################################################################################
-# Other 
+# Other
 ################################################################################
 
-clean: 
+clean:
 	rm -f raytracer *.o
 
 clean-code:

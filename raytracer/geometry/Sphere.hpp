@@ -9,6 +9,8 @@
 */
 
 #include "../utilities/Point3D.hpp"
+#include "../utilities/Ray.hpp"
+#include "../utilities/ShadeInfo.hpp"
 #include "Geometry.hpp"
 
 class Sphere : public Geometry {
@@ -22,7 +24,7 @@ class Sphere : public Geometry {
   Sphere(const Point3D& center, float radius);  // set center and radius,
 
   // Copy constructor and assignment operator.
-  Sphere(const Sphere& object) = default;
+  Sphere(const Sphere& object);
   Sphere& operator=(const Sphere& rhs) = default;
 
   // Destructor.

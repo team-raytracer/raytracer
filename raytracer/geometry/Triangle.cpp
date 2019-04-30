@@ -1,4 +1,7 @@
 #include "Triangle.hpp"
+#include "../utilities/ShadeInfo.hpp"
+#include "../utilities/Ray.hpp"
+#include "Geometry.hpp"
 
 Triangle::Triangle() {}
 

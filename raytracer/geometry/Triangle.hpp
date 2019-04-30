@@ -9,6 +9,8 @@
 */
 
 #include "../utilities/Point3D.hpp"
+#include "../utilities/ShadeInfo.hpp"
+#include "../utilities/Ray.hpp"
 #include "Geometry.hpp"
 
 class Triangle : public Geometry {
