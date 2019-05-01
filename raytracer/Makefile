@@ -1,161 +1,192 @@
+################################################################################
+# Ben Baral, Matthew Calligaro, Julia Read, David Sobek
+# Team D 
+# April 24, 2019
+# Makefile for Ray Tracer project
+#
+# Usage: Copy this Makefile into your raytracer directory.  In bash (or an 
+# equivalent shell program), enter the command "make" to compile the 
+# "raytracer" executable.
+#
+# Note: As you add more functionality to your race tracer, you will likely
+# need to create new targets to make the object (.o) files associated with your 
+# new classes.  You may also need to update the dependencies of certain targets
+# if they #include your new class
+#
+# Disclaimer: We make no claims about the correctness of this Makefile and are
+# not responsible for any issues it may cause
+################################################################################
+
 CXX = clang++
 CXXFLAGS = -g -std=c++1z -Wall -Wextra -pedantic
 
 all: raytracer
 
 # Builds the executable
-# Be careful to only list the build that you are using as a dependency
-raytracer: buildHelloWorld.o Parallel.o Perspective.o \
-	Geometry.o Plane.o Sphere.o Triangle.o Light.o Ambient.o Directional.o \
-	Point.o Spotlight.o Cosine.o Sampler.o Simple.o Image.o Point3D.o Ray.o \
-	RGBColor.o ShadeInfo.o Vector3D.o ViewPlane.o World.o raytracer.o
+# Important: Change the first dependency to the build you are using
+raytracer: obj/buildHelloWorld.o \
+	obj/Parallel.o obj/Perspective.o \
+	obj/Geometry.o obj/Plane.o obj/Sphere.o obj/Triangle.o \
+	obj/Light.o obj/Ambient.o obj/Directional.o obj/Point.o obj/Spotlight.o \
+	obj/Cosine.o \
+	obj/Sampler.o obj/Simple.o \
+	obj/Image.o obj/Point3D.o obj/Ray.o	obj/RGBColor.o obj/ShadeInfo.o \
+	obj/Vector3D.o \
+	obj/ViewPlane.o obj/World.o \
+	obj/raytracer.o
 	$(CXX) -o $@ $^
 
-raytracer.o: raytracer.cpp build/buildHelloWorld.cpp materials/Material.hpp \
+obj/raytracer.o: raytracer.cpp build/buildHelloWorld.cpp materials/Material.hpp \
 	samplers/Sampler.hpp utilities/Image.hpp utilities/ShadeInfo.hpp \
-	world/World.hpp
-	$(CXX) -c $(CXXFLAGS) raytracer.cpp
+	world/World.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ raytracer.cpp
 
 ################################################################################
-# Build
+# Builds
 ################################################################################
 
-buildHelloWorld.o: build/buildHelloWorld.cpp cameras/Perspective.hpp \
+obj/buildHelloWorld.o: build/buildHelloWorld.cpp cameras/Perspective.hpp \
 	geometry/Plane.hpp geometry/Sphere.hpp geometry/Triangle.hpp \
-	samplers/Simple.hpp materials/Cosine.hpp utilities/Constants.hpp \
-	world/World.hpp
-	$(CXX) -c $(CXXFLAGS) build/buildHelloWorld.cpp
+	materials/Cosine.hpp samplers/Simple.hpp utilities/Constants.hpp \
+	world/World.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ build/buildHelloWorld.cpp
 
-buildChapter14.o: build/buildChapter14.cpp cameras/Perspective.hpp \
+obj/buildChapter14.o: build/buildChapter14.cpp cameras/Perspective.hpp \
 	geometry/Plane.hpp geometry/Sphere.hpp \
-	samplers/Simple.hpp materials/Cosine.hpp utilities/Constants.hpp \
-	world/World.hpp
-	$(CXX) -c $(CXXFLAGS) build/buildChapter14.cpp
+	materials/Cosine.hpp samplers/Simple.hpp utilities/Constants.hpp \
+	world/World.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ build/buildChapter14.cpp
 
 ################################################################################
 # Cameras
 ################################################################################
 
-Parallel.o: cameras/Parallel.cpp cameras/Camera.hpp utilities/Vector3D.hpp \
-	cameras/Parallel.hpp
-	$(CXX) -c $(CXXFLAGS) cameras/Parallel.cpp
+obj/Parallel.o: cameras/Parallel.cpp cameras/Parallel.hpp cameras/Camera.hpp \
+	utilities/Vector3D.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ cameras/Parallel.cpp
 
-Perspective.o: cameras/Perspective.cpp cameras/Camera.hpp \
-	utilities/Point3D.hpp utilities/Vector3D.hpp cameras/Perspective.hpp
-	$(CXX) -c $(CXXFLAGS) cameras/Perspective.cpp
+obj/Perspective.o: cameras/Perspective.cpp cameras/Perspective.hpp \
+	cameras/Camera.hpp utilities/Point3D.hpp utilities/Vector3D.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ cameras/Perspective.cpp
 
 ################################################################################
 # Geometry
 ################################################################################
 
-Geometry.o: geometry/Geometry.cpp materials/Material.hpp geometry/Geometry.hpp \
-	utilities/Ray.hpp utilities/ShadeInfo.hpp
-	$(CXX) -c $(CXXFLAGS) geometry/Geometry.cpp
+obj/Geometry.o: geometry/Geometry.cpp geometry/Geometry.hpp \
+	materials/Material.hpp utilities/Ray.hpp utilities/ShadeInfo.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ geometry/Geometry.cpp
 
-Plane.o: geometry/Plane.cpp geometry/Geometry.hpp materials/Material.hpp \
-	utilities/Point3D.hpp utilities/Vector3D.hpp geometry/Plane.hpp \
-	utilities/ShadeInfo.hpp utilities/Ray.hpp utilities/Constants.hpp
-	$(CXX) -c $(CXXFLAGS) geometry/Plane.cpp
+obj/Plane.o: geometry/Plane.cpp geometry/Plane.hpp geometry/Geometry.hpp \
+	materials/Material.hpp utilities/Constants.hpp utilities/Point3D.hpp \
+	utilities/Ray.hpp utilities/ShadeInfo.hpp utilities/Vector3D.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ geometry/Plane.cpp
 
-Sphere.o: geometry/Sphere.cpp geometry/Geometry.hpp materials/Material.hpp \
-	utilities/Point3D.hpp geometry/Sphere.hpp utilities/ShadeInfo.hpp \
-	utilities/Ray.hpp utilities/Constants.hpp
-	$(CXX) -c $(CXXFLAGS) geometry/Sphere.cpp
+obj/Sphere.o: geometry/Sphere.cpp geometry/Sphere.hpp geometry/Geometry.hpp \
+	materials/Material.hpp utilities/Constants.hpp utilities/Point3D.hpp \
+	utilities/Ray.hpp utilities/ShadeInfo.hpp obj	
+	$(CXX) -c $(CXXFLAGS) -o $@ geometry/Sphere.cpp
 
-Triangle.o: geometry/Triangle.cpp geometry/Geometry.hpp materials/Material.hpp \
-	utilities/Point3D.hpp geometry/Triangle.hpp utilities/ShadeInfo.hpp \
-	utilities/Ray.hpp utilities/Constants.hpp utilities/Vector3D.hpp
-	$(CXX) -c $(CXXFLAGS) geometry/Triangle.cpp
+obj/Triangle.o: geometry/Triangle.cpp geometry/Triangle.hpp geometry/Geometry.hpp \
+	materials/Material.hpp utilities/Constants.hpp utilities/Point3D.hpp \
+	utilities/Ray.hpp utilities/ShadeInfo.hpp utilities/Vector3D.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ geometry/Triangle.cpp
 
 ################################################################################
 # Lights
 ################################################################################
 
-Light.o: lights/Light.cpp utilities/RGBColor.hpp lights/Light.hpp
-	$(CXX) -c $(CXXFLAGS) lights/Light.cpp
+obj/Light.o: lights/Light.cpp lights/Light.hpp utilities/RGBColor.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ lights/Light.cpp
 
-Ambient.o: lights/Ambient.cpp lights/Light.hpp utilities/RGBColor.hpp \
-	utilities/Vector3D.hpp lights/Ambient.hpp
-	$(CXX) -c $(CXXFLAGS) lights/Ambient.cpp
+obj/Ambient.o: lights/Ambient.cpp lights/Ambient.hpp lights/Light.hpp \
+	utilities/RGBColor.hpp utilities/Vector3D.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ lights/Ambient.cpp
 
-Directional.o: lights/Directional.cpp lights/Light.hpp utilities/RGBColor.hpp \
-	utilities/Vector3D.hpp lights/Directional.hpp
-	$(CXX) -c $(CXXFLAGS) lights/Directional.cpp
+obj/Directional.o: lights/Directional.cpp lights/Directional.hpp lights/Light.hpp \
+	utilities/RGBColor.hpp utilities/Vector3D.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ lights/Directional.cpp
 
-Point.o: lights/Point.cpp lights/Light.hpp utilities/RGBColor.hpp \
-	utilities/Point3D.hpp utilities/Vector3D.hpp lights/Point.hpp
-	$(CXX) -c $(CXXFLAGS) lights/Point.cpp
+obj/Point.o: lights/Point.cpp lights/Point.hpp lights/Light.hpp \
+	utilities/Point3D.hpp utilities/RGBColor.hpp utilities/Vector3D.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ lights/Point.cpp
 
-Spotlight.o: lights/Spotlight.cpp lights/Light.hpp utilities/RGBColor.hpp \
-	utilities/Point3D.hpp utilities/Vector3D.hpp lights/Spotlight.hpp
-	$(CXX) -c $(CXXFLAGS) lights/Spotlight.cpp
+obj/Spotlight.o: lights/Spotlight.cpp lights/Spotlight.hpp lights/Light.hpp \
+	utilities/Point3D.hpp utilities/RGBColor.hpp utilities/Vector3D.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ lights/Spotlight.cpp
 
 
 ################################################################################
 # Materials
 ################################################################################
 
-Cosine.o: materials/Cosine.cpp materials/Material.hpp utilities/RGBColor.hpp \
-	utilities/ShadeInfo.hpp materials/Cosine.hpp
-	$(CXX) -c $(CXXFLAGS) materials/Cosine.cpp
+obj/Cosine.o: materials/Cosine.cpp materials/Cosine.hpp materials/Material.hpp \
+	utilities/RGBColor.hpp utilities/ShadeInfo.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ materials/Cosine.cpp
 
 ################################################################################
 # Samplers
 ################################################################################
 
-Sampler.o: samplers/Sampler.cpp samplers/Sampler.hpp
-	$(CXX) -c $(CXXFLAGS) samplers/Sampler.cpp
+obj/Sampler.o: samplers/Sampler.cpp samplers/Sampler.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ samplers/Sampler.cpp
 
-Simple.o: samplers/Simple.cpp samplers/Sampler.hpp utilities/Ray.hpp \
-	samplers/Simple.hpp
-	$(CXX) -c $(CXXFLAGS) samplers/Simple.cpp
+obj/Simple.o: samplers/Simple.cpp samplers/Simple.hpp samplers/Sampler.hpp \
+	utilities/Ray.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ samplers/Simple.cpp
 
 ################################################################################
 # Utilities
 ################################################################################
 
-Image.o: utilities/Image.cpp utilities/RGBColor.hpp world/ViewPlane.hpp \
-	utilities/Image.hpp
-	$(CXX) -c $(CXXFLAGS) utilities/Image.cpp
+obj/Image.o: utilities/Image.cpp utilities/Image.hpp utilities/RGBColor.hpp \
+	world/ViewPlane.hpp obj	
+	$(CXX) -c $(CXXFLAGS) -o $@ utilities/Image.cpp
 
-Point3D.o: utilities/Point3D.cpp utilities/Vector3D.hpp utilities/Point3D.hpp
-	$(CXX) -c $(CXXFLAGS) utilities/Point3D.cpp
+obj/Point3D.o: utilities/Point3D.cpp utilities/Point3D.hpp utilities/Vector3D.hpp \
+	obj
+	$(CXX) -c $(CXXFLAGS) -o $@ utilities/Point3D.cpp
 
-Ray.o: utilities/Point3D.cpp utilities/Point3D.hpp utilities/Vector3D.hpp \
-	utilities/Ray.hpp
-	$(CXX) -c $(CXXFLAGS) utilities/Ray.cpp
+obj/Ray.o: utilities/Ray.cpp utilities/Ray.hpp utilities/Point3D.hpp \
+	utilities/Vector3D.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ utilities/Ray.cpp
 
-RGBColor.o: utilities/RGBColor.cpp utilities/RGBColor.hpp
-	$(CXX) -c $(CXXFLAGS) utilities/RGBColor.cpp
+obj/RGBColor.o: utilities/RGBColor.cpp utilities/RGBColor.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ utilities/RGBColor.cpp
 
-ShadeInfo.o: utilities/ShadeInfo.cpp utilities/Point3D.hpp \
-	utilities/Vector3D.hpp utilities/Ray.hpp utilities/ShadeInfo.hpp
-	$(CXX) -c $(CXXFLAGS) utilities/ShadeInfo.cpp
+obj/ShadeInfo.o: utilities/ShadeInfo.cpp utilities/ShadeInfo.hpp \
+	utilities/Point3D.hpp utilities/Ray.hpp	utilities/Vector3D.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ utilities/ShadeInfo.cpp
 
-Vector3D.o: utilities/Vector3D.cpp utilities/Point3D.hpp utilities/Vector3D.hpp
-	$(CXX) -c $(CXXFLAGS) utilities/Vector3D.cpp
+obj/Vector3D.o: utilities/Vector3D.cpp utilities/Vector3D.hpp \
+	utilities/Point3D.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ utilities/Vector3D.cpp
 
 ################################################################################
 # World
 ################################################################################
 
-ViewPlane.o: world/ViewPlane.cpp utilities/Point3D.hpp world/ViewPlane.hpp
-	$(CXX) -c $(CXXFLAGS) world/ViewPlane.cpp
+obj/ViewPlane.o: world/ViewPlane.cpp world/ViewPlane.hpp utilities/Point3D.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ world/ViewPlane.cpp
 
-World.o: world/World.cpp utilities/Point3D.hpp utilities/RGBColor.hpp \
-	utilities/ShadeInfo.hpp world/World.hpp
-	$(CXX) -c $(CXXFLAGS) world/World.cpp
+obj/World.o: world/World.cpp world/World.hpp utilities/Point3D.hpp \
+	utilities/RGBColor.hpp utilities/ShadeInfo.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ world/World.cpp
 
 ################################################################################
 # Other
 ################################################################################
 
-# removes executable and all object files
+# Removes executable and all object files
 clean:
-	rm -f raytracer *.o
+	rm -rf raytracer obj *.o
 
-# formats code and suggestions improvements according to cpplint
+# Formats code and suggestions improvements according to cpplint
 clean-code:
 	clang-format --style=google -i **/*.*pp
 	-cpplint **/*.cpp
 	-cpplint **/*.hpp
+
+# Creates obj folder for all object files
+obj:
+	mkdir obj
