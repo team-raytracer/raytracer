@@ -21,36 +21,37 @@ bool Sphere::hit(const Ray& ray, float& t, ShadeInfo& s) const {
 
   if (disc < 0.0) {
     return false;
-  } else {
-    double e = std::sqrt(disc);
-    double denom = 2.0 * a;
-    hitT = (-b - e) / denom;  // smaller root
-
-    if (t > kEpsilon) {
-      t = hitT;
-      // Update ShadeInfo contents
-      s.hit = true;
-      s.material_ptr = this->get_material();
-      s.hit_point = ray.o + (t * ray.d);
-      s.normal = (temp + hitT * ray.d) / r;
-      s.ray = ray;
-      s.t = hitT;
-      return true;
-    }
-
-    hitT = (-b + e) / denom;  // larger root
-
-    if (t > kEpsilon) {
-      t = hitT;
-      // Update ShadeInfo contents
-      s.hit = true;
-      s.material_ptr = this->get_material();
-      s.hit_point = ray.o + (t * ray.d);
-      s.normal = (temp + t * ray.d) / r;
-      s.ray = ray;
-      s.t = hitT;
-      return true;
-    }
   }
+
+  double e = std::sqrt(disc);
+  double denom = 2.0 * a;
+  hitT = (-b - e) / denom;  // smaller root
+
+  if (t > kEpsilon) {
+    t = hitT;
+    // Update ShadeInfo contents
+    s.hit = true;
+    s.material_ptr = this->get_material();
+    s.hit_point = ray.o + (t * ray.d);
+    s.normal = (temp + hitT * ray.d) / r;
+    s.ray = ray;
+    s.t = hitT;
+    return true;
+  }
+
+  hitT = (-b + e) / denom;  // larger root
+
+  if (t > kEpsilon) {
+    t = hitT;
+    // Update ShadeInfo contents
+    s.hit = true;
+    s.material_ptr = this->get_material();
+    s.hit_point = ray.o + (t * ray.d);
+    s.normal = (temp + t * ray.d) / r;
+    s.ray = ray;
+    s.t = hitT;
+    return true;
+  }
+
   return false;
 }

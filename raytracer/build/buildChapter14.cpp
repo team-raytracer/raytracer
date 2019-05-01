@@ -1,5 +1,3 @@
-// Copyright 2019 Group D
-
 /**
    This builds a scene that consists of 35 shaded spheres and a plane.
    Perspective viewing is used with a single sample per pixel.
@@ -14,15 +12,16 @@
 #include "../materials/Cosine.hpp"
 #include "../samplers/Simple.hpp"
 #include "../utilities/Constants.hpp"
+#include "../utilities/Vector3D.hpp"
 #include "../world/World.hpp"
 
 void World::build(void) {
   // view plane
   vplane.top_left.x = -200;
-  vplane.top_left.y = -200;
+  vplane.top_left.y = 200;
   vplane.top_left.z = 100;
   vplane.bottom_right.x = 200;
-  vplane.bottom_right.y = 200;
+  vplane.bottom_right.y = -200;
   vplane.bottom_right.z = 100;
   vplane.hres = 400;
   vplane.vres = 400;
