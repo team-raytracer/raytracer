@@ -2,6 +2,7 @@
 
 #include <stddef.h>
 #include <vector>
+#include <iostream>
 #include "materials/Material.hpp"
 #include "samplers/Sampler.hpp"
 #include "utilities/Image.hpp"
@@ -28,6 +29,7 @@ int main(int argc, char** argv) {
         ShadeInfo sinfo = world.hit_objects(ray);
         if (sinfo.hit) {
           pixel_color += weight * sinfo.material_ptr->shade(sinfo);
+          std::cout << "hit" << std::endl;
         } else {
           pixel_color += weight * world.bg_color;
         }

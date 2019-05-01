@@ -24,7 +24,7 @@ all: raytracer
 
 # Builds the executable
 # Important: Change the first dependency to the build you are using
-raytracer: obj/buildHelloWorld.o \
+raytracer: obj/buildChapter14.o \
 	obj/Parallel.o obj/Perspective.o \
 	obj/Geometry.o obj/Plane.o obj/Sphere.o obj/Triangle.o \
 	obj/Light.o obj/Ambient.o obj/Directional.o obj/Point.o obj/Spotlight.o \
@@ -132,8 +132,8 @@ obj/Cosine.o: materials/Cosine.cpp materials/Cosine.hpp materials/Material.hpp \
 obj/Sampler.o: samplers/Sampler.cpp samplers/Sampler.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ samplers/Sampler.cpp
 
-obj/Simple.o: samplers/Simple.cpp samplers/Simple.hpp samplers/Sampler.hpp \
-	utilities/Ray.hpp obj
+obj/Simple.o: samplers/Simple.cpp samplers/Simple.hpp cameras/Camera.hpp \
+	samplers/Sampler.hpp utilities/Ray.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ samplers/Simple.cpp
 
 ################################################################################

@@ -1,5 +1,7 @@
 #include "Simple.hpp"
+#include <iostream>
 #include <vector>
+#include "../cameras/Camera.hpp"
 #include "../utilities/Ray.hpp"
 #include "../world/ViewPlane.hpp"
 
@@ -9,6 +11,7 @@ Simple* Simple::clone() const { return new Simple(*this); }
 
 std::vector<Ray> Simple::get_rays(size_t px, size_t py) const {
   std::vector<Ray> rays;
-  rays.push_back(Ray(viewplane_ptr->getPixelPoint(px, py), Vector3D(0, 0, -1)));
+  Point3D origin = viewplane_ptr->getPixelPoint(px, py);
+  rays.push_back(Ray(origin, camera_ptr->get_direction(origin)));
   return rays;
 }
