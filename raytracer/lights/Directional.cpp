@@ -21,6 +21,4 @@ Vector3D Directional::get_direction(const ShadeInfo& sinfo) const {
   return dir;
 }
 
-RGBColor Directional::L(const ShadeInfo& sinfo) const {
-  return color;
-}
+RGBColor Directional::L(const ShadeInfo& sinfo) const { return color; }

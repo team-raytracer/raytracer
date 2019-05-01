@@ -16,7 +16,7 @@ class ShadeInfo;
 class Light {
  protected:
   RGBColor color;  // the light's color.
-  float ls; // luminance
+  float ls;        // luminance
 
  public:
   // Constructors.
