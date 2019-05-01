@@ -26,6 +26,9 @@ class World {
  public:
   ViewPlane vplane;
   RGBColor bg_color;
+
+  // We own all of these pointers and are responsible for deallocating their 
+  // memory when we are done with them
   std::vector<Geometry*> geometry;
   std::vector<Light*> lights;
   Camera* camera_ptr;
@@ -37,7 +40,10 @@ class World {
 
  public:
   // Constructors.
-  World();  // initialize members.
+  World() = default;  // initialize members.
+
+  World(const World&) = delete;
+  World& operator=(const World&) = delete;
 
   // Destructor.
   ~World();  // free memory.

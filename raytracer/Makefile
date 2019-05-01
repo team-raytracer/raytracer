@@ -29,16 +29,16 @@ raytracer: obj/buildHelloWorld.o \
 	obj/Geometry.o obj/Plane.o obj/Sphere.o obj/Triangle.o \
 	obj/Light.o obj/Ambient.o obj/Directional.o obj/Point.o obj/Spotlight.o \
 	obj/Cosine.o \
-	obj/Sampler.o obj/Simple.o \
+	obj/Simple.o \
 	obj/Image.o obj/Point3D.o obj/Ray.o	obj/RGBColor.o obj/ShadeInfo.o \
 	obj/Vector3D.o \
 	obj/ViewPlane.o obj/World.o \
 	obj/raytracer.o
 	$(CXX) -o $@ $^
 
-obj/raytracer.o: raytracer.cpp build/buildHelloWorld.cpp materials/Material.hpp \
-	samplers/Sampler.hpp utilities/Image.hpp utilities/ShadeInfo.hpp \
-	world/World.hpp obj
+obj/raytracer.o: raytracer.cpp build/buildHelloWorld.cpp \
+	materials/Material.hpp samplers/Sampler.hpp utilities/Image.hpp \
+	utilities/ShadeInfo.hpp	world/World.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ raytracer.cpp
 
 ################################################################################
@@ -87,9 +87,10 @@ obj/Sphere.o: geometry/Sphere.cpp geometry/Sphere.hpp geometry/Geometry.hpp \
 	utilities/Ray.hpp utilities/ShadeInfo.hpp utilities/Vector3D.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ geometry/Sphere.cpp
 
-obj/Triangle.o: geometry/Triangle.cpp geometry/Triangle.hpp geometry/Geometry.hpp \
-	materials/Material.hpp utilities/Constants.hpp utilities/Point3D.hpp \
-	utilities/Ray.hpp utilities/ShadeInfo.hpp utilities/Vector3D.hpp obj
+obj/Triangle.o: geometry/Triangle.cpp geometry/Triangle.hpp \
+	geometry/Geometry.hpp materials/Material.hpp utilities/Constants.hpp \
+	utilities/Point3D.hpp utilities/Ray.hpp utilities/ShadeInfo.hpp \
+	utilities/Vector3D.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ geometry/Triangle.cpp
 
 ################################################################################
@@ -103,8 +104,8 @@ obj/Ambient.o: lights/Ambient.cpp lights/Ambient.hpp lights/Light.hpp \
 	utilities/RGBColor.hpp utilities/Vector3D.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ lights/Ambient.cpp
 
-obj/Directional.o: lights/Directional.cpp lights/Directional.hpp lights/Light.hpp \
-	utilities/RGBColor.hpp utilities/Vector3D.hpp obj
+obj/Directional.o: lights/Directional.cpp lights/Directional.hpp \
+	lights/Light.hpp utilities/RGBColor.hpp utilities/Vector3D.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ lights/Directional.cpp
 
 obj/Point.o: lights/Point.cpp lights/Point.hpp lights/Light.hpp \
@@ -128,9 +129,6 @@ obj/Cosine.o: materials/Cosine.cpp materials/Cosine.hpp materials/Material.hpp \
 # Samplers
 ################################################################################
 
-obj/Sampler.o: samplers/Sampler.cpp samplers/Sampler.hpp obj
-	$(CXX) -c $(CXXFLAGS) -o $@ samplers/Sampler.cpp
-
 obj/Simple.o: samplers/Simple.cpp samplers/Simple.hpp samplers/Sampler.hpp \
 	utilities/Ray.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ samplers/Simple.cpp
@@ -143,8 +141,8 @@ obj/Image.o: utilities/Image.cpp utilities/Image.hpp utilities/RGBColor.hpp \
 	world/ViewPlane.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ utilities/Image.cpp
 
-obj/Point3D.o: utilities/Point3D.cpp utilities/Point3D.hpp utilities/Vector3D.hpp \
-	obj
+obj/Point3D.o: utilities/Point3D.cpp utilities/Point3D.hpp \
+	utilities/Vector3D.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ utilities/Point3D.cpp
 
 obj/Ray.o: utilities/Ray.cpp utilities/Ray.hpp utilities/Point3D.hpp \
@@ -155,7 +153,8 @@ obj/RGBColor.o: utilities/RGBColor.cpp utilities/RGBColor.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ utilities/RGBColor.cpp
 
 obj/ShadeInfo.o: utilities/ShadeInfo.cpp utilities/ShadeInfo.hpp \
-	utilities/Point3D.hpp utilities/Ray.hpp	utilities/Vector3D.hpp obj
+	utilities/Constants.hpp utilities/Point3D.hpp utilities/Ray.hpp	\
+	utilities/Vector3D.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ utilities/ShadeInfo.cpp
 
 obj/Vector3D.o: utilities/Vector3D.cpp utilities/Vector3D.hpp \
@@ -166,11 +165,12 @@ obj/Vector3D.o: utilities/Vector3D.cpp utilities/Vector3D.hpp \
 # World
 ################################################################################
 
-obj/ViewPlane.o: world/ViewPlane.cpp world/ViewPlane.hpp utilities/Point3D.hpp obj
+obj/ViewPlane.o: world/ViewPlane.cpp world/ViewPlane.hpp utilities/Point3D.hpp \
+	obj
 	$(CXX) -c $(CXXFLAGS) -o $@ world/ViewPlane.cpp
 
-obj/World.o: world/World.cpp world/World.hpp utilities/Point3D.hpp \
-	utilities/RGBColor.hpp utilities/ShadeInfo.hpp obj
+obj/World.o: world/World.cpp world/World.hpp geometry/Geometry.hpp \
+	utilities/Point3D.hpp utilities/RGBColor.hpp utilities/ShadeInfo.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ world/World.cpp
 
 ################################################################################
