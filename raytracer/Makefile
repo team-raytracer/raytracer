@@ -1,15 +1,15 @@
 ################################################################################
 # Ben Baral, Matthew Calligaro, Julia Read, David Sobek
-# Team D 
+# Team D
 # April 24, 2019
 # Makefile for Ray Tracer project
 #
-# Usage: Copy this Makefile into your raytracer directory.  In bash (or an 
-# equivalent shell program), enter the command "make" to compile the 
+# Usage: Copy this Makefile into your raytracer directory.  In bash (or an
+# equivalent shell program), enter the command "make" to compile the
 # "raytracer" executable.
 #
 # Note: As you add more functionality to your race tracer, you will likely
-# need to create new targets to make the object (.o) files associated with your 
+# need to create new targets to make the object (.o) files associated with your
 # new classes.  You may also need to update the dependencies of certain targets
 # if they #include your new class
 #
@@ -84,7 +84,7 @@ obj/Plane.o: geometry/Plane.cpp geometry/Plane.hpp geometry/Geometry.hpp \
 
 obj/Sphere.o: geometry/Sphere.cpp geometry/Sphere.hpp geometry/Geometry.hpp \
 	materials/Material.hpp utilities/Constants.hpp utilities/Point3D.hpp \
-	utilities/Ray.hpp utilities/ShadeInfo.hpp obj	
+	utilities/Ray.hpp utilities/ShadeInfo.hpp utilities/Vector3D.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ geometry/Sphere.cpp
 
 obj/Triangle.o: geometry/Triangle.cpp geometry/Triangle.hpp geometry/Geometry.hpp \
@@ -140,7 +140,7 @@ obj/Simple.o: samplers/Simple.cpp samplers/Simple.hpp samplers/Sampler.hpp \
 ################################################################################
 
 obj/Image.o: utilities/Image.cpp utilities/Image.hpp utilities/RGBColor.hpp \
-	world/ViewPlane.hpp obj	
+	world/ViewPlane.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ utilities/Image.cpp
 
 obj/Point3D.o: utilities/Point3D.cpp utilities/Point3D.hpp utilities/Vector3D.hpp \

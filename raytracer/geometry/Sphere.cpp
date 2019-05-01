@@ -2,6 +2,7 @@
 #include <cmath>
 #include "../utilities/Constants.hpp"
 #include "../utilities/Point3D.hpp"
+#include "../utilities/Vector3D.hpp"
 
 Sphere::Sphere() : c{Point3D()}, r{0} {}
 
