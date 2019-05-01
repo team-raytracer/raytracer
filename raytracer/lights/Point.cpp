@@ -24,6 +24,5 @@ Vector3D Point::get_direction(const ShadeInfo& sinfo) const {
 
 // luminance from this light source at hit point
 RGBColor Point::L(const ShadeInfo& sinfo) const {
-  RGBColor temp;
-  return temp;
+  return ls * color;
 }
