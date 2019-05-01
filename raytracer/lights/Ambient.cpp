@@ -9,9 +9,7 @@ Ambient::Ambient(float r, float g, float b) : Light(r, g, b) {}
 
 Ambient::Ambient(const RGBColor& _color) : Light(_color) {}
 
-Ambient* Ambient::clone() const {
-  return new Ambient(*this);
-}
+Ambient* Ambient::clone() const { return new Ambient(*this); }
 
 // normalized direction vector from light source to hit point
 Vector3D Ambient::get_direction(const ShadeInfo& sinfo) const {

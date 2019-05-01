@@ -9,21 +9,13 @@ Point::Point(float r, float g, float b) : Light(r, g, b) {}
 
 Point::Point(const RGBColor& _color) : Light(_color) {}
 
-Point* Point::clone() const {
-  return new Point(*this);
-}
+Point* Point::clone() const { return new Point(*this); }
 
-void Point::set_position(float c) {
-  pos = Point3D(c, c, c);
-}
+void Point::set_position(float c) { pos = Point3D(c, c, c); }
 
-void Point::set_position(float x, float y, float z) {
-  pos = Point3D(x, y, z);
-}
+void Point::set_position(float x, float y, float z) { pos = Point3D(x, y, z); }
 
-void Point::set_position(const Point3D& pt) {
-  pos = pt;
-}
+void Point::set_position(const Point3D& pt) { pos = pt; }
 
 // normalized direction vector from light source to hit point
 Vector3D Point::get_direction(const ShadeInfo& sinfo) const {

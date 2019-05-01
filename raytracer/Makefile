@@ -3,6 +3,7 @@ CXXFLAGS = -g -std=c++1z -Wall -Wextra -pedantic
 
 all: raytracer
 
+# Builds the executable
 # Be careful to only list the build that you are using as a dependency
 raytracer: buildHelloWorld.o Parallel.o Perspective.o \
 	Geometry.o Plane.o Sphere.o Triangle.o Light.o Ambient.o Directional.o \
@@ -95,7 +96,7 @@ Spotlight.o: lights/Spotlight.cpp lights/Light.hpp utilities/RGBColor.hpp \
 ################################################################################
 
 Cosine.o: materials/Cosine.cpp materials/Material.hpp utilities/RGBColor.hpp \
-	materials/Cosine.hpp
+	utilities/ShadeInfo.hpp materials/Cosine.hpp
 	$(CXX) -c $(CXXFLAGS) materials/Cosine.cpp
 
 ################################################################################
@@ -149,9 +150,11 @@ World.o: world/World.cpp utilities/Point3D.hpp utilities/RGBColor.hpp \
 # Other
 ################################################################################
 
+# removes executable and all object files
 clean:
 	rm -f raytracer *.o
 
+# formats code and suggestions improvements according to cpplint
 clean-code:
 	clang-format --style=google -i **/*.*pp
 	-cpplint **/*.cpp

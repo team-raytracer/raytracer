@@ -19,9 +19,9 @@ Image::Image(const ViewPlane& vpane)
 
 Image::~Image() {
   for (size_t r = 0; r < hres; ++r) {
-    delete colors[r];
+    delete[] colors[r];
   }
-  delete colors;
+  delete[] colors;
 }
 
 void Image::set_pixel(size_t x, size_t y, RGBColor color) {
