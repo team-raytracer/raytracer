@@ -1,16 +1,16 @@
 #include "Cosine.hpp"
+#include "../utilities/ShadeInfo.hpp"
 
-Cosine::Cosine() {}
+Cosine::Cosine() : color{0, 0, 0} {}
 
-Cosine::Cosine(float c) {}
+Cosine::Cosine(float c) : color{c} {}
 
-Cosine::Cosine(float r, float g, float b) {}
+Cosine::Cosine(float r, float g, float b) : color{r, g, b} {}
 
-Cosine::Cosine(const RGBColor& c) {}
+Cosine::Cosine(const RGBColor& c) : color{c} {}
 
-Cosine* Cosine::clone() const { return nullptr; }
+Cosine* Cosine::clone() const { return new Cosine(*this); }
 
 RGBColor Cosine::shade(const ShadeInfo& sinfo) const {
-  RGBColor temp;
-  return temp;
+  return color * (sinfo.normal * -sinfo.ray.d);
 }
