@@ -1,5 +1,8 @@
 #include "World.hpp"
+#include "../cameras/Camera.hpp"
 #include "../geometry/Geometry.hpp"
+#include "../lights/Light.hpp"
+#include "../samplers/Sampler.hpp"
 #include "../utilities/ShadeInfo.hpp"
 
 World::~World() {

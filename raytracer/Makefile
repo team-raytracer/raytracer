@@ -172,7 +172,8 @@ obj/ViewPlane.o: world/ViewPlane.cpp world/ViewPlane.hpp utilities/Point3D.hpp \
 	utilities/Vector3D.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ world/ViewPlane.cpp
 
-obj/World.o: world/World.cpp world/World.hpp geometry/Geometry.hpp \
+obj/World.o: world/World.cpp world/World.hpp cameras/Camera.hpp \
+	geometry/Geometry.hpp lights/Light.hpp samplers/Sampler.hpp \
 	utilities/Point3D.hpp utilities/RGBColor.hpp utilities/ShadeInfo.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ world/World.cpp
 
