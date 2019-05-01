@@ -18,10 +18,9 @@ void Directional::set_direction(const Vector3D& d) { dir = d; }
 
 // normalized direction vector from light source to hit point
 Vector3D Directional::get_direction(const ShadeInfo& sinfo) const {
-  return Vector3D(dir).normalize();
+  return dir;
 }
 
 RGBColor Directional::L(const ShadeInfo& sinfo) const {
-  RGBColor temp;
-  return temp;
+  return color;
 }
