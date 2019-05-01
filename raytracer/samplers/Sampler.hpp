@@ -13,6 +13,7 @@
    Courtesy Kevin Suffern.
 */
 
+#include <stddef.h>
 #include <vector>
 
 class Camera;
@@ -21,28 +22,30 @@ class Ray;
 
 class Sampler {
  protected:
+  // Note: we do not own either of these pointers, so are not responsible
+  // for allocating/deallocating their space
   Camera* camera_ptr;        // the camera that decides the projectors.
   ViewPlane* viewplane_ptr;  // the view plane through which rays are shot.
 
  public:
   // Constructors.
-  Sampler();                                 // initializes members to NULL.
+  Sampler() = default;                       // initializes members to NULL.
   Sampler(Camera* c_ptr, ViewPlane* v_ptr);  // set members.
 
   // Copy constuctor and assignment operator.
-  Sampler(const Sampler& camera);
-  Sampler& operator=(const Sampler& other);
+  Sampler(const Sampler& camera) = default;
+  Sampler& operator=(const Sampler& other) = default;
 
   // Virtual copy constructor.
   virtual Sampler* clone() const = 0;
 
   // Desctructor.
-  virtual ~Sampler();
+  virtual ~Sampler() = default;
 
   // Get rays corresponding to a pixel in the view plane. px and py are 0-based
   // indexes of the pixel in the view plane, with the origin at the top left of
   // the view plane.
-  std::vector<Ray> virtual get_rays(int px, int py) const = 0;
+  std::vector<Ray> virtual get_rays(size_t px, size_t py) const = 0;
 };
 
 #endif  // RAYTRACER_SAMPLERS_SAMPLER_HPP_

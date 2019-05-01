@@ -27,7 +27,7 @@ class World {
   ViewPlane vplane;
   RGBColor bg_color;
 
-  // We own all of these pointers and are responsible for deallocating their 
+  // We own all of these pointers and are responsible for deallocating their
   // memory when we are done with them
   std::vector<Geometry*> geometry;
   std::vector<Light*> lights;

@@ -29,7 +29,7 @@ raytracer: obj/buildHelloWorld.o \
 	obj/Geometry.o obj/Plane.o obj/Sphere.o obj/Triangle.o \
 	obj/Light.o obj/Ambient.o obj/Directional.o obj/Point.o obj/Spotlight.o \
 	obj/Cosine.o \
-	obj/Simple.o \
+	obj/Sampler.o obj/Simple.o \
 	obj/Image.o obj/Point3D.o obj/Ray.o	obj/RGBColor.o obj/ShadeInfo.o \
 	obj/Vector3D.o \
 	obj/ViewPlane.o obj/World.o \
@@ -129,6 +129,9 @@ obj/Cosine.o: materials/Cosine.cpp materials/Cosine.hpp materials/Material.hpp \
 # Samplers
 ################################################################################
 
+obj/Sampler.o: samplers/Sampler.cpp samplers/Sampler.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ samplers/Sampler.cpp
+
 obj/Simple.o: samplers/Simple.cpp samplers/Simple.hpp samplers/Sampler.hpp \
 	utilities/Ray.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ samplers/Simple.cpp
@@ -166,7 +169,7 @@ obj/Vector3D.o: utilities/Vector3D.cpp utilities/Vector3D.hpp \
 ################################################################################
 
 obj/ViewPlane.o: world/ViewPlane.cpp world/ViewPlane.hpp utilities/Point3D.hpp \
-	obj
+	utilities/Vector3D.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ world/ViewPlane.cpp
 
 obj/World.o: world/World.cpp world/World.hpp geometry/Geometry.hpp \

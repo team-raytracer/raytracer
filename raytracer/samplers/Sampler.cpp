@@ -1,11 +1,4 @@
 #include "Sampler.hpp"
 
-Sampler::Sampler() {}
-
-Sampler::Sampler(Camera* c_ptr, ViewPlane* v_ptr) {}
-
-Sampler::Sampler(const Sampler& camera) {}
-
-Sampler& Sampler::operator=(const Sampler& other) { return *this; }
-
-Sampler::~Sampler() {}
+Sampler::Sampler(Camera* c_ptr, ViewPlane* v_ptr)
+    : camera_ptr{c_ptr}, viewplane_ptr{v_ptr} {}

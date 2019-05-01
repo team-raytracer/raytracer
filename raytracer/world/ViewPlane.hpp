@@ -31,6 +31,8 @@ class ViewPlane {
 
   // Destructor.
   ~ViewPlane() = default;
+
+  Point3D getPixelPoint(size_t, size_t) const;
 };
 
 #endif  // RAYTRACER_WORLD_VIEWPLANE_HPP_
