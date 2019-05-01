@@ -16,7 +16,7 @@ bool Plane::hit(const Ray& ray, float& t, ShadeInfo& s) const {
   // taken from the book
   double hitT = (a - ray.o) * n / (ray.d * n);
 
-  if (t > kEpsilon) {
+  if (hitT > kEpsilon) {
     t = hitT;
     // Update ShadeInfo contents
     s.hit = true;

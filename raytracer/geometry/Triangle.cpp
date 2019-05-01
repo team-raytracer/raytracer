@@ -48,7 +48,7 @@ bool Triangle::hit(const Ray& ray, float& t, ShadeInfo& s) const {
   double e3 = a_d * p - b_d * r + d * s_d;
   double hitT = e3 * inv_denom;
 
-  if (t < kEpsilon) {
+  if (hitT < kEpsilon) {
     return false;
   }
 
