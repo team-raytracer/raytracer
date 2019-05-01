@@ -24,7 +24,7 @@ all: raytracer
 
 # Builds the executable
 # Important: Change the first dependency to the build you are using
-raytracer: obj/buildChapter14.o \
+raytracer: obj/buildHelloWorld.o \
 	obj/Parallel.o obj/Perspective.o \
 	obj/Geometry.o obj/Plane.o obj/Sphere.o obj/Triangle.o \
 	obj/Light.o obj/Ambient.o obj/Directional.o obj/Point.o obj/Spotlight.o \
@@ -51,11 +51,18 @@ obj/buildHelloWorld.o: build/buildHelloWorld.cpp cameras/Perspective.hpp \
 	world/World.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ build/buildHelloWorld.cpp
 
-obj/buildChapter14.o: build/buildChapter14.cpp cameras/Perspective.hpp \
+obj/buildChapter14.o: build/buildChapter14.cpp cameras/Parallel.hpp \
 	geometry/Plane.hpp geometry/Sphere.hpp \
 	materials/Cosine.hpp samplers/Simple.hpp utilities/Constants.hpp \
 	world/World.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ build/buildChapter14.cpp
+
+# Add any addition builds you make here
+obj/buildMVP.o: build/buildMVP.cpp cameras/Perspective.hpp \
+	geometry/Plane.hpp geometry/Sphere.hpp geometry/Triangle.hpp \
+	materials/Cosine.hpp samplers/Simple.hpp utilities/Constants.hpp \
+	world/World.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ build/buildMVP.cpp
 
 ################################################################################
 # Cameras
