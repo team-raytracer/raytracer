@@ -27,7 +27,7 @@ bool Sphere::hit(const Ray& ray, float& t, ShadeInfo& s) const {
   double denom = 2.0 * a;
   hitT = (-b - e) / denom;  // smaller root
 
-  if (t > kEpsilon) {
+  if (hitT > kEpsilon) {
     t = hitT;
     // Update ShadeInfo contents
     s.hit = true;
@@ -41,7 +41,7 @@ bool Sphere::hit(const Ray& ray, float& t, ShadeInfo& s) const {
 
   hitT = (-b + e) / denom;  // larger root
 
-  if (t > kEpsilon) {
+  if (hitT > kEpsilon) {
     t = hitT;
     // Update ShadeInfo contents
     s.hit = true;
