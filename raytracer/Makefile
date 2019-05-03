@@ -17,7 +17,9 @@
 # not responsible for any issues it may cause
 ################################################################################
 
+CC=clang
 CXX = clang++
+CFLAGS = -g -std=c11 -Wall -Wextra -pedantic
 CXXFLAGS = -g -std=c++1z -Wall -Wextra -pedantic
 
 all: raytracer
@@ -183,6 +185,13 @@ obj/World.o: world/World.cpp world/World.hpp cameras/Camera.hpp \
 	geometry/Geometry.hpp lights/Light.hpp samplers/Sampler.hpp \
 	utilities/Point3D.hpp utilities/RGBColor.hpp utilities/ShadeInfo.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ world/World.cpp
+
+################################################################################
+# Ply Parsing
+################################################################################
+
+obj/ply_io.o: ply_parsing/ply_io.c ply_parsing/ply_io.h
+	$(CC) -c $(CFLAGS) -o $@ ply_parsing/ply_io.c
 
 ################################################################################
 # Other
