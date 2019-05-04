@@ -26,7 +26,7 @@ all: raytracer
 
 # Builds the executable
 # Important: Change the first dependency to the build you are using
-raytracer: obj/buildHelloWorld.o \
+raytracer: obj/buildChapter14.o \
 	obj/Parallel.o obj/Perspective.o \
 	obj/Geometry.o obj/Plane.o obj/Sphere.o obj/Triangle.o \
 	obj/Light.o obj/Ambient.o obj/Directional.o obj/Point.o obj/Spotlight.o \
@@ -182,16 +182,10 @@ obj/ViewPlane.o: world/ViewPlane.cpp world/ViewPlane.hpp utilities/Point3D.hpp \
 	$(CXX) -c $(CXXFLAGS) -o $@ world/ViewPlane.cpp
 
 obj/World.o: world/World.cpp world/World.hpp cameras/Camera.hpp \
-	geometry/Geometry.hpp lights/Light.hpp samplers/Sampler.hpp \
+	geometry/Geometry.hpp geometry/Triangle.hpp happly/happly.h \
+	lights/Light.hpp materials/Material.hpp samplers/Sampler.hpp \
 	utilities/Point3D.hpp utilities/RGBColor.hpp utilities/ShadeInfo.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ world/World.cpp
-
-################################################################################
-# Ply Parsing
-################################################################################
-
-obj/ply_io.o: ply_parsing/ply_io.c ply_parsing/ply_io.h
-	$(CC) -c $(CFLAGS) -o $@ ply_parsing/ply_io.c
 
 ################################################################################
 # Other
