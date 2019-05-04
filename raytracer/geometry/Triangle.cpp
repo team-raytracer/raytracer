@@ -10,7 +10,7 @@ Triangle::Triangle()
 
 Triangle::Triangle(const Point3D& ap, const Point3D& bp, const Point3D& cp)
     : a{ap}, b{bp}, c{cp} {
-  n = (b - a) ^ (c - a);
+  n = (a - b) ^ (a - c);
 }
 
 Triangle* Triangle::clone() const { return new Triangle(*this); }
