@@ -11,16 +11,6 @@
 
 #include "geometry/Sphere.hpp"
 
-void test() {
-  Sphere s(Point3D(0, 0, 0), 2);
-
-  Ray r(Point3D(0, 0, 5), Vector3D(0, 0, -1));
-
-  float t;
-  ShadeInfo sinfo(nullptr);
-  std::cout << s.hit(r, t, sinfo) << std::endl;
-}
-
 int main(int argc, char** argv) {
   World world;
   world.build();

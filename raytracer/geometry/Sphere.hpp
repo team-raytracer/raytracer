@@ -34,7 +34,7 @@ class Sphere : public Geometry {
   virtual Sphere* clone() const;
 
   // Ray intersection. Set t and sinfo as per intersection with this object.
-  virtual bool hit(const Ray& ray, float& t, ShadeInfo& s) const;
+  virtual bool hit(const Ray& ray, ShadeInfo& s) const;
 };
 
 #endif  // RAYTRACER_GEOMETRY_SPHERE_HPP_
