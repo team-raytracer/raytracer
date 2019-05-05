@@ -8,7 +8,7 @@
 Plane::Plane() : a{0, 0, 0}, n{0, 0, 1} {}
 
 Plane::Plane(const Point3D& pt, const Vector3D& n)
-    : a{pt}, n{n} {}
+    : a{pt}, n{Vector3D(n).normalize()} {}
 
 Plane* Plane::clone() const { return new Plane(*this); }
 
@@ -27,4 +27,6 @@ bool Plane::hit(const Ray& ray, float& t, ShadeInfo& s) const {
     s.t = hitT;
     return true;
   }
+
+  return false;
 }

@@ -46,6 +46,6 @@ void World::build(void) {
 
   // plane
   Plane* plane_ptr = new Plane(Point3D(0, 1, 0), Vector3D(0, 10, 2));
-  plane_ptr->set_material(new Cosine(green));  // green
+  plane_ptr->set_material(new Cosine(0, 1, 0));  // green
   add_geometry(plane_ptr);
 }
