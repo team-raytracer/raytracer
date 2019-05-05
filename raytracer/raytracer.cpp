@@ -1,6 +1,7 @@
 // Copyright 2019 Group D
 
 #include <stddef.h>
+#include <string>
 #include <vector>
 #include <iostream>
 #include "materials/Material.hpp"
@@ -10,6 +11,15 @@
 #include "world/World.hpp"
 
 #include "geometry/Sphere.hpp"
+
+std::string processFilename(const char* input) {
+  std::string filename = input;
+  if (filename.substr(filename.length() - 4) != ".ppm") {
+    filename.append(".ppm");
+  }
+
+  return filename;
+}
 
 int main(int argc, char** argv) {
   World world;
@@ -39,8 +49,10 @@ int main(int argc, char** argv) {
       image.set_pixel(x, y, pixel_color);
     }
   }
+
   // Write image to file.
-  image.write_ppm("scene.ppm");
+  std::string filename = argc > 1 ? processFilename(argv[1]) : "scene.ppm";
+  image.write_ppm(filename);
 
   return 0;
 }
