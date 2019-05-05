@@ -16,6 +16,4 @@ Ray* Simple::get_rays(size_t px, size_t py) const {
   return ret;
 }
 
-size_t Simple::num_rays() const {
-  return 1;
-}
+size_t Simple::num_rays() const { return 1; }
