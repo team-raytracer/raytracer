@@ -68,6 +68,11 @@ obj/buildMVP.o: build/buildMVP.cpp cameras/Perspective.hpp \
 	world/World.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ build/buildMVP.cpp
 
+obj/ply_testing.o: build/ply_testing.cpp cameras/Parallel.hpp \
+	geometry/Plane.hpp materials/Cosine.hpp samplers/Simple.hpp \
+	utilities/Constants.hpp world/World.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ build/ply_testing.cpp
+
 ################################################################################
 # Cameras
 ################################################################################
