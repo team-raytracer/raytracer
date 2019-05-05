@@ -9,9 +9,7 @@ Triangle::Triangle()
     : a{Point3D()}, b{Point3D()}, c{Point3D()}, n{Vector3D()} {}
 
 Triangle::Triangle(const Point3D& ap, const Point3D& bp, const Point3D& cp)
-    : a{ap}, b{bp}, c{cp} {
-  n = (b - a) ^ (c - a);
-}
+    : a{ap}, b{bp}, c{cp}, n{((b - a) ^ (c - a)).normalize()} {}
 
 Triangle* Triangle::clone() const { return new Triangle(*this); }
 

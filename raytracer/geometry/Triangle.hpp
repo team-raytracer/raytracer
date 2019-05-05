@@ -17,7 +17,7 @@
 class Triangle : public Geometry {
  protected:
   Point3D a, b, c;  // the vertices. they must not be colinear.
-  Vector3D n;
+  Vector3D n;       // normal unit vector to the triangle
 
  public:
   // Constructors. Passed vertices are assumed to be ordered for orientation,
