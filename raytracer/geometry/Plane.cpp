@@ -5,28 +5,27 @@
 #include "../utilities/ShadeInfo.hpp"
 #include "../utilities/Vector3D.hpp"
 
-Plane::Plane() : a{Point3D()}, n{Vector3D()} {}
+Plane::Plane() : a{0, 0, 0}, n{0, 0, 1} {}
 
 Plane::Plane(const Point3D& pt, const Vector3D& n)
-    : a{Point3D(pt)}, n{Vector3D(n)} {}
+    : a{pt}, n{Vector3D(n).normalize()} {}
 
 Plane* Plane::clone() const { return new Plane(*this); }
 
-bool Plane::hit(const Ray& ray, float& t, ShadeInfo& s) const {
-  // taken from the book
-  double hitT = (a - ray.o) * n / (ray.d * n);
+bool Plane::hit(const Ray& ray, ShadeInfo& s) const {
+  // Taken from the Suffern 56
+  double t = (a - ray.o) * n / (ray.d * n);
 
-  if (hitT > kEpsilon) {
-    t = hitT;
+  if (t > kEpsilon) {
     // Update ShadeInfo contents
     s.hit = true;
     s.material_ptr = this->get_material();
     s.hit_point = ray.o + (t * ray.d);
     s.normal = n;
     s.ray = ray;
-    s.t = hitT;
+    s.t = t;
     return true;
-  } else {
-    return false;
   }
+
+  return false;
 }

@@ -33,7 +33,9 @@ class Simple : public Sampler {
   virtual ~Simple() = default;
 
   // Shoot a ray of weight 1 through the center of the pixel.
-  std::vector<Ray> get_rays(size_t px, size_t py) const;
+  Ray* get_rays(size_t px, size_t py) const;
+
+  size_t num_rays() const;
 };
 
 #endif  // RAYTRACER_SAMPLERS_SIMPLE_HPP_

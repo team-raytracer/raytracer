@@ -58,10 +58,8 @@ ShadeInfo World::hit_objects(const Ray& ray) {
   ShadeInfo sinfoMin(this);
   ShadeInfo sinfoCur(this);
 
-  float uselessT;  // TODO: remove this once we makes sure it is safe to do so
-
   for (Geometry* geom : geometry) {
-    if (geom->hit(ray, uselessT, sinfoCur) && sinfoCur.t < sinfoMin.t) {
+    if (geom->hit(ray, sinfoCur) && sinfoCur.t < sinfoMin.t) {
       sinfoMin = sinfoCur;
     }
   }

@@ -17,10 +17,12 @@
 # not responsible for any issues it may cause
 ################################################################################
 
-CC=clang
-CXX = clang++
-CFLAGS = -g -std=c11 -Wall -Wextra -pedantic
-CXXFLAGS = -g -std=c++1z -Wall -Wextra -pedantic
+CXX = g++
+CXXFLAGS = -g -std=c++1z -Wall -Wextra -pedantic -O3
+
+# Used by Open MP for multi-threading
+# Change to "OMPFLAGS =" if you do not multi-thread
+OMPFLAGS = -fopenmp
 
 all: raytracer
 
@@ -36,12 +38,12 @@ raytracer: obj/buildChapter14.o \
 	obj/Vector3D.o \
 	obj/ViewPlane.o obj/World.o \
 	obj/raytracer.o
-	$(CXX) -o $@ $^
+	$(CXX) $(OMPFLAGS) -o $@ $^
 
 obj/raytracer.o: raytracer.cpp build/buildHelloWorld.cpp \
 	materials/Material.hpp samplers/Sampler.hpp utilities/Image.hpp \
 	utilities/ShadeInfo.hpp	world/World.hpp obj
-	$(CXX) -c $(CXXFLAGS) -o $@ raytracer.cpp
+	$(CXX) $(OMPFLAGS) -c $(CXXFLAGS) -o $@ raytracer.cpp
 
 ################################################################################
 # Builds
