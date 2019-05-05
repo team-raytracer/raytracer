@@ -1,16 +1,13 @@
-// Copyright 2019 Group D
-
 #include <stddef.h>
 #include <string>
 #include <vector>
-#include <iostream>
 #include "materials/Material.hpp"
 #include "samplers/Sampler.hpp"
 #include "utilities/Image.hpp"
 #include "utilities/ShadeInfo.hpp"
 #include "world/World.hpp"
 
-#include "geometry/Sphere.hpp"
+const std::string defaultFilename = "scene.ppm";
 
 std::string processFilename(const char* input) {
   std::string filename = input;
@@ -51,7 +48,7 @@ int main(int argc, char** argv) {
   }
 
   // Write image to file.
-  std::string filename = argc > 1 ? processFilename(argv[1]) : "scene.ppm";
+  std::string filename = argc > 1 ? processFilename(argv[1]) : defaultFilename;
   image.write_ppm(filename);
 
   return 0;
