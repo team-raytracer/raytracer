@@ -45,7 +45,10 @@ class Sampler {
   // Get rays corresponding to a pixel in the view plane. px and py are 0-based
   // indexes of the pixel in the view plane, with the origin at the top left of
   // the view plane.
-  std::vector<Ray> virtual get_rays(size_t px, size_t py) const = 0;
+  virtual Ray* get_rays(size_t px, size_t py) const = 0;
+
+  // Returns the number of rays per pixel cast by the sampler
+  virtual size_t num_rays() const = 0;
 };
 
 #endif  // RAYTRACER_SAMPLERS_SAMPLER_HPP_
