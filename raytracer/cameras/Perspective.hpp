@@ -19,7 +19,7 @@ class Perspective : public Camera {
   // Constructors.
 
   // set pos to origin.
-  Perspective();
+  Perspective() = default;
 
   // set pos to (c, c, c).
   explicit Perspective(float c);

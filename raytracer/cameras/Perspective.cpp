@@ -3,11 +3,6 @@
 
 /* Perspective Constructors */
 
-// Default Constructor
-Perspective::Perspective() : pos{Point3D()} {
-  // nothing else to do
-}
-
 // Construct camera with pos (c, c, c)
 Perspective::Perspective(float c) : pos{Point3D(c)} {
   // nothing else to do
