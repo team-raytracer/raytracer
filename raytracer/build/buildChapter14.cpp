@@ -2,7 +2,6 @@
    This builds a scene that consists of 35 shaded spheres and a plane.
    Perspective viewing is used with a single sample per pixel.
    The spheres are the same as those in the Chapter 14 page one image.
-
    Courtesy Kevin Suffern.
 */
 
