@@ -33,7 +33,7 @@ raytracer: obj/buildChapter14.o \
 	obj/Parallel.o obj/Perspective.o \
 	obj/Geometry.o obj/Plane.o obj/Sphere.o obj/Triangle.o \
 	obj/Light.o obj/Ambient.o obj/Directional.o obj/Point.o obj/Spotlight.o \
-	obj/Cosine.o \
+	obj/Cosine.o obj/Matte.o \
 	obj/Sampler.o obj/Simple.o \
 	obj/Image.o obj/Point3D.o obj/Ray.o	obj/RGBColor.o obj/ShadeInfo.o \
 	obj/Vector3D.o \
@@ -162,6 +162,10 @@ obj/Spotlight.o: lights/Spotlight.cpp lights/Spotlight.hpp lights/Light.hpp \
 obj/Cosine.o: materials/Cosine.cpp materials/Cosine.hpp materials/Material.hpp \
 	utilities/RGBColor.hpp utilities/ShadeInfo.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ materials/Cosine.cpp
+
+obj/Matte.o: materials/Matte.cpp materials/Matte.hpp materials/Material.hpp \
+	utilities/RGBColor.hpp utilities/ShadeInfo.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ materials/Matte.cpp
 
 ################################################################################
 # Samplers
