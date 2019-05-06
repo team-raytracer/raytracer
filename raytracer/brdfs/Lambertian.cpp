@@ -1,5 +1,4 @@
 #include "Lambertian.hpp"
-#include "../utilities/Constants.hpp"
 #include "../utilities/Point3D.hpp"
 
 Lambertian::Lambertian() : BRDF(), kd(0.0), cd(0.0) {}
@@ -39,4 +38,14 @@ RGBColor Lambertian::sample_f(const ShadeInfo&, const Vector3D&,
 
 RGBColor Lambertian::rho(const ShadeInfo&, const Vector3D&) const {
 	return (kd * cd);
+}
+
+void Lambertian::set_ka(const float k) { kd = k; }
+void Lambertian::set_kd(const float k) { kd = k; }
+void Lambertian::set_cd(const RGBColor& c) { cd = c; }
+void Lambertian::set_cd(const float r, const float g, const float b) {
+	cd.r = r; cd.g = g; cd.b = b;
+}
+void Lambertian::set_cd(const float c) {
+	cd.r = c; cd.g = c; cd.b = c;
 }
