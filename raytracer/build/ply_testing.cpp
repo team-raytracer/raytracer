@@ -32,7 +32,8 @@ void World::build(void) {
   set_camera(new Parallel(0, 0, -1));
   sampler_ptr = new Simple(camera_ptr, &vplane);
 
-  add_ply("ply_files/bun_zipper_res4.ply", new Cosine(blue));
+  // filename goes here
+  add_ply("", new Cosine(blue));
 
   // vertical plane
   Plane* plane_ptr = new Plane(Point3D(0, 0, -150), Vector3D(0, 0, 1));
