@@ -30,7 +30,7 @@ all: raytracer
 # Important: Change the first dependency to the build you are using
 raytracer: obj/buildMVP.o \
 	obj/Parallel.o obj/Perspective.o \
-	obj/Geometry.o obj/Plane.o obj/Sphere.o obj/Triangle.o \
+	obj/Geometry.o obj/Plane.o obj/Sphere.o obj/Triangle.o obj/SmoothTriangle.o \
 	obj/Light.o obj/Ambient.o obj/Directional.o obj/Point.o obj/Spotlight.o \
 	obj/Cosine.o \
 	obj/Sampler.o obj/Simple.o obj/Quad.o \
@@ -113,6 +113,12 @@ obj/Triangle.o: geometry/Triangle.cpp geometry/Triangle.hpp \
 	utilities/Point3D.hpp utilities/Ray.hpp utilities/ShadeInfo.hpp \
 	utilities/Vector3D.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ geometry/Triangle.cpp
+
+obj/SmoothTriangle.o: geometry/SmoothTriangle.cpp geometry/SmoothTriangle.hpp \
+	geometry/Geometry.hpp materials/Material.hpp utilities/Constants.hpp \
+	utilities/Point3D.hpp utilities/Ray.hpp utilities/ShadeInfo.hpp \
+	utilities/Vector3D.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ geometry/SmoothTriangle.cpp
 
 ################################################################################
 # Lights
@@ -199,8 +205,8 @@ obj/ViewPlane.o: world/ViewPlane.cpp world/ViewPlane.hpp utilities/Point3D.hpp \
 	$(CXX) -c $(CXXFLAGS) -o $@ world/ViewPlane.cpp
 
 obj/World.o: world/World.cpp world/World.hpp cameras/Camera.hpp \
-	geometry/Geometry.hpp geometry/Triangle.hpp happly/happly.h \
-	lights/Light.hpp materials/Material.hpp samplers/Sampler.hpp \
+	geometry/Geometry.hpp geometry/SmoothTriangle.hpp geometry/Triangle.hpp \
+	happly/happly.h lights/Light.hpp materials/Material.hpp samplers/Sampler.hpp \
 	utilities/Point3D.hpp utilities/RGBColor.hpp utilities/ShadeInfo.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ world/World.cpp
 
