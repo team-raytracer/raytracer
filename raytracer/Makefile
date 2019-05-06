@@ -195,7 +195,7 @@ obj/ViewPlane.o: world/ViewPlane.cpp world/ViewPlane.hpp utilities/Point3D.hpp \
 	$(CXX) -c $(CXXFLAGS) -o $@ world/ViewPlane.cpp
 
 obj/World.o: world/World.cpp world/World.hpp cameras/Camera.hpp \
-	geometry/Geometry.hpp geometry/Triangle.hpp geometry/SmoothTriangle.hpp \
+	geometry/Geometry.hpp geometry/SmoothTriangle.hpp geometry/Triangle.hpp \
 	happly/happly.h lights/Light.hpp materials/Material.hpp samplers/Sampler.hpp \
 	utilities/Point3D.hpp utilities/RGBColor.hpp utilities/ShadeInfo.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ world/World.cpp
