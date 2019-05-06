@@ -28,20 +28,20 @@ all: raytracer
 
 # Builds the executable
 # Important: Change the first dependency to the build you are using
-raytracer: obj/buildChapter14.o \
-	obj/GlossySpecular.o obj/Lambertian.o obj/PerfectSpecular.o \
+raytracer: obj/buildLightTest.o \
+	obj/Lambertian.o \
 	obj/Parallel.o obj/Perspective.o \
 	obj/Geometry.o obj/Plane.o obj/Sphere.o obj/Triangle.o \
 	obj/Light.o obj/Ambient.o obj/Directional.o obj/Point.o obj/Spotlight.o \
 	obj/Cosine.o obj/Matte.o \
-	obj/Sampler.o obj/Simple.o \
-	obj/Image.o obj/Point3D.o obj/Ray.o	obj/RGBColor.o obj/ShadeInfo.o \
-	obj/Vector3D.o \
+	obj/newSampler.o obj/Sampler.o obj/Simple.o \
+	obj/Image.o obj/Point2D.o obj/Point3D.o obj/Ray.o	obj/RGBColor.o \
+	obj/ShadeInfo.o obj/Vector3D.o \
 	obj/ViewPlane.o obj/World.o \
 	obj/raytracer.o
 	$(CXX) $(OMPFLAGS) -o $@ $^
 
-obj/raytracer.o: raytracer.cpp build/buildHelloWorld.cpp \
+obj/raytracer.o: raytracer.cpp build/buildLightTest.cpp \
 	materials/Material.hpp samplers/Sampler.hpp utilities/Image.hpp \
 	utilities/ShadeInfo.hpp	world/World.hpp obj
 	$(CXX) $(OMPFLAGS) -c $(CXXFLAGS) -o $@ raytracer.cpp
@@ -61,6 +61,12 @@ obj/buildChapter14.o: build/buildChapter14.cpp cameras/Parallel.hpp \
 	materials/Cosine.hpp samplers/Simple.hpp utilities/Constants.hpp \
 	world/World.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ build/buildChapter14.cpp
+
+obj/buildLightTest.o: build/buildLightTest.cpp cameras/Perspective.hpp \
+	geometry/Plane.hpp geometry/Sphere.hpp geometry/Triangle.hpp \
+	materials/Matte.hpp samplers/Simple.hpp utilities/Constants.hpp \
+	world/World.hpp lights/Ambient.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ build/buildLightTest.cpp
 
 # Add any addition builds you make here
 obj/buildMVP.o: build/buildMVP.cpp cameras/Perspective.hpp \
@@ -86,7 +92,7 @@ obj/GlossySpecular.o: brdfs/GlossySpecular.cpp brdfs/GlossySpecular.hpp \
 
 obj/Lambertian.o: brdfs/Lambertian.cpp brdfs/Lambertian.hpp brdfs/BRDF.hpp \
 	utilities/Constants.hpp utilities/RGBColor.hpp utilities/Vector3D.hpp \
-	utilities/Point3D.hpp utilities/ShadeInfo.hpp samplers/Sampler.hpp obj
+	utilities/Point3D.hpp utilities/ShadeInfo.hpp samplers/newSampler.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ brdfs/Lambertian.cpp
 
 obj/PerfectSpecular.o: brdfs/PerfectSpecular.cpp brdfs/PerfectSpecular.hpp \
@@ -164,12 +170,18 @@ obj/Cosine.o: materials/Cosine.cpp materials/Cosine.hpp materials/Material.hpp \
 	$(CXX) -c $(CXXFLAGS) -o $@ materials/Cosine.cpp
 
 obj/Matte.o: materials/Matte.cpp materials/Matte.hpp materials/Material.hpp \
-	utilities/RGBColor.hpp utilities/ShadeInfo.hpp obj
+	utilities/RGBColor.hpp utilities/ShadeInfo.hpp world/World.hpp \
+	lights/Light.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ materials/Matte.cpp
 
 ################################################################################
 # Samplers
 ################################################################################
+
+obj/newSampler.o: samplers/newSampler.cpp samplers/newSampler.hpp \
+	utilities/Point2D.hpp utilities/Point3D.hpp utilities/Maths.hpp \
+	utilities/Constants.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ samplers/newSampler.cpp
 
 obj/Sampler.o: samplers/Sampler.cpp samplers/Sampler.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ samplers/Sampler.cpp
@@ -185,6 +197,9 @@ obj/Simple.o: samplers/Simple.cpp samplers/Simple.hpp cameras/Camera.hpp \
 obj/Image.o: utilities/Image.cpp utilities/Image.hpp utilities/RGBColor.hpp \
 	world/ViewPlane.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ utilities/Image.cpp
+
+obj/Point2D.o: utilities/Point2D.cpp utilities/Point2D.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ utilities/Point2D.cpp
 
 obj/Point3D.o: utilities/Point3D.cpp utilities/Point3D.hpp \
 	utilities/Vector3D.hpp obj

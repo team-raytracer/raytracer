@@ -7,6 +7,7 @@ class PerfectSpecular : public BRDF {
  private:
   float kr;
   RGBColor cr;
+
  public:
   // constructor
   PerfectSpecular();
@@ -27,7 +28,6 @@ class PerfectSpecular : public BRDF {
   void set_cr(const RGBColor& c);
   void set_cr(const float r, const float g, const float b);
   void set_cr(const float c);
-
 };
 
 #endif  // RAYTRACER_BRDFS_PERFECTSPECULAR_HPP_

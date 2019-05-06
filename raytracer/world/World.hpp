@@ -36,7 +36,7 @@ class World {
   Camera* camera_ptr;
   Sampler* sampler_ptr;
 
-  // Light* ambient_ptr;
+  Light* ambient_ptr;
   // Tracer* tracer_ptr;
   // Acceleration* ;
 
@@ -56,7 +56,7 @@ class World {
   // imports triangles from ply file
   void add_ply(std::string fname, Material* mPtr);
   void set_camera(Camera* c_ptr);
-  // void set_ambient_light(Light* light_ptr);
+  void set_ambient_light(Light* light_ptr);
   // void set_tracer(Tracer* tracer_ptr);
   // void set_acceleration(Acceleration* acceleration_ptr);
 

@@ -9,6 +9,7 @@ class GlossySpecular : public BRDF {
   RGBColor cs;
   float exp;
   Sampler* sampler;
+
  public:
   // constructor
   GlossySpecular();
@@ -31,9 +32,9 @@ class GlossySpecular : public BRDF {
   void set_cs(const RGBColor& c);
   void set_cs(const float r, const float g, const float b);
   void set_cs(const float c);
-  //void set_sampler(Sampler* sp, const float exp);   			// any type of sampling
-  //void set_samples(const int num_samples, const float exp); 	// multi jittered sampling
-  //void set_normal(const Normal& n);
+  // void set_sampler(Sampler* sp, const float exp);   			// any type of
+  // sampling void set_samples(const int num_samples, const float exp); 	// multi
+  // jittered sampling void set_normal(const Normal& n);
 };
 
 #endif  // RAYTRACER_BRDFS_GLOSSYSPECULAR_HPP_

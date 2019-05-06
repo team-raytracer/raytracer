@@ -1,12 +1,12 @@
 #ifndef RAYTRACER_BRDFS_BRDF_HPP_
 #define RAYTRACER_BRDFS_BRDF_HPP_
 
-#include "../samplers/Sampler.hpp"
-#include "../utilities/RGBColor.hpp"
-#include "../utilities/Vector3D.hpp"
-#include "../utilities/ShadeInfo.hpp"
-#include "../utilities/Constants.hpp"
 #include <math.h>
+#include "../samplers/newSampler.hpp"
+#include "../utilities/Constants.hpp"
+#include "../utilities/RGBColor.hpp"
+#include "../utilities/ShadeInfo.hpp"
+#include "../utilities/Vector3D.hpp"
 
 /**
    This file declares the BRDF class which is an abstract class for concrete
@@ -17,7 +17,8 @@
 
 class BRDF {
  protected:
-  Sampler* sampler_ptr;
+  newSampler* sampler_ptr;
+
  public:
   // Constructors.
   BRDF() = default;  // does nothing.
