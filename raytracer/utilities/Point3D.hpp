@@ -7,6 +7,7 @@
    Courtesy Kevin Suffern.
 */
 
+#include <algorithm>
 #include <array>
 
 class Vector3D;
