@@ -1,4 +1,5 @@
 #include "World.hpp"
+#include <algorithm>
 #include <string>
 #include "../cameras/Camera.hpp"
 #include "../geometry/Geometry.hpp"
