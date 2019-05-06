@@ -7,17 +7,19 @@
    Courtesy Kevin Suffern.
 */
 
+#include <array>
+
 class Vector3D;
 
 class Point3D {
  public:
   double x, y, z;  // the co-ordinates.
   // Constructors.
-  Point3D();                        // set point to (0, 0, 0).
+  Point3D();                         // set point to (0, 0, 0).
   explicit Point3D(const double c);  // set point to (c, c, c).
   Point3D(const double _x, const double _y,
-          const double _z);                // set point to (x,y,z).
-  Point3D(const std::array<double, 3>&);  // DO NOT make explicit
+          const double _z);                   // set point to (x,y,z).
+  Point3D(const std::array<double, 3>& ary);  // DO NOT make explicit
 
   // Destructor.
   ~Point3D() = default;

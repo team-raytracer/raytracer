@@ -25,26 +25,33 @@ void World::add_geometry(Geometry* geom_ptr) { geometry.push_back(geom_ptr); }
 
 void World::add_light(Light* light_ptr) { lights.push_back(light_ptr); }
 
-void World::add_ply(std::string fname, Material* mPtr) {
+void World::add_ply(std::string fname, Material* mPtr, Point3D bottom,
+                    Point3D top) {
   // Construct the data object by reading from file
   happly::PLYData plyIn(fname);
 
   // Get mesh-style data from the object
   std::vector<std::array<double, 3>> vPos = plyIn.getVertexPositions();
   std::vector<std::vector<size_t>> fInd = plyIn.getFaceIndices<size_t>();
+  std::vector<Point3D> points;
 
-  std::array<Point3D, 3> points;
-  Triangle* fTriangle;
+  Point3D modelMin = vPos[0];
+  Point3D modelMax = vPos[0];
+
+  for (const std::array<double, 3>& point : vPos) {
+    points.push_back(point);
+    modelMin = Point3D::min(modelMin, point);
+    modelMax = Point3D::max(modelMax, point);
+  }
+
+  for (Point3D& point : points) {
+    point = Point3D::interpolate(modelMin, modelMax, point, bottom, top);
+  }
+
   // loop through faces
   for (std::vector<size_t> face : fInd) {
-    // loop through face indices (assuming a face has 3 vertices)
-    for (int i = 0; i < 3; ++i) {
-      // and grab the individual points
-      std::array<double, 3> point = vPos[face[i]];
-      points[i] = Point3D((float)point[0], (float)point[1], (float)point[2]);
-    }
-    // make a triangle for each face
-    fTriangle = new Triangle(points[0], points[1], points[2]);
+    Triangle* fTriangle =
+        new Triangle(points[face[0]], points[face[1]], points[face[2]]);
     fTriangle->set_material(mPtr->clone());
     add_geometry(fTriangle);
   }

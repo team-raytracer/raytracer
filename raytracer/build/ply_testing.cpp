@@ -6,7 +6,7 @@
    Courtesy Kevin Suffern.
 */
 
-#include "../cameras/Parallel.hpp"
+#include "../cameras/Perspective.hpp"
 #include "../geometry/Plane.hpp"
 #include "../geometry/Sphere.hpp"
 #include "../materials/Cosine.hpp"
@@ -17,23 +17,24 @@
 
 void World::build(void) {
   // view plane
-  vplane.top_left.x = -.5;
-  vplane.top_left.y = .5;
-  vplane.top_left.z = .25;
-  vplane.bottom_right.x = .5;
-  vplane.bottom_right.y = -.5;
-  vplane.bottom_right.z = .25;
+  vplane.top_left.x = -1;
+  vplane.top_left.y = 1;
+  vplane.top_left.z = 2;
+  vplane.bottom_right.x = 1;
+  vplane.bottom_right.y = -1;
+  vplane.bottom_right.z = 2;
   vplane.hres = 400;
   vplane.vres = 400;
 
   bg_color = black;  // background color.
 
   // camera and sampler.
-  set_camera(new Parallel(0, 0, -1));
+  set_camera(new Perspective(0, 0, 5));
   sampler_ptr = new Simple(camera_ptr, &vplane);
 
   // filename goes here
-  add_ply("", new Cosine(blue));
+  add_ply("models/bun_zipper_res4.ply", new Cosine(blue), Point3D(-1, -1, -1),
+          Point3D(1, 1, 1));
 
   // vertical plane
   Plane* plane_ptr = new Plane(Point3D(0, 0, -150), Vector3D(0, 0, 1));
