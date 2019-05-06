@@ -40,7 +40,7 @@ int main(int argc, char** argv) {
         RGBColor pixel_color(0);
         Ray* rays = world.sampler_ptr->get_rays(x, y);
         for (size_t i = 0; i < world.sampler_ptr->num_rays(); i++) {
-          float weight = rays[i].w;  // ray weight for the pixel.
+          double weight = rays[i].w;  // ray weight for the pixel.
           ShadeInfo sinfo = world.hit_objects(rays[i]);
           if (sinfo.hit) {
             pixel_color += weight * sinfo.material_ptr->shade(sinfo);

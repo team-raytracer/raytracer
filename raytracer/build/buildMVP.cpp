@@ -3,7 +3,7 @@
 #include "../geometry/Sphere.hpp"
 #include "../geometry/Triangle.hpp"
 #include "../materials/Cosine.hpp"
-#include "../samplers/Simple.hpp"
+#include "../samplers/Quad.hpp"
 #include "../utilities/Constants.hpp"
 #include "../world/World.hpp"
 
@@ -23,7 +23,7 @@ void World::build(void) {
 
   // Camera and sampler.
   set_camera(new Perspective(0, 0, 20));
-  sampler_ptr = new Simple(camera_ptr, &vplane);
+  sampler_ptr = new Quad(camera_ptr, &vplane);
 
   for (int x = -8; x <= 8; x += 2) {
     for (int y = -8; y <= 8; y += 2) {
