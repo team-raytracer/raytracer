@@ -35,6 +35,9 @@ class Point3D {
   // Distance between points.
   float d_squared(const Point3D& p) const;  // square of distance
   float distance(const Point3D& p) const;   // distance
+
+  Point3D min(const Point3D& a, const Point3D& b) const;
+  Point3D max(const Point3D& a, const Point3D& b) const;
 };
 
 // Scale pt by a factor, s.

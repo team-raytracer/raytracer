@@ -1,4 +1,5 @@
 #include "Point3D.hpp"
+#include <algorithm>
 #include <cmath>
 #include "Vector3D.hpp"
 
@@ -32,3 +33,11 @@ float Point3D::d_squared(const Point3D& p) const {
 float Point3D::distance(const Point3D& p) const { return sqrt(d_squared(p)); }
 
 Point3D operator*(const float a, const Point3D& pt) { return pt * a; }
+
+Point3D Point3D::min(const Point3D& a, const Point3D& b) const {
+  return Point3D(std::min(a.x, b.x), std::min(a.y, b.y), std::min(a.z, b.z));
+}
+
+Point3D Point3D::max(const Point3D& a, const Point3D& b) const {
+  return Point3D(std::max(a.x, b.x), std::max(a.y, b.y), std::max(a.z, b.z));
+}
