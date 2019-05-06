@@ -1,6 +1,11 @@
 #ifndef RAYTRACER_BRDFS_BRDF_HPP_
 #define RAYTRACER_BRDFS_BRDF_HPP_
 
+#include "../samplers/Sampler.hpp"
+#include "../utilities/RGBColor.hpp"
+#include "../utilities/Vector3D.hpp"
+#include "../utilities/ShadeInfo.hpp"
+
 /**
    This file declares the BRDF class which is an abstract class for concrete
    BRDFs to inherit from.
@@ -9,9 +14,11 @@
 */
 
 class BRDF {
+ protected:
+  Sampler* sampler_ptr;
  public:
   // Constructors.
-  BRDF();  // does nothing.
+  BRDF() = default;  // does nothing.
 
   // Copy constuctor and assignment operator.
   BRDF(const BRDF& camera);
@@ -21,15 +28,15 @@ class BRDF {
   virtual BRDF* clone() const = 0;
 
   // Desctructor.
-  virtual ~BRDF();
+  virtual ~BRDF() = default;
 
   // Get colors.
   virtual RGBColor f(const ShadeInfo& sinfo, const Vector3D& wo,
                      const Vector3D& wi) const = 0;
   virtual RGBColor sample_f(const ShadeInfo& sinfo, const Vector3D& wo,
-                            const Vector3D& wi) const = 0;
+                            Vector3D& wi) const = 0;
   virtual RGBColor sample_f(const ShadeInfo& sinfo, const Vector3D& wo,
-                            const Vector3D& wi, const float& pdf) const = 0;
+                            Vector3D& wi, float& pdf) const = 0;
   virtual RGBColor rho(const ShadeInfo& sinfo, const Vector3D& wo) const = 0;
 };
 

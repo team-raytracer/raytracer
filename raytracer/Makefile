@@ -29,6 +29,7 @@ all: raytracer
 # Builds the executable
 # Important: Change the first dependency to the build you are using
 raytracer: obj/buildChapter14.o \
+	obj/Lambertian.o \
 	obj/Parallel.o obj/Perspective.o \
 	obj/Geometry.o obj/Plane.o obj/Sphere.o obj/Triangle.o \
 	obj/Light.o obj/Ambient.o obj/Directional.o obj/Point.o obj/Spotlight.o \
@@ -72,6 +73,27 @@ obj/ply_testing.o: build/ply_testing.cpp cameras/Parallel.hpp \
 	geometry/Plane.hpp materials/Cosine.hpp samplers/Simple.hpp \
 	utilities/Constants.hpp world/World.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ build/ply_testing.cpp
+
+################################################################################
+# BRDFs
+################################################################################
+
+obj/GlossySpecular.o: brdfs/GlossySpecular.cpp brdfs/GlossySpecular.hpp \
+	brdfs/BRDF.hpp utilities/Constants.hpp utilities/RGBColor.hpp \
+	utilities/Vector3D.hpp utilities/Point3D.hpp utilities/ShadeInfo.hpp \
+	samplers/Sampler.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ brdfs/GlossySpecular.cpp
+
+obj/Lambertian.o: brdfs/Lambertian.cpp brdfs/Lambertian.hpp brdfs/BRDF.hpp \
+	utilities/Constants.hpp utilities/RGBColor.hpp utilities/Vector3D.hpp \
+	utilities/Point3D.hpp utilities/ShadeInfo.hpp samplers/Sampler.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ brdfs/Lambertian.cpp
+
+obj/PerfectSpecular.o: brdfs/PerfectSpecular.cpp brdfs/PerfectSpecular.hpp \
+	brdfs/BRDF.hpp utilities/Constants.hpp utilities/RGBColor.hpp \
+	utilities/Vector3D.hpp utilities/Point3D.hpp utilities/ShadeInfo.hpp \
+	samplers/Sampler.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ brdfs/PerfectSpecular.cpp
 
 ################################################################################
 # Cameras
