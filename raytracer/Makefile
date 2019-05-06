@@ -28,7 +28,7 @@ all: raytracer
 
 # Builds the executable
 # Important: Change the first dependency to the build you are using
-raytracer: obj/ply_testing.o \
+raytracer: obj/buildChess.o \
 	obj/Parallel.o obj/Perspective.o \
 	obj/Geometry.o obj/Plane.o obj/Sphere.o obj/Triangle.o \
 	obj/Light.o obj/Ambient.o obj/Directional.o obj/Point.o obj/Spotlight.o \
@@ -68,10 +68,15 @@ obj/buildMVP.o: build/buildMVP.cpp cameras/Perspective.hpp \
 	world/World.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ build/buildMVP.cpp
 
-obj/ply_testing.o: build/ply_testing.cpp cameras/Parallel.hpp \
+obj/ply_testing.o: build/ply_testing.cpp cameras/Perspective.hpp \
 	geometry/Plane.hpp materials/Cosine.hpp samplers/Simple.hpp \
 	utilities/Constants.hpp world/World.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ build/ply_testing.cpp
+
+obj/buildChess.o: build/buildChess.cpp cameras/Perspective.hpp \
+	geometry/Plane.hpp geometry/Triangle.hpp materials/Cosine.hpp \
+	samplers/Simple.hpp	utilities/Constants.hpp world/World.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ build/buildChess.cpp
 
 ################################################################################
 # Cameras

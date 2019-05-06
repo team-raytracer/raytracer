@@ -1,14 +1,5 @@
-/**
-   This builds a scene that consists of 35 shaded spheres and a plane.
-   Perspective viewing is used with a single sample per pixel.
-   The spheres are the same as those in the Chapter 14 page one image.
-
-   Courtesy Kevin Suffern.
-*/
-
 #include "../cameras/Perspective.hpp"
 #include "../geometry/Plane.hpp"
-#include "../geometry/Sphere.hpp"
 #include "../materials/Cosine.hpp"
 #include "../samplers/Simple.hpp"
 #include "../utilities/Constants.hpp"
@@ -33,7 +24,7 @@ void World::build(void) {
   sampler_ptr = new Simple(camera_ptr, &vplane);
 
   // filename goes here
-  add_ply("models/bun_zipper_res4.ply", new Cosine(blue), Point3D(-1, -1, -1),
+  add_ply("models/queen.ply", new Cosine(blue), Point3D(-1, -1, -1),
           Point3D(1, 1, 1));
 
   // vertical plane
