@@ -10,6 +10,9 @@ Point3D::Point3D(const float c) : x{c}, y{c}, z{c} {}
 Point3D::Point3D(const float _x, const float _y, const float _z)
     : x{_x}, y{_y}, z{_z} {}
 
+Point3D::Point3D(const std::array<double, 3>& ary)
+    : x{ary[0]}, y{ary[1]}, z{ary[2]} {}
+
 Point3D Point3D::operator-() const { return Point3D(-x, -y, -z); }
 
 Vector3D Point3D::operator-(const Point3D& p) const {

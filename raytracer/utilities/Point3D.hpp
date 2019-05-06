@@ -16,7 +16,8 @@ class Point3D {
   Point3D();                        // set point to (0, 0, 0).
   explicit Point3D(const float c);  // set point to (c, c, c).
   Point3D(const float _x, const float _y,
-          const float _z);  // set point to (x,y,z).
+          const float _z);                // set point to (x,y,z).
+  Point3D(const std::array<double, 3>&);  // DO NOT make explicit
 
   // Destructor.
   ~Point3D() = default;
