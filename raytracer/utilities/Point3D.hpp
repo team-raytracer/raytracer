@@ -11,12 +11,12 @@ class Vector3D;
 
 class Point3D {
  public:
-  float x, y, z;  // the co-ordinates.
+  double x, y, z;  // the co-ordinates.
   // Constructors.
   Point3D();                        // set point to (0, 0, 0).
-  explicit Point3D(const float c);  // set point to (c, c, c).
-  Point3D(const float _x, const float _y,
-          const float _z);                // set point to (x,y,z).
+  explicit Point3D(const double c);  // set point to (c, c, c).
+  Point3D(const double _x, const double _y,
+          const double _z);                // set point to (x,y,z).
   Point3D(const std::array<double, 3>&);  // DO NOT make explicit
 
   // Destructor.
@@ -31,11 +31,11 @@ class Point3D {
   Vector3D operator-(const Point3D& p) const;  // vector joining two points
   Point3D operator+(const Vector3D& v) const;  // addition of a vector
   Point3D operator-(const Vector3D& v) const;  // subtraction of a vector
-  Point3D operator*(const float s) const;  // scale the point by a factor, s.
+  Point3D operator*(const double s) const;  // scale the point by a factor, s.
 
   // Distance between points.
-  float d_squared(const Point3D& p) const;  // square of distance
-  float distance(const Point3D& p) const;   // distance
+  double d_squared(const Point3D& p) const;  // square of distance
+  double distance(const Point3D& p) const;   // distance
 
   Point3D static min(const Point3D& a, const Point3D& b);
   Point3D static max(const Point3D& a, const Point3D& b);
@@ -45,6 +45,6 @@ class Point3D {
 };
 
 // Scale pt by a factor, s.
-Point3D operator*(const float a, const Point3D& pt);
+Point3D operator*(const double a, const Point3D& pt);
 
 #endif  // RAYTRACER_UTILITIES_POINT3D_HPP_
