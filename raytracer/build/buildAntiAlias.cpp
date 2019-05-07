@@ -25,7 +25,7 @@ void World::build(void) {
 
   // Camera and sampler.
   set_camera(new Perspective(0, 0, 20));
-  sampler_ptr = new Simple(camera_ptr, &vplane);
+  sampler_ptr = new JitterGaussian(camera_ptr, &vplane, 4, 0.25);
 
   // sphere
   Sphere* sphere_ptr = new Sphere(Point3D(-4, 4, 0), 5);
@@ -39,8 +39,8 @@ void World::build(void) {
   add_geometry(triangle_ptr);
 
   // triangle 2
-  triangle_ptr = new Triangle(Point3D(-12, -12, 0),
-                                        Point3D(0, -12, 0), Point3D(-6, -6, 0));
+  triangle_ptr = new Triangle(Point3D(-12, -12, 0), Point3D(0, -12, 0),
+                              Point3D(-6, -6, 0));
   triangle_ptr->set_material(new Cosine(lightGreen));
   add_geometry(triangle_ptr);
 }

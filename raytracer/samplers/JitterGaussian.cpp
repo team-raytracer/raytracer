@@ -24,10 +24,12 @@ Ray* JitterGaussian::get_rays(size_t px, size_t py) const {
   std::uniform_real_distribution<double> dist(-step, step);
 
   double totalWeight = 0;
-  for (size_t y = 0; y < degree; ++y) {
-    for (size_t x = 0; x < degree; ++x) {
-      double xOffset = (-degree + 2 * x + 1) * step + dist(generator);
-      double yOffset = (-degree + 2 * y + 1) * step + dist(generator);
+  for (int y = 0; y < degree; ++y) {
+    for (int x = 0; x < degree; ++x) {
+      double xOffset =
+          (-static_cast<int>(degree) + 2 * x + 1) * step + dist(generator);
+      double yOffset =
+          (-static_cast<int>(degree) + 2 * y + 1) * step + dist(generator);
       double weight = gaussian(sqrt(xOffset * xOffset + yOffset * yOffset));
 
       Point3D origin = viewplane_ptr->getPixelPoint(px + xOffset, py + yOffset);

@@ -13,12 +13,11 @@ RegularBox* RegularBox::clone() const { return new RegularBox(*this); }
 Ray* RegularBox::get_rays(size_t px, size_t py) const {
   Ray* ret = new Ray[num_rays()];
 
-  for (size_t y = 0; y < degree; ++y) {
-    for (size_t x = 0; x < degree; ++x) {
-      int xMulti = -degree + 2 * x + 1;
-      int yMulti = -degree + 2 * y + 1;
-      Point3D origin = viewplane_ptr->getPixelPoint(px + weight * xMulti,
-                                                    py + weight * yMulti);
+  for (int y = 0; y < degree; ++y) {
+    for (int x = 0; x < degree; ++x) {
+      double xOffset = (-static_cast<int>(degree) + 2 * x + 1) * weight;
+      double yOffset = (-static_cast<int>(degree) + 2 * y + 1) * weight;
+      Point3D origin = viewplane_ptr->getPixelPoint(px + xOffset, py + yOffset);
       ret[y * degree + x] =
           Ray(origin, camera_ptr->get_direction(origin), weight);
     }
