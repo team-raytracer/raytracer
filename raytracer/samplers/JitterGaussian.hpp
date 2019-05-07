@@ -7,12 +7,12 @@
 #include "Sampler.hpp"
 
 class JitterGaussian : public Sampler {
- protected:
+ private:
   size_t degree;
   double step;
   double invSigma;
-  std::uniform_real_distribution<double> random;
-  std::default_random_engine randEngine;
+
+  static std::mt19937 generator;
 
  public:
   // Constructors.
@@ -20,7 +20,7 @@ class JitterGaussian : public Sampler {
   JitterGaussian(Camera* c_ptr, ViewPlane* v_ptr, size_t degree, double sigma);
 
   // Copy constuctor and assignment operator.
-  JitterGaussian(const JitterGaussian& camera) = default;
+  JitterGaussian(const JitterGaussian& other) = default;
   JitterGaussian& operator=(const JitterGaussian& other) = default;
 
   // Virtual copy constructor.

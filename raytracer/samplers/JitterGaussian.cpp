@@ -6,13 +6,14 @@
 #include "../utilities/Ray.hpp"
 #include "../world/ViewPlane.hpp"
 
+std::mt19937 JitterGaussian::generator(std::random_device{}());
+
 JitterGaussian::JitterGaussian(Camera* c_ptr, ViewPlane* v_ptr, size_t degree,
                                double sigma)
     : Sampler(c_ptr, v_ptr),
       degree{degree},
       step{1.0 / degree / degree},
-      invSigma{1.0 / sigma},
-      random{0.0, 1.0} {}
+      invSigma{1.0 / sigma} {}
 
 JitterGaussian* JitterGaussian::clone() const {
   return new JitterGaussian(*this);
@@ -20,12 +21,13 @@ JitterGaussian* JitterGaussian::clone() const {
 
 Ray* JitterGaussian::get_rays(size_t px, size_t py) const {
   Ray* ret = new Ray[num_rays()];
+  std::uniform_real_distribution<double> dist(-step, step);
 
   double totalWeight = 0;
   for (size_t y = 0; y < degree; ++y) {
     for (size_t x = 0; x < degree; ++x) {
-      double xOffset = (-degree + 2 * x + 1) * step + random(randEngine);
-      double yOffset = (-degree + 2 * y + 1) * step + random(randEngine);
+      double xOffset = (-degree + 2 * x + 1) * step + dist(generator);
+      double yOffset = (-degree + 2 * y + 1) * step + dist(generator);
       double weight = gaussian(sqrt(xOffset * xOffset + yOffset * yOffset));
 
       Point3D origin = viewplane_ptr->getPixelPoint(px + xOffset, py + yOffset);
