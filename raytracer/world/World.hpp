@@ -15,6 +15,7 @@
 #include <vector>
 #include "../materials/Material.hpp"
 #include "../utilities/RGBColor.hpp"
+#include "../tracers/Tracer.hpp"
 #include "ViewPlane.hpp"
 
 class Geometry;
@@ -37,7 +38,7 @@ class World {
   Sampler* sampler_ptr;
 
   Light* ambient_ptr;
-  // Tracer* tracer_ptr;
+  Tracer* tracer_ptr;
   // Acceleration* ;
 
  public:
@@ -57,7 +58,7 @@ class World {
   void add_ply(std::string fname, Material* mPtr);
   void set_camera(Camera* c_ptr);
   void set_ambient_light(Light* light_ptr);
-  // void set_tracer(Tracer* tracer_ptr);
+  void set_tracer(Tracer* t_ptr);
   // void set_acceleration(Acceleration* acceleration_ptr);
 
   // Build scene - add all geometry, materials, lights, viewplane, camera,

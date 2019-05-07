@@ -29,7 +29,7 @@ all: raytracer
 # Builds the executable
 # Important: Change the first dependency to the build you are using
 raytracer: obj/buildLightTest.o \
-	obj/Lambertian.o \
+	obj/Lambertian.o obj/PerfectSpecular.o \
 	obj/Parallel.o obj/Perspective.o \
 	obj/Geometry.o obj/Plane.o obj/Sphere.o obj/Triangle.o \
 	obj/Light.o obj/Ambient.o obj/Directional.o obj/Point.o obj/Spotlight.o \
@@ -174,6 +174,17 @@ obj/Matte.o: materials/Matte.cpp materials/Matte.hpp materials/Material.hpp \
 	lights/Light.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ materials/Matte.cpp
 
+obj/Phong.o: materials/Phong.cpp materials/Phong.hpp \
+	materials/Material.hpp utilities/RGBColor.hpp utilities/ShadeInfo.hpp \
+	world/World.hpp brdfs/Lambertian.hpp brdfs/GlossySpecular.hpp \
+	lights/Light.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ materials/Phong.cpp
+
+obj/Reflective.o: materials/Reflective.cpp materials/Reflective.hpp \
+	materials/Phong.hpp utilities/RGBColor.hpp utilities/ShadeInfo.hpp \
+	world/World.hpp lights/Light.hpp brdfs/PerfectSpecular.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ materials/Reflective.cpp
+
 ################################################################################
 # Samplers
 ################################################################################
@@ -189,6 +200,14 @@ obj/Sampler.o: samplers/Sampler.cpp samplers/Sampler.hpp obj
 obj/Simple.o: samplers/Simple.cpp samplers/Simple.hpp cameras/Camera.hpp \
 	samplers/Sampler.hpp utilities/Ray.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ samplers/Simple.cpp
+
+################################################################################
+# Tracers
+################################################################################
+
+obj/Tracer.o: tracers/Tracer.cpp tracers/Tracer.hpp utilities/Constants.hpp \
+	utilities/Ray.hpp utilities/RGBColor.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ tracers/Tracers.cpp
 
 ################################################################################
 # Utilities

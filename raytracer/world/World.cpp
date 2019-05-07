@@ -69,3 +69,5 @@ ShadeInfo World::hit_objects(const Ray& ray) {
 }
 
 void World::set_ambient_light(Light* light_ptr) { ambient_ptr = light_ptr; }
+
+void World::set_tracer(Tracer* t_ptr) { tracer_ptr = t_ptr; }
