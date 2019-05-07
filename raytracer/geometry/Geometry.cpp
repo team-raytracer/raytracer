@@ -19,7 +19,12 @@ Geometry& Geometry::operator=(const Geometry& rhs) {
   return *this;
 }
 
-Geometry::~Geometry() { delete material_ptr; }
+Geometry::~Geometry() {
+  if (material_ptr) {
+    delete material_ptr;
+    material_ptr = nullptr;
+  }
+}
 
 Material* Geometry::get_material() const { return material_ptr; }
 
