@@ -27,13 +27,12 @@ int main(int argc, char** argv) {
   ViewPlane& viewplane = world.vplane;
   Image image(viewplane);
 
-  const size_t chunks = omp_get_max_threads() * 16;
-  const size_t rowsPerChunk = viewplane.vres / chunks;
+  const size_t rowsPerChunk = viewplane.vres / (omp_get_max_threads() * 16);
 
   #pragma omp parallel for
-  for (size_t chunk = 0; chunk <= chunks; chunk++) {
-    for (size_t y = chunk * rowsPerChunk;
-      y < std::min(viewplane.vres, (chunk + 1) * rowsPerChunk); y++) {
+  for (size_t startY = 0; startY < viewplane.vres; startY += rowsPerChunk) {
+    for (size_t y = startY; y < std::min(viewplane.vres, startY + rowsPerChunk); 
+      y++) {
       for (size_t x = 0; x < viewplane.vres; x++) {
         // Get rays for the pixel from the sampler. The pixel color is the
         // weighted sum of the shades for each ray.
