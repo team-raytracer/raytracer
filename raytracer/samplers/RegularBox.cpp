@@ -13,8 +13,8 @@ RegularBox* RegularBox::clone() const { return new RegularBox(*this); }
 Ray* RegularBox::get_rays(size_t px, size_t py) const {
   Ray* ret = new Ray[num_rays()];
 
-  for (int y = 0; y < degree; ++y) {
-    for (int x = 0; x < degree; ++x) {
+  for (int y = 0; y < static_cast<int>(degree); ++y) {
+    for (int x = 0; x < static_cast<int>(degree); ++x) {
       double xOffset = (-static_cast<int>(degree) + 2 * x + 1) * weight;
       double yOffset = (-static_cast<int>(degree) + 2 * y + 1) * weight;
       Point3D origin = viewplane_ptr->getPixelPoint(px + xOffset, py + yOffset);
