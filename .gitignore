@@ -12,4 +12,7 @@ photos
 *.vscode
 *.o
 *.ppm
+*.bmp
 *.jpg
+*.png
+*.xlsx

@@ -31,7 +31,7 @@ int main(int argc, char** argv) {
   const size_t rowsPerChunk = viewplane.vres / chunks;
 
   #pragma omp parallel for
-  for (size_t chunk = 0; chunk < chunks; chunk++) {
+  for (size_t chunk = 0; chunk <= chunks; chunk++) {
     for (size_t y = chunk * rowsPerChunk;
       y < std::min(viewplane.vres, (chunk + 1) * rowsPerChunk); y++) {
       for (size_t x = 0; x < viewplane.vres; x++) {
