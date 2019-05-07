@@ -14,18 +14,18 @@ void World::build(void) {
   vplane.bottom_right.x = 1;
   vplane.bottom_right.y = -1;
   vplane.bottom_right.z = 2;
-  vplane.hres = 400;
-  vplane.vres = 400;
+  vplane.hres = 800;
+  vplane.vres = 800;
 
   bg_color = black;  // background color.
 
   // camera and sampler.
-  set_camera(new Perspective(0, 0, 5));
+  set_camera(new Perspective(0, 0, 10));
   sampler_ptr = new Simple(camera_ptr, &vplane);
 
   // filename goes here
   add_ply("models/bun_zipper_res2.ply", new Cosine(blue), Point3D(-1, -1, -1),
-          Point3D(1, 1, 1), false);
+          Point3D(1, 1, 1), true);
 
   // vertical plane
   Plane* plane_ptr = new Plane(Point3D(0, 0, -150), Vector3D(0, 0, 1));
