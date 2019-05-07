@@ -55,7 +55,8 @@ class World {
   void add_geometry(Geometry* geom_ptr);
   void add_light(Light* light_ptr);
   // imports triangles from ply file
-  void add_ply(std::string fname, Material* mPtr);
+  void add_ply(std::string fname, Material* mPtr, Point3D bottom, Point3D top,
+               bool makeSmooth);
   void set_camera(Camera* c_ptr);
   void set_ambient_light(Light* light_ptr);
   void set_tracer(Tracer* t_ptr);

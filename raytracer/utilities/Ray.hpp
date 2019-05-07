@@ -21,6 +21,7 @@ class Ray {
   // Constructors.
   Ray();  // set origin and dir to (0, 0, 0), w to 1.
   Ray(const Point3D& origin, const Vector3D& dir);  // set origin, dir; w is 1.
+  Ray(const Point3D& origin, const Vector3D& dir, double weight);
 
   // Copy constructor and assignment operator.
   Ray(const Ray& ray) = default;

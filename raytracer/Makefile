@@ -31,10 +31,10 @@ all: raytracer
 raytracer: obj/buildLightTest.o \
 	obj/Lambertian.o obj/PerfectSpecular.o \
 	obj/Parallel.o obj/Perspective.o \
-	obj/Geometry.o obj/Plane.o obj/Sphere.o obj/Triangle.o \
+	obj/Geometry.o obj/Plane.o obj/Sphere.o obj/Triangle.o obj/SmoothTriangle.o \
 	obj/Light.o obj/Ambient.o obj/Directional.o obj/Point.o obj/Spotlight.o \
 	obj/Cosine.o obj/Matte.o \
-	obj/newSampler.o obj/Sampler.o obj/Simple.o \
+	obj/newSampler.o obj/Sampler.o obj/Simple.o obj/RegularBox.o obj/JitterGaussian.o \
 	obj/Image.o obj/Point2D.o obj/Point3D.o obj/Ray.o	obj/RGBColor.o \
 	obj/ShadeInfo.o obj/Vector3D.o \
 	obj/ViewPlane.o obj/World.o \
@@ -75,10 +75,21 @@ obj/buildMVP.o: build/buildMVP.cpp cameras/Perspective.hpp \
 	world/World.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ build/buildMVP.cpp
 
-obj/ply_testing.o: build/ply_testing.cpp cameras/Parallel.hpp \
+obj/buildPly.o: build/buildPly.cpp cameras/Perspective.hpp \
 	geometry/Plane.hpp materials/Cosine.hpp samplers/Simple.hpp \
 	utilities/Constants.hpp world/World.hpp obj
-	$(CXX) -c $(CXXFLAGS) -o $@ build/ply_testing.cpp
+	$(CXX) -c $(CXXFLAGS) -o $@ build/buildPly.cpp
+
+obj/buildChess.o: build/buildChess.cpp cameras/Perspective.hpp \
+	geometry/Plane.hpp geometry/Triangle.hpp materials/Cosine.hpp \
+	samplers/Simple.hpp	utilities/Constants.hpp world/World.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ build/buildChess.cpp
+
+obj/buildAntiAlias.o: build/buildAntiAlias.cpp cameras/Perspective.hpp \
+	geometry/Plane.hpp geometry/Sphere.hpp geometry/Triangle.hpp \
+	materials/Cosine.hpp samplers/RegularBox.hpp samplers/Simple.hpp \
+	utilities/Constants.hpp	world/World.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ build/buildAntiAlias.cpp
 
 ################################################################################
 # BRDFs
@@ -136,6 +147,12 @@ obj/Triangle.o: geometry/Triangle.cpp geometry/Triangle.hpp \
 	utilities/Point3D.hpp utilities/Ray.hpp utilities/ShadeInfo.hpp \
 	utilities/Vector3D.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ geometry/Triangle.cpp
+
+obj/SmoothTriangle.o: geometry/SmoothTriangle.cpp geometry/SmoothTriangle.hpp \
+	geometry/Geometry.hpp materials/Material.hpp utilities/Constants.hpp \
+	utilities/Point3D.hpp utilities/Ray.hpp utilities/ShadeInfo.hpp \
+	utilities/Vector3D.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ geometry/SmoothTriangle.cpp
 
 ################################################################################
 # Lights
@@ -201,6 +218,16 @@ obj/Simple.o: samplers/Simple.cpp samplers/Simple.hpp cameras/Camera.hpp \
 	samplers/Sampler.hpp utilities/Ray.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ samplers/Simple.cpp
 
+# Add any additional samplers you make here
+obj/RegularBox.o: samplers/RegularBox.cpp samplers/RegularBox.hpp \
+	cameras/Camera.hpp samplers/Sampler.hpp utilities/Ray.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ samplers/RegularBox.cpp
+
+obj/JitterGaussian.o: samplers/JitterGaussian.cpp samplers/JitterGaussian.hpp \
+	cameras/Camera.hpp samplers/Sampler.hpp utilities/Constants.hpp \
+	utilities/Ray.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ samplers/JitterGaussian.cpp
+
 ################################################################################
 # Tracers
 ################################################################################
@@ -249,8 +276,8 @@ obj/ViewPlane.o: world/ViewPlane.cpp world/ViewPlane.hpp utilities/Point3D.hpp \
 	$(CXX) -c $(CXXFLAGS) -o $@ world/ViewPlane.cpp
 
 obj/World.o: world/World.cpp world/World.hpp cameras/Camera.hpp \
-	geometry/Geometry.hpp geometry/Triangle.hpp happly/happly.h \
-	lights/Light.hpp materials/Material.hpp samplers/Sampler.hpp \
+	geometry/Geometry.hpp geometry/SmoothTriangle.hpp geometry/Triangle.hpp \
+	happly/happly.h lights/Light.hpp materials/Material.hpp samplers/Sampler.hpp \
 	utilities/Point3D.hpp utilities/RGBColor.hpp utilities/ShadeInfo.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ world/World.cpp
 
