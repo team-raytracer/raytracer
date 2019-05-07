@@ -4,6 +4,7 @@
 //Version 2. 	See the file COPYING.txt for the full license.
 
 #include <algorithm>  // for random_shuffle in Sampler::setup_shuffled_indices
+#include <random>
 
 #include "../utilities/Constants.hpp"
 #include "newSampler.hpp"
@@ -81,11 +82,12 @@ void newSampler::shuffle_y_coordinates(void) {
 void newSampler::setup_shuffled_indices(void) {
   shuffled_indices.reserve(num_samples * num_sets);
   std::vector<int> indices;
+  std::random_device rd;
 
   for (int j = 0; j < num_samples; j++) indices.push_back(j);
 
   for (int p = 0; p < num_sets; p++) {
-    random_shuffle(indices.begin(), indices.end());
+    std::shuffle(indices.begin(), indices.end(), rd);
 
     for (int j = 0; j < num_samples; j++)
       shuffled_indices.push_back(indices[j]);
