@@ -28,12 +28,12 @@ all: raytracer
 
 # Builds the executable
 # Important: Change the first dependency to the build you are using
-raytracer: obj/buildMVP.o \
+raytracer: obj/buildAntiAlias.o \
 	obj/Parallel.o obj/Perspective.o \
 	obj/Geometry.o obj/Plane.o obj/Sphere.o obj/Triangle.o obj/SmoothTriangle.o \
 	obj/Light.o obj/Ambient.o obj/Directional.o obj/Point.o obj/Spotlight.o \
 	obj/Cosine.o \
-	obj/Sampler.o obj/Simple.o obj/Quad.o \
+	obj/Sampler.o obj/Simple.o obj/RegularBox.o \
 	obj/Image.o obj/Point3D.o obj/Ray.o	obj/RGBColor.o obj/ShadeInfo.o \
 	obj/Vector3D.o \
 	obj/ViewPlane.o obj/World.o \
@@ -77,6 +77,12 @@ obj/buildChess.o: build/buildChess.cpp cameras/Perspective.hpp \
 	geometry/Plane.hpp geometry/Triangle.hpp materials/Cosine.hpp \
 	samplers/Simple.hpp	utilities/Constants.hpp world/World.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ build/buildChess.cpp
+
+obj/buildAntiAlias.o: build/buildAntiAlias.cpp cameras/Perspective.hpp \
+	geometry/Plane.hpp geometry/Sphere.hpp geometry/Triangle.hpp \
+	materials/Cosine.hpp samplers/RegularBox.hpp samplers/Simple.hpp \
+	utilities/Constants.hpp	world/World.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ build/buildAntiAlias.cpp
 
 ################################################################################
 # Cameras
@@ -164,9 +170,9 @@ obj/Simple.o: samplers/Simple.cpp samplers/Simple.hpp cameras/Camera.hpp \
 	$(CXX) -c $(CXXFLAGS) -o $@ samplers/Simple.cpp
 
 # Add any additional samplers you make here
-obj/Quad.o: samplers/Quad.cpp samplers/Quad.hpp cameras/Camera.hpp \
+obj/RegularBox.o: samplers/RegularBox.cpp samplers/RegularBox.hpp cameras/Camera.hpp \
 	samplers/Sampler.hpp utilities/Ray.hpp obj
-	$(CXX) -c $(CXXFLAGS) -o $@ samplers/Quad.cpp
+	$(CXX) -c $(CXXFLAGS) -o $@ samplers/RegularBox.cpp
 
 ################################################################################
 # Utilities

@@ -3,6 +3,7 @@
 #include "../geometry/Sphere.hpp"
 #include "../geometry/Triangle.hpp"
 #include "../materials/Cosine.hpp"
+#include "../samplers/RegularBox.hpp"
 #include "../samplers/Simple.hpp"
 #include "../utilities/Constants.hpp"
 #include "../world/World.hpp"
@@ -15,8 +16,8 @@ void World::build(void) {
   vplane.bottom_right.x = 10;
   vplane.bottom_right.y = -10;
   vplane.bottom_right.z = 10;
-  vplane.hres = 400;
-  vplane.vres = 400;
+  vplane.hres = 100;
+  vplane.vres = 100;
 
   // Background color.
   bg_color = black;
@@ -25,11 +26,21 @@ void World::build(void) {
   set_camera(new Perspective(0, 0, 20));
   sampler_ptr = new Simple(camera_ptr, &vplane);
 
-  for (int x = -8; x <= 8; x += 2) {
-    for (int y = -8; y <= 8; y += 2) {
-      Sphere* s = new Sphere(Point3D(x, y, 0), 1);
-      s->set_material(new Cosine((x + 8.0) / 16.0, 0, (y + 8.0) / 16.0));
-      add_geometry(s);
-    }
-  }
+  // sphere
+  Sphere* sphere_ptr = new Sphere(Point3D(-3, 2, 0), 5);
+  sphere_ptr->set_material(new Cosine(red));
+  add_geometry(sphere_ptr);
+
+  // triangle
+  Point3D a(2.5, -5, 1);
+  Point3D b(14, -1, 0);
+  Point3D c(8.5, 5, 0.5);
+  Triangle* triangle_ptr = new Triangle(a, b, c);
+  triangle_ptr->set_material(new Cosine(blue));
+  add_geometry(triangle_ptr);
+
+  // plane
+  Plane* plane_ptr = new Plane(Point3D(0, 1, 0), Vector3D(0, 10, 2));
+  plane_ptr->set_material(new Cosine(0, 1, 0));  // green
+  add_geometry(plane_ptr);
 }
