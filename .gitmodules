@@ -1,3 +1,0 @@
-[submodule "raytracer/happly"]
-	path = raytracer/happly
-	url = git@github.com:nmwsharp/happly.git
