@@ -6,7 +6,7 @@
 #include "Sampler.hpp"
 
 class RegularBox : public Sampler {
- protected:
+ private:
   size_t degree;
   double weight;
 
@@ -16,7 +16,7 @@ class RegularBox : public Sampler {
   RegularBox(Camera* c_ptr, ViewPlane* v_ptr, size_t degree);
 
   // Copy constuctor and assignment operator.
-  RegularBox(const RegularBox& camera) = default;
+  RegularBox(const RegularBox& other) = default;
   RegularBox& operator=(const RegularBox& other) = default;
 
   // Virtual copy constructor.

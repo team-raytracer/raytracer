@@ -3,6 +3,7 @@
 #include "../geometry/Sphere.hpp"
 #include "../geometry/Triangle.hpp"
 #include "../materials/Cosine.hpp"
+#include "../samplers/JitterGaussian.hpp"
 #include "../samplers/RegularBox.hpp"
 #include "../samplers/Simple.hpp"
 #include "../utilities/Constants.hpp"
@@ -27,20 +28,19 @@ void World::build(void) {
   sampler_ptr = new Simple(camera_ptr, &vplane);
 
   // sphere
-  Sphere* sphere_ptr = new Sphere(Point3D(-3, 2, 0), 5);
+  Sphere* sphere_ptr = new Sphere(Point3D(-4, 4, 0), 5);
   sphere_ptr->set_material(new Cosine(red));
   add_geometry(sphere_ptr);
 
-  // triangle
-  Point3D a(2.5, -5, 1);
-  Point3D b(14, -1, 0);
-  Point3D c(8.5, 5, 0.5);
-  Triangle* triangle_ptr = new Triangle(a, b, c);
+  // triangle 1
+  Triangle* triangle_ptr = new Triangle(Point3D(2.5, -5, 1), Point3D(14, -1, 0),
+                                        Point3D(8.5, 5, 0.5));
   triangle_ptr->set_material(new Cosine(blue));
   add_geometry(triangle_ptr);
 
-  // plane
-  Plane* plane_ptr = new Plane(Point3D(0, 1, 0), Vector3D(0, 10, 2));
-  plane_ptr->set_material(new Cosine(0, 1, 0));  // green
-  add_geometry(plane_ptr);
+  // triangle 2
+  triangle_ptr = new Triangle(Point3D(-12, -12, 0),
+                                        Point3D(0, -12, 0), Point3D(-6, -6, 0));
+  triangle_ptr->set_material(new Cosine(lightGreen));
+  add_geometry(triangle_ptr);
 }

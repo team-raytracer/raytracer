@@ -33,7 +33,7 @@ raytracer: obj/buildAntiAlias.o \
 	obj/Geometry.o obj/Plane.o obj/Sphere.o obj/Triangle.o obj/SmoothTriangle.o \
 	obj/Light.o obj/Ambient.o obj/Directional.o obj/Point.o obj/Spotlight.o \
 	obj/Cosine.o \
-	obj/Sampler.o obj/Simple.o obj/RegularBox.o \
+	obj/Sampler.o obj/Simple.o obj/RegularBox.o obj/JitterGaussian.o \
 	obj/Image.o obj/Point3D.o obj/Ray.o	obj/RGBColor.o obj/ShadeInfo.o \
 	obj/Vector3D.o \
 	obj/ViewPlane.o obj/World.o \
@@ -170,9 +170,14 @@ obj/Simple.o: samplers/Simple.cpp samplers/Simple.hpp cameras/Camera.hpp \
 	$(CXX) -c $(CXXFLAGS) -o $@ samplers/Simple.cpp
 
 # Add any additional samplers you make here
-obj/RegularBox.o: samplers/RegularBox.cpp samplers/RegularBox.hpp cameras/Camera.hpp \
-	samplers/Sampler.hpp utilities/Ray.hpp obj
+obj/RegularBox.o: samplers/RegularBox.cpp samplers/RegularBox.hpp \
+	cameras/Camera.hpp samplers/Sampler.hpp utilities/Ray.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ samplers/RegularBox.cpp
+
+obj/JitterGaussian.o: samplers/JitterGaussian.cpp samplers/JitterGaussian.hpp \
+	cameras/Camera.hpp samplers/Sampler.hpp utilities/Constants.hpp \
+	utilities/Ray.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ samplers/JitterGaussian.cpp
 
 ################################################################################
 # Utilities
