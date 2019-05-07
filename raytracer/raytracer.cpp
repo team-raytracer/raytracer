@@ -12,7 +12,7 @@
 const std::string DEFAULT_FILENAME = "scene.ppm";
 
 const size_t MIN_ROWS_PER_CHUNK = 4;
-const size_t LOAD_BALANCE_FACTOR = 16;
+const size_t LOAD_BALANCE_FACTOR = 4;
 
 std::string processFilename(const char* input) {
   std::string filename = input;
