@@ -27,7 +27,7 @@ int main(int argc, char** argv) {
   ViewPlane& viewplane = world.vplane;
   Image image(viewplane);
 
-  const size_t chunks = omp_get_max_threads();
+  const size_t chunks = omp_get_max_threads() * 16;
   const size_t rowsPerChunk = viewplane.vres / chunks;
 
   #pragma omp parallel for
