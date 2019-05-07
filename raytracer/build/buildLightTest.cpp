@@ -9,6 +9,8 @@
 #include "../geometry/Sphere.hpp"
 #include "../geometry/Triangle.hpp"
 #include "../lights/Ambient.hpp"
+#include "../lights/Point.hpp"
+#include "../lights/Directional.hpp"
 #include "../materials/Matte.hpp"
 #include "../samplers/Simple.hpp"
 #include "../utilities/Constants.hpp"
@@ -32,10 +34,11 @@ void World::build(void) {
   set_camera(new Perspective(0, 0, 20));
   sampler_ptr = new Simple(camera_ptr, &vplane);
 
+  // material
   Matte* matte = new Matte();
-  matte->set_kd(0.5);
-  matte->set_ka(0.5);
-  matte->set_cd(0.5);
+  matte->set_kd(0.7);
+  matte->set_ka(0.7);
+  matte->set_cd(0.7);
 
   // sphere
   Sphere* sphere_ptr = new Sphere(Point3D(-3, 2, 0), 5);
@@ -55,7 +58,14 @@ void World::build(void) {
   plane_ptr->set_material(matte->clone());
   add_geometry(plane_ptr);
 
-  set_ambient_light(new Ambient(0.2, 0.5, 0.3));
+  // lighting
+  set_ambient_light(new Ambient());
+  Point* point = new Point(0.9, 0.1, 0.2);
+  point->set_position(15, 1, 5);
+  add_light(point);
+  Directional* directional = new Directional(0.2, 0.7, 0.3);
+  directional->set_direction(2, 4, -3);
+  add_light(directional);
 
   delete matte;
 }
