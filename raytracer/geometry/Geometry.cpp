@@ -6,11 +6,15 @@ Geometry::Geometry(const Geometry& object)
     : material_ptr{object.get_material()->clone()} {}
 
 Geometry& Geometry::operator=(const Geometry& rhs) {
-  if (this == &rhs)
-		return (*this);
+  if (this == &rhs) return (*this);
 
-  if (rhs.get_material() != nullptr) {
-    this->set_material(rhs.get_material()->clone());  // copy the new
+  if (material_ptr) {
+    delete material_ptr;
+    material_ptr = nullptr;
+  }
+
+  if (rhs.material_ptr) {
+    material_ptr = rhs.material_ptr->clone();  // copy the new
   }
   return *this;
 }
