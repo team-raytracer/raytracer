@@ -14,14 +14,14 @@
 const RGBColor TEAM_COLORS[2] = {blue, red};
 const double PIECE_SIZE_OFFSET = 0.1;
 const std::string DEFAULT_BOARD =
-    "r1 h1 b1 q1 k1 b1 h1 r1 \n"
-    "p1 p1 p1 p1 p1 p1 p1 p1 \n"
-    "xx xx xx xx xx xx xx xx \n"
-    "xx xx xx xx xx xx xx xx \n"
-    "xx xx xx xx xx xx xx xx \n"
-    "xx xx xx xx xx xx xx xx \n"
-    "p0 p0 p0 p0 p0 p0 p0 p0 \n"
-    "r0 h0 b0 k0 q0 b0 h0 r0 \n";
+    "r1 h1 b1 q1 k1 b1 h1 r1\n"
+    "p1 p1 p1 p1 p1 p1 p1 p1\n"
+    "xx xx xx xx xx xx xx xx\n"
+    "xx xx xx xx xx xx xx xx\n"
+    "xx xx xx xx xx xx xx xx\n"
+    "xx xx xx xx xx xx xx xx\n"
+    "p0 p0 p0 p0 p0 p0 p0 p0\n"
+    "r0 h0 b0 k0 q0 b0 h0 r0\n";
 
 void addPiece(World* world, std::string pieceName, size_t team, size_t x,
               size_t y) {
@@ -33,10 +33,14 @@ void addPiece(World* world, std::string pieceName, size_t team, size_t x,
 
 void parseBoard(World* world, std::istream& board,
                 std::map<char, std::string>& dict) {
+  std::string row;
   std::string piece;
   for (size_t x = 0; x < 8; ++x) {
+    std::getline(board, row);
+    std::stringstream rowStream;
+    rowStream << row;
     for (size_t y = 0; y < 8; ++y) {
-      std::getline(board, piece, ' ');
+      std::getline(rowStream, piece, ' ');
       if (piece.length() == 2 && dict.count(piece[0]) > 0 &&
           (piece[1] == '0' || piece[1] == '1')) {
         addPiece(world, dict[piece[0]], piece[1] - '0', x, y);
