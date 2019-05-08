@@ -13,7 +13,7 @@ class Reflective : Phong {
 	Reflective& operator= (const Reflective& rhs);
 	virtual Reflective* clone() const;
 	virtual ~Reflective();
-	void set_kr(const float k) ovveride;
+	void set_kr(const float k);
 	void set_cr(const RGBColor& c);
 	void set_cr(const float r, const float g, const float b);
 	void set_cr(const float c);

@@ -33,7 +33,7 @@ raytracer: obj/buildLightTest.o \
 	obj/Parallel.o obj/Perspective.o \
 	obj/Geometry.o obj/Plane.o obj/Sphere.o obj/Triangle.o obj/SmoothTriangle.o \
 	obj/Light.o obj/Ambient.o obj/Directional.o obj/Point.o obj/Spotlight.o \
-	obj/Cosine.o obj/Matte.o \
+	obj/Cosine.o obj/Matte.o obj/Phong.o obj/Reflective.o \
 	obj/newSampler.o obj/Sampler.o obj/Simple.o obj/RegularBox.o obj/JitterGaussian.o \
 	obj/Image.o obj/Point2D.o obj/Point3D.o obj/Ray.o	obj/RGBColor.o \
 	obj/ShadeInfo.o obj/Vector3D.o \
