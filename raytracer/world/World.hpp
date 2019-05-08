@@ -42,7 +42,7 @@ class World {
 
  public:
   // Constructors.
-  World();  // initialize members.
+  World() = default;  // initialize members.
 
   World(const World&) = delete;
   World& operator=(const World&) = delete;
