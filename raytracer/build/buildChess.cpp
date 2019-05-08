@@ -18,7 +18,6 @@ const RGBColor TEAM_COLORS[2] = {RGBColor(0.3, 0.56, 0.64),
                                  RGBColor(1, 0.56, 0.52)};
 const Point3D CAMERA_POSITION = Point3D(9, 4, -3.25);
 const size_t RESOLUTION = 1920;
-const double PIECE_SIZE_OFFSET = 0.1;
 const double KA = 0.2;
 const double KD = 3;
 const std::string PIECE_RESOLUTION = "high";
@@ -38,12 +37,11 @@ void addPiece(World* world, ChessPiece piece, size_t team, size_t x, size_t z) {
   matte->set_kd(KD);
   matte->set_ka(KA);
   matte->set_cd(TEAM_COLORS[team]);
+
+  double offset = (1.0 - piece.diameter) / 2.0;
   world->add_ply("models/" + PIECE_RESOLUTION + "/" + piece.name + ".ply",
-                 matte,
-                 Point3D(x + PIECE_SIZE_OFFSET, 0, z + PIECE_SIZE_OFFSET),
-                 Point3D(x + 1 - PIECE_SIZE_OFFSET, piece.height,
-                         z + 1 - PIECE_SIZE_OFFSET),
-                 true);
+                 matte, Point3D(x + offset, 0, z + offset),
+                 Point3D(x + 1 - offset, piece.height, z + 1 - offset), true);
 }
 
 void parseBoard(World* world, std::istream& board,
@@ -66,12 +64,12 @@ void parseBoard(World* world, std::istream& board,
 
 std::map<char, ChessPiece> initializeDictionary() {
   std::map<char, ChessPiece> dict;
-  dict['p'] = ChessPiece("pawn", 1.2);
-  dict['h'] = ChessPiece("knight", 1.3);
-  dict['b'] = ChessPiece("bishop", 1.7);
-  dict['r'] = ChessPiece("rook", 1.4);
-  dict['q'] = ChessPiece("queen", 1.85);
-  dict['k'] = ChessPiece("king", 2.0);
+  dict['p'] = ChessPiece("pawn", 1.0, 0.65);
+  dict['h'] = ChessPiece("knight", 1.2, 0.75);
+  dict['b'] = ChessPiece("bishop", 1.7, 0.75);
+  dict['r'] = ChessPiece("rook", 1.2, 0.75);
+  dict['q'] = ChessPiece("queen", 1.85, 0.8);
+  dict['k'] = ChessPiece("king", 2.0, 0.8);
 
   return dict;
 }

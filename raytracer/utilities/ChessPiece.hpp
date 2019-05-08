@@ -14,13 +14,14 @@ class ChessPiece {
  public:
   std::string name;
   double height;
+  double diameter;
 
   // Constructors and assignment operator
   ChessPiece() = default;
   ChessPiece(const ChessPiece& other) = default;
   ChessPiece& operator=(const ChessPiece& other) = default;
 
-  ChessPiece(std::string name, double height);
+  ChessPiece(std::string name, double height, double diameter);
 
   // Destructor
   ~ChessPiece() = default;  // free memory.
