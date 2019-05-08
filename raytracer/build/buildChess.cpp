@@ -9,7 +9,6 @@
 #include "../lights/Point.hpp"
 #include "../materials/Matte.hpp"
 #include "../samplers/JitterGaussian.hpp"
-#include "../tracers/Whitted.hpp"
 #include "../utilities/ChessPiece.hpp"
 #include "../utilities/Constants.hpp"
 #include "../world/World.hpp"
@@ -86,7 +85,6 @@ void World::build(void) {
   // Camera, Sampler, and Tracer
   set_camera(new Perspective(CAMERA_POSITION));
   sampler_ptr = new JitterGaussian(camera_ptr, &vplane, 3, 0.25);
-  tracer_ptr = new Whitted(&(*this));
 
   // Lights
   set_ambient_light(new Ambient());

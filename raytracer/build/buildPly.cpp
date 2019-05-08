@@ -2,7 +2,6 @@
 #include "../geometry/Plane.hpp"
 #include "../materials/Cosine.hpp"
 #include "../samplers/Simple.hpp"
-#include "../tracers/Whitted.hpp"
 #include "../utilities/Constants.hpp"
 #include "../utilities/Vector3D.hpp"
 #include "../world/World.hpp"
@@ -19,9 +18,6 @@ void World::build(void) {
   // camera and sampler.
   set_camera(new Perspective(0, 0, 10));
   sampler_ptr = new Simple(camera_ptr, &vplane);
-
-  // Tracer
-  tracer_ptr = new Whitted(&(*this));
 
   // filename goes here
   add_ply("models/bun_zipper_res2.ply", new Cosine(blue), Point3D(-1, -1, -1),

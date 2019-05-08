@@ -8,7 +8,9 @@
 #include "acceleration/KDTree.hpp"
 #include "materials/Material.hpp"
 #include "samplers/Sampler.hpp"
+#include "tracers/BasicTracer.hpp"
 #include "tracers/Tracer.hpp"
+#include "tracers/Whitted.hpp"
 #include "utilities/BoundingBox.hpp"
 #include "utilities/Image.hpp"
 #include "utilities/ShadeInfo.hpp"
@@ -33,7 +35,7 @@ static void show_usage(std::string programName) {
             << "Options:\n"
             << "\t-h\t\tShow this help message\n"
             << "\t-s\t\tSlow render without acceleration structure\n"
-            << "\t-t\t\tUse simple tracer with only primary rays\n"
+            << "\t-t\t\tUse basic tracer with only primary rays\n"
             << "\t-v\t\tVerbose, print render information\n"
             << "\t-o <filename>\tSpecifies output filename" << std::endl;
 }
@@ -41,7 +43,7 @@ static void show_usage(std::string programName) {
 int main(int argc, char** argv) {
   // Settings set by command line arguments
   bool useKD = true;
-  bool tracer = false;
+  bool basicTracer = false;
   bool verbose = false;
   std::string filename = DEFAULT_FILENAME;
 
@@ -54,7 +56,7 @@ int main(int argc, char** argv) {
         useKD = false;
         break;
       case 't':
-        tracer = true;
+        basicTracer = true;
         break;
       case 'v':
         verbose = true;
@@ -83,6 +85,12 @@ int main(int argc, char** argv) {
     world.set_acceleration(new KDTree(&world));
   }
 
+  if (basicTracer) {
+    world.set_tracer(new BasicTracer(&world));
+  } else {
+    world.set_tracer(new Whitted(&world));
+  }
+
   ViewPlane& viewplane = world.vplane;
   Image image(viewplane);
 
@@ -102,8 +110,8 @@ int main(int argc, char** argv) {
                 << std::endl;
     }
 
-    if (tracer) {
-      std::cout << "Using simple ray tracer (primary rays only)" << std::endl;
+    if (basicTracer) {
+      std::cout << "Using basic ray tracer (primary rays only)" << std::endl;
     } else {
       std::cout << "Using advanced ray tracer (includes secondary rays)"
                 << std::endl;

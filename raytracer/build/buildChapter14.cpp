@@ -10,7 +10,6 @@
 #include "../geometry/Sphere.hpp"
 #include "../materials/Cosine.hpp"
 #include "../samplers/Simple.hpp"
-#include "../tracers/Whitted.hpp"
 #include "../utilities/Constants.hpp"
 #include "../utilities/Vector3D.hpp"
 #include "../world/World.hpp"
@@ -27,9 +26,6 @@ void World::build(void) {
   // camera and sampler.
   set_camera(new Parallel(0, 0, -1));
   sampler_ptr = new Simple(camera_ptr, &vplane);
-
-  // Tracer
-  tracer_ptr = new Whitted(&(*this));
 
   // spheres
   Sphere* sphere_ptr1 = new Sphere(Point3D(5, 3, 0), 30);
