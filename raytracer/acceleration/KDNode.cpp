@@ -100,8 +100,9 @@ void KDNode::build_kd_tree(KDNode* node) {
   //printf("size: %d\n", node->primitives.size());
 
   //for (Geometry* primitive : node->primitives) {
-  for (int i = 0; i < node->primitives.size(); ++i) {
-    Geometry* primitive = node->primitives[i];
+  //for (int i = 0; i < node->primitives.size(); ++i) {
+  for (auto it = node->primitives.begin(); it != node->primitives.end(); it++) {
+    Geometry* primitive = *it;
     //printf("Examining primitive %d\n", i);
     if (splitboxleft.intersect(primitive->get_bounding_box())) {
       //printf("Primitive matches left child\n");
@@ -112,6 +113,8 @@ void KDNode::build_kd_tree(KDNode* node) {
       node->right->add_primitive(primitive, splitboxright);
     }
   }
+
+  std::vector<Geometry*>().swap(node->primitives);
 
   //printf("Num left vertices: %d, Num right vertices: %d\n", node->left->primitives.size(), node->right->primitives.size());
 
