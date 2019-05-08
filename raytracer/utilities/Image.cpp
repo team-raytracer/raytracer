@@ -1,4 +1,5 @@
 #include "Image.hpp"
+#include <algorithm>
 #include <fstream>
 #include <iostream>
 #include "../world/ViewPlane.hpp"
@@ -29,6 +30,13 @@ void Image::set_pixel(size_t x, size_t y, RGBColor color) {
 }
 
 void Image::write_ppm(std::string path) {
+  double max = 0;
+  for (size_t r = 0; r < vres; ++r) {
+    for (size_t c = 0; c < hres; ++c) {
+      max = std::max(colors[r][c].r, std::max(colors[r][c].g, std::max(colors[r][c].b, max)));
+    }
+  }
+
   std::ofstream file;
   file.open(path);
 
@@ -36,11 +44,12 @@ void Image::write_ppm(std::string path) {
   file << hres << " " << vres << std::endl;  // width and height
   file << "255" << std::endl;                // maximum value for each chanel
 
+  double scale = 255 / max;
   for (size_t r = 0; r < vres; ++r) {
     for (size_t c = 0; c < hres; ++c) {
-      file << static_cast<int>(colors[r][c].r * 255) << " "
-           << static_cast<int>(colors[r][c].g * 255) << " "
-           << static_cast<int>(colors[r][c].b * 255) << "  ";
+      file << static_cast<int>(colors[r][c].r * scale) << " "
+           << static_cast<int>(colors[r][c].g * scale) << " "
+           << static_cast<int>(colors[r][c].b * scale) << "  ";
     }
     file << std::endl;
   }
