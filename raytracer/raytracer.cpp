@@ -37,8 +37,8 @@ int main(int argc, char** argv) {
       std::max(viewplane.vres / (omp_get_max_threads() * LOAD_BALANCE_FACTOR),
                MIN_ROWS_PER_CHUNK);
 
-  std::cout << "Begining rendering with " << omp_get_max_threads() << " cores..."
-            << std::endl;
+  std::cout << "Begining rendering with " << omp_get_max_threads()
+            << " cores..." << std::endl;
 
 #pragma omp parallel for
   for (size_t startY = 0; startY < viewplane.vres; startY += rowsPerChunk) {
