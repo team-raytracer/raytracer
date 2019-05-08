@@ -1,4 +1,4 @@
-#include "../cameras/Perspective.hpp"
+#include "../cameras/Parallel.hpp"
 #include "../geometry/Plane.hpp"
 #include "../geometry/Sphere.hpp"
 #include "../geometry/Triangle.hpp"
@@ -18,7 +18,7 @@ void World::build(void) {
   bg_color = black;
 
   // Camera and sampler.
-  set_camera(new Perspective(0, 0, 20));
+  set_camera(new Parallel(0, 0, -1));
   sampler_ptr = new Simple(camera_ptr, &vplane);
 
   for (int x = -8; x <= 8; x += 2) {
