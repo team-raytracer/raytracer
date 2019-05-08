@@ -25,6 +25,8 @@ const float kHugeValue = 1.0E10;
 const RGBColor black(0.0);
 const RGBColor blue(0.0, 0.0, 1.0);
 const RGBColor brown(0.5, 0.25, 0.0);
+const RGBColor darkBlue(0.0, 0.0, 0.25);
+const RGBColor darkGray(0.125);
 const RGBColor darkGreen(0.0, 0.41, 0.41);
 const RGBColor darkPurple(0.5, 0, 1);
 const RGBColor darkYellow(0.61, 0.61, 0);
