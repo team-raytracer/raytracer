@@ -1,0 +1,8 @@
+r1 xx b1 xx h1 r1 k1 xx
+xx xx q1 xx b1 p1 p1 p1
+p1 xx xx p1 xx xx xx xx
+h1 p1 xx p0 p1 xx xx xx
+xx xx xx xx p0 xx xx xx
+xx xx xx p0 xx h0 xx p0
+p0 p0 b0 xx p0 p0 p0 xx
+r0 xx b0 q0 r0 h0 k0 xx
