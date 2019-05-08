@@ -35,8 +35,7 @@ RGBColor GlossySpecular::sample_f(const ShadeInfo& sinfo, const Vector3D& wo,
   u.normalize();
   Vector3D v = u ^ w;
 
-  // Point3D sp = sampler_ptr->sample_hemisphere();
-  Point3D sp;
+  Point3D sp = sampler_ptr->sample_hemisphere();
   wi = sp.x * u + sp.y * v + sp.z * w;  // reflected ray direction
 
   if (sinfo.normal * wi < 0.0)  // reflected ray is below tangent plane
@@ -59,8 +58,7 @@ RGBColor GlossySpecular::sample_f(const ShadeInfo& sinfo, const Vector3D& wo,
   u.normalize();
   Vector3D v = u ^ w;
 
-  // Point3D sp = sampler_ptr->sample_hemisphere();
-  Point3D sp;
+  Point3D sp = sampler_ptr->sample_hemisphere();
   wi = sp.x * u + sp.y * v + sp.z * w;  // reflected ray direction
 
   if (sinfo.normal * wi < 0.0)  // reflected ray is below tangent plane

@@ -12,6 +12,7 @@
 #include "../lights/Point.hpp"
 #include "../lights/Directional.hpp"
 #include "../materials/Matte.hpp"
+#include "../materials/Reflective.hpp"
 #include "../samplers/Simple.hpp"
 #include "../utilities/Constants.hpp"
 #include "../world/World.hpp"
@@ -39,6 +40,7 @@ void World::build(void) {
   matte->set_kd(0.7);
   matte->set_ka(0.7);
   matte->set_cd(0.7);
+  Reflective* reflective = new Reflective();
 
   // sphere
   Sphere* sphere_ptr = new Sphere(Point3D(-3, 2, 0), 5);
@@ -68,4 +70,5 @@ void World::build(void) {
   add_light(directional);
 
   delete matte;
+  delete reflective;
 }

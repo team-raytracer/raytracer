@@ -7,8 +7,7 @@ ViewPlane::ViewPlane()
       hres{640},
       vres{480} {}
 
-Point3D ViewPlane::getPixelPoint(size_t px, size_t py) const {
+Point3D ViewPlane::getPixelPoint(double px, double py) const {
   Vector3D dif = bottom_right - top_left;
-  return top_left + Vector3D(static_cast<float>(px) / hres * dif.x,
-                             static_cast<float>(py) / vres * dif.y, 0);
+  return top_left + Vector3D(px / hres * dif.x, py / vres * dif.y, 0);
 }
