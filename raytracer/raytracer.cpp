@@ -1,7 +1,7 @@
-#include <algorithm>
-#include <iostream>
 #include <omp.h>
 #include <stddef.h>
+#include <algorithm>
+#include <iostream>
 #include <string>
 #include <vector>
 #include "materials/Material.hpp"
@@ -27,21 +27,23 @@ std::string processFilename(const char* input) {
 int main(int argc, char** argv) {
   World world;
   world.build();
-  std::cout << "Scene loaded: " << world.num_polygons() << " polygons" << std::endl;
+  std::cout << "Scene loaded: " << world.num_polygons() << " polygons"
+            << std::endl;
 
   ViewPlane& viewplane = world.vplane;
   Image image(viewplane);
 
-  const size_t rowsPerChunk = 
-    std::max(viewplane.vres / (omp_get_max_threads() * LOAD_BALANCE_FACTOR), 
-             MIN_ROWS_PER_CHUNK);
-  
-  std::cout << "Begin rendering with " << omp_get_max_threads() << " cores..." << std::endl;
+  const size_t rowsPerChunk =
+      std::max(viewplane.vres / (omp_get_max_threads() * LOAD_BALANCE_FACTOR),
+               MIN_ROWS_PER_CHUNK);
 
-  #pragma omp parallel for
+  std::cout << "Begin rendering with " << omp_get_max_threads() << " cores..."
+            << std::endl;
+
+#pragma omp parallel for
   for (size_t startY = 0; startY < viewplane.vres; startY += rowsPerChunk) {
-    for (size_t y = startY; y < std::min(viewplane.vres, startY + rowsPerChunk); 
-      ++y) {
+    for (size_t y = startY; y < std::min(viewplane.vres, startY + rowsPerChunk);
+         ++y) {
       for (size_t x = 0; x < viewplane.vres; x++) {
         // Get rays for the pixel from the sampler. The pixel color is the
         // weighted sum of the shades for each ray.
