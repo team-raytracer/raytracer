@@ -13,8 +13,10 @@
 #include "../world/World.hpp"
 
 #include <iostream>
+#include "../cameras/Parallel.hpp"
 
 const RGBColor TEAM_COLORS[2] = {blue, red};
+const Point3D CAMERA_POSITION = Point3D(9, 3, -3.25);
 const size_t RESOLUTION = 200;
 const double PIECE_SIZE_OFFSET = 0.1;
 const char CHESS_FILE_NAME[16] = "chessLayout.txt";
@@ -29,18 +31,18 @@ const char DEFAULT_BOARD[193] =
     "r0 h0 b0 k0 q0 b0 h0 r0\n";
 
 void addPiece(World* world, std::string pieceName, size_t team, size_t x,
-              size_t y) {
+              size_t z) {
   world->add_ply(
       "models/" + pieceName + ".ply", new Cosine(TEAM_COLORS[team]),
-      Point3D(x + PIECE_SIZE_OFFSET, y + PIECE_SIZE_OFFSET, 0),
-      Point3D(x + 1 - PIECE_SIZE_OFFSET, y + 1 - PIECE_SIZE_OFFSET, 2), true);
+      Point3D(x + PIECE_SIZE_OFFSET, 0, z + PIECE_SIZE_OFFSET),
+      Point3D(x + 1 - PIECE_SIZE_OFFSET, 2, z + 1 - PIECE_SIZE_OFFSET), true);
 }
 
 void parseBoard(World* world, std::istream& board,
                 std::map<char, std::string>& dict) {
   std::string row;
   std::string piece;
-  for (size_t y = 0; y < 8; ++y) {
+  for (size_t z = 0; z < 8; ++z) {
     std::getline(board, row);
     std::stringstream rowStream;
     rowStream << row;
@@ -48,7 +50,7 @@ void parseBoard(World* world, std::istream& board,
       std::getline(rowStream, piece, ' ');
       if (piece.length() >= 2 && dict.count(piece[0]) > 0 &&
           (piece[1] == '0' || piece[1] == '1')) {
-        addPiece(world, dict[piece[0]], piece[1] - '0', x, y);
+        addPiece(world, dict[piece[0]], piece[1] - '0', x, z);
       }
     }
   }
@@ -70,30 +72,28 @@ void World::build(void) {
   std::map<char, std::string> dict = initializeDictionary();
 
   // view plane
-  vplane.top_left = Point3D(1, 12, 7);
-  vplane.top_right = Point3D(7, 12, 7);
-  vplane.bottom_right = Point3D(7, 5, -3);
+  vplane.set_from_camera(CAMERA_POSITION, 20, -30, 60, 0.3);
   vplane.hres = RESOLUTION;
   vplane.vres = RESOLUTION;
 
   bg_color = darkGray;  // background color.
 
   // camera and sampler.
-  set_camera(new Perspective(4, 12, 5));
+  set_camera(new Perspective(CAMERA_POSITION));
   sampler_ptr = new Simple(camera_ptr, &vplane);
 
   // Generate chess board
-  for (size_t y = 0; y < 8; ++y) {
+  for (size_t z = 0; z < 8; ++z) {
     for (size_t x = 0; x < 8; ++x) {
-      RGBColor color = (x + y) % 2 == 0 ? white : black;
+      RGBColor color = (x + z) % 2 == 0 ? white : black;
 
-      Triangle* triangle = new Triangle(Point3D(x, y, 0), Point3D(x + 1, y, 0),
-                                        Point3D(x, y + 1, 0));
+      Triangle* triangle = new Triangle(Point3D(x, 0, z), Point3D(x, 0, z + 1),
+                                        Point3D(x + 1, 0, z));
       triangle->set_material(new Cosine(color));
       add_geometry(triangle);
 
-      triangle = new Triangle(Point3D(x + 1, y + 1, 0), Point3D(x, y + 1, 0),
-                              Point3D(x + 1, y, 0));
+      triangle = new Triangle(Point3D(x + 1, 0, z + 1), Point3D(x + 1, 0, z),
+                              Point3D(x, 0, z + 1));
       triangle->set_material(new Cosine(color));
       add_geometry(triangle);
     }
