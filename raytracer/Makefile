@@ -42,7 +42,7 @@ raytracer: obj/buildChess.o \
 	obj/Cosine.o obj/Matte.o obj/Phong.o obj/Reflective.o \
 	obj/Sampler.o obj/Simple.o obj/RegularBox.o obj/JitterGaussian.o \
 	obj/Tracer.o obj/BasicTracer.o obj/Whitted.o \
-	obj/ChessPiece.o obj/Image.o obj/Point2D.o obj/Point3D.o obj/Ray.o \
+	obj/ChessPiece.o obj/Image.o obj/Point3D.o obj/Ray.o \
 	obj/RGBColor.o obj/ShadeInfo.o obj/Tracer.o obj/Vector3D.o \
 	obj/ViewPlane.o obj/World.o \
 	obj/raytracer.o
@@ -279,9 +279,6 @@ obj/ChessPiece.o: utilities/ChessPiece.cpp utilities/ChessPiece.hpp obj
 obj/Image.o: utilities/Image.cpp utilities/Image.hpp utilities/RGBColor.hpp \
 	world/ViewPlane.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ utilities/Image.cpp
-
-obj/Point2D.o: utilities/Point2D.cpp utilities/Point2D.hpp obj
-	$(CXX) -c $(CXXFLAGS) -o $@ utilities/Point2D.cpp
 
 obj/Point3D.o: utilities/Point3D.cpp utilities/Point3D.hpp \
 	utilities/Vector3D.hpp obj
