@@ -17,7 +17,7 @@
 # not responsible for any issues it may cause
 ################################################################################
 
-CXX = g++
+CXX = g++-8
 CXXFLAGS = -g -std=c++1z -Wall -Wextra -pedantic -O3
 
 # Used by Open MP for multi-threading
