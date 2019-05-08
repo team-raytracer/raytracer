@@ -106,3 +106,5 @@ ShadeInfo World::hit_objects(const Ray& ray) {
 
   return sinfoMin;
 }
+
+size_t World::num_polygons() { return geometry.size(); }

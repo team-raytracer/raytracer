@@ -42,7 +42,7 @@ class World {
 
  public:
   // Constructors.
-  World() = default;  // initialize members.
+  World();  // initialize members.
 
   World(const World&) = delete;
   World& operator=(const World&) = delete;
@@ -68,6 +68,8 @@ class World {
   // Returns appropriate shading information corresponding to intersection of
   // the ray with the scene geometry.
   ShadeInfo hit_objects(const Ray& ray);
+
+  size_t num_polygons();
 };
 
 #endif  // RAYTRACER_WORLD_WORLD_HPP_

@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <iostream>
 #include <omp.h>
 #include <stddef.h>
 #include <string>
@@ -26,6 +27,7 @@ std::string processFilename(const char* input) {
 int main(int argc, char** argv) {
   World world;
   world.build();
+  std::cout << "Scene loaded: " << world.num_polygons() << " polygons" << std::endl;
 
   ViewPlane& viewplane = world.vplane;
   Image image(viewplane);
@@ -33,6 +35,8 @@ int main(int argc, char** argv) {
   const size_t rowsPerChunk = 
     std::max(viewplane.vres / (omp_get_max_threads() * LOAD_BALANCE_FACTOR), 
              MIN_ROWS_PER_CHUNK);
+  
+  std::cout << "Begin rendering with " << omp_get_max_threads() << " cores..." << std::endl;
 
   #pragma omp parallel for
   for (size_t startY = 0; startY < viewplane.vres; startY += rowsPerChunk) {
@@ -62,6 +66,8 @@ int main(int argc, char** argv) {
   // Write image to file.
   std::string filename = argc > 1 ? processFilename(argv[1]) : DEFAULT_FILENAME;
   image.write_ppm(filename);
+
+  std::cout << "Image saved to " << filename << std::endl;
 
   return 0;
 }
