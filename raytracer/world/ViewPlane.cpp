@@ -14,7 +14,8 @@ ViewPlane::ViewPlane()
 
 ViewPlane::ViewPlane(Point3D top_left, Point3D bottom_right, size_t hres,
                      size_t vres)
-    : top_left{top_left}, bottom_right{bottom_right}, hres{hres}, vres{vres} {}
+    : top_left{top_left}, bottom_right{bottom_right}, hres{hres}, vres{vres},
+    max_depth{0} {}
 
 ViewPlane::ViewPlane(Point3D top_left, Point3D bottom_right, Point3D top_right,
                      size_t hres, size_t vres)
@@ -22,7 +23,8 @@ ViewPlane::ViewPlane(Point3D top_left, Point3D bottom_right, Point3D top_right,
       bottom_right{bottom_right},
       top_right{top_right},
       hres{hres},
-      vres{vres} {}
+      vres{vres},
+      max_depth{0} {}
 
 Point3D ViewPlane::getPixelPoint(double px, double py) const {
   // Simple 2 point case with constant z
