@@ -12,6 +12,7 @@
 #include "../utilities/Point3D.hpp"
 #include "../utilities/ShadeInfo.hpp"
 
+
 World::~World() {
   for (Geometry* geom : geometry) {
     delete geom;
@@ -23,6 +24,7 @@ World::~World() {
   delete sampler_ptr;
   delete ambient_ptr;
   delete tracer_ptr;
+  delete acceleration_ptr;
 }
 
 void World::add_geometry(Geometry* geom_ptr) { geometry.push_back(geom_ptr); }
@@ -96,17 +98,12 @@ void World::add_ply(std::string fname, Material* mPtr, Point3D bottom,
 
 void World::set_camera(Camera* c_ptr) { camera_ptr = c_ptr; }
 
+void World::set_acceleration(Acceleration* _acceleration_ptr) {
+  acceleration_ptr = _acceleration_ptr;
+}
+
 ShadeInfo World::hit_objects(const Ray& ray) {
-  ShadeInfo sinfoMin(this);
-  ShadeInfo sinfoCur(this);
-
-  for (Geometry* geom : geometry) {
-    if (geom->hit(ray, sinfoCur) && sinfoCur.t < sinfoMin.t) {
-      sinfoMin = sinfoCur;
-    }
-  }
-
-  return sinfoMin;
+  return acceleration_ptr->hit_objects(ray);
 }
 
 void World::set_ambient_light(Light* light_ptr) { ambient_ptr = light_ptr; }

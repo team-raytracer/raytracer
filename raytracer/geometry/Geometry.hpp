@@ -9,6 +9,7 @@
 */
 
 #include "../materials/Material.hpp"
+#include "../utilities/BoundingBox.hpp"
 #include "../utilities/Ray.hpp"
 #include "../utilities/ShadeInfo.hpp"
 
@@ -39,6 +40,9 @@ class Geometry {
 
   // Ray intersection. Set sinfo as per intersection with this object.
   virtual bool hit(const Ray& ray, ShadeInfo& s) const = 0;
+
+  // Bounding box computation.
+  virtual BoundingBox get_bounding_box() const = 0;
 };
 
 #endif  // RAYTRACER_GEOMETRY_GEOMETRY_HPP_

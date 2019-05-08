@@ -17,6 +17,9 @@
 # not responsible for any issues it may cause
 ################################################################################
 
+# Note: On macs, g++ point to clang still, which does not have Open MP. To
+# solve this you can install gcc with homebrew and specify the version here
+# 	i.e. g++-9
 CXX = g++
 CXXFLAGS = -g -std=c++1z -Wall -Wextra -pedantic -O3
 
@@ -34,6 +37,8 @@ raytracer: obj/buildChess.o \
 	obj/Geometry.o obj/Plane.o obj/Sphere.o obj/Triangle.o \
 	obj/SmoothTriangle.o \
 	obj/Light.o obj/Ambient.o obj/Directional.o obj/Point.o obj/Spotlight.o \
+	obj/KDNode.o obj/KDTree.o \
+	obj/BoundingBox.o \
 	obj/Cosine.o obj/Matte.o obj/Phong.o obj/Reflective.o \
 	obj/Sampler.o obj/Simple.o obj/RegularBox.o obj/JitterGaussian.o \
 	obj/Tracer.o obj/BasicTracer.o obj/Whitted.o \
@@ -47,6 +52,20 @@ obj/raytracer.o: raytracer.cpp materials/Material.hpp samplers/Sampler.hpp \
 	tracers/Tracer.hpp utilities/Image.hpp utilities/ShadeInfo.hpp \
 	world/World.hpp obj
 	$(CXX) $(OMPFLAGS) -c $(CXXFLAGS) -o $@ raytracer.cpp
+################################################################################
+# Acceleration
+################################################################################
+
+obj/KDNode.o: acceleration/KDNode.cpp acceleration/KDNode.hpp \
+	geometry/Geometry.hpp utilities/Vector3D.hpp utilities/Point3D.hpp \
+	utilities/BoundingBox.hpp utilities/Constants.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ acceleration/KDNode.cpp
+
+
+obj/KDTree.o: acceleration/KDTree.cpp acceleration/KDTree.hpp \
+	acceleration/Acceleration.hpp utilities/ShadeInfo.hpp \
+	utilities/Ray.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ acceleration/KDTree.cpp
 
 ################################################################################
 # Builds
@@ -133,29 +152,32 @@ obj/Perspective.o: cameras/Perspective.cpp cameras/Perspective.hpp \
 ################################################################################
 
 obj/Geometry.o: geometry/Geometry.cpp geometry/Geometry.hpp \
-	materials/Material.hpp utilities/Ray.hpp utilities/ShadeInfo.hpp obj
+	materials/Material.hpp utilities/Ray.hpp utilities/ShadeInfo.hpp \
+	utilities/BoundingBox.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ geometry/Geometry.cpp
 
 obj/Plane.o: geometry/Plane.cpp geometry/Plane.hpp geometry/Geometry.hpp \
 	materials/Material.hpp utilities/Constants.hpp utilities/Point3D.hpp \
-	utilities/Ray.hpp utilities/ShadeInfo.hpp utilities/Vector3D.hpp obj
+	utilities/Ray.hpp utilities/ShadeInfo.hpp utilities/Vector3D.hpp \
+	utilities/BoundingBox.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ geometry/Plane.cpp
 
 obj/Sphere.o: geometry/Sphere.cpp geometry/Sphere.hpp geometry/Geometry.hpp \
 	materials/Material.hpp utilities/Constants.hpp utilities/Point3D.hpp \
-	utilities/Ray.hpp utilities/ShadeInfo.hpp utilities/Vector3D.hpp obj
+	utilities/Ray.hpp utilities/ShadeInfo.hpp utilities/Vector3D.hpp \
+	utilities/BoundingBox.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ geometry/Sphere.cpp
 
 obj/Triangle.o: geometry/Triangle.cpp geometry/Triangle.hpp \
 	geometry/Geometry.hpp materials/Material.hpp utilities/Constants.hpp \
 	utilities/Point3D.hpp utilities/Ray.hpp utilities/ShadeInfo.hpp \
-	utilities/Vector3D.hpp obj
+	utilities/Vector3D.hpp utilities/BoundingBox.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ geometry/Triangle.cpp
 
 obj/SmoothTriangle.o: geometry/SmoothTriangle.cpp geometry/SmoothTriangle.hpp \
 	geometry/Geometry.hpp materials/Material.hpp utilities/Constants.hpp \
 	utilities/Point3D.hpp utilities/Ray.hpp utilities/ShadeInfo.hpp \
-	utilities/Vector3D.hpp obj
+	utilities/Vector3D.hpp utilities/BoundingBox.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ geometry/SmoothTriangle.cpp
 
 ################################################################################
@@ -247,6 +269,9 @@ obj/BasicTracer.o: tracers/BasicTracer.cpp tracers/BasicTracer.hpp \
 ################################################################################
 # Utilities
 ################################################################################
+obj/BoundingBox.o: utilities/BoundingBox.cpp utilities/BoundingBox.hpp \
+	utilities/Point3D.hpp utilities/Ray.hpp utilities/Constants.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ utilities/BoundingBox.cpp
 
 obj/ChessPiece.o: utilities/ChessPiece.cpp utilities/ChessPiece.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ utilities/ChessPiece.cpp

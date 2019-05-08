@@ -29,3 +29,8 @@ bool Plane::hit(const Ray& ray, ShadeInfo& s) const {
 
   return false;
 }
+
+BoundingBox Plane::get_bounding_box() const {
+  BoundingBox b;
+  return b;
+}

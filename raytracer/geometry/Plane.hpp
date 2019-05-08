@@ -36,6 +36,9 @@ class Plane : public Geometry {
   // Virtual copy constructor.
   virtual Plane* clone() const;
 
+  // Bounding box computation.
+  virtual BoundingBox get_bounding_box() const;
+
   // Ray intersection. Set t and sinfo as per intersection with this object.
   virtual bool hit(const Ray& ray, ShadeInfo& s) const;
 };

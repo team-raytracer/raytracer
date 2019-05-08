@@ -6,7 +6,7 @@
 
 Sphere::Sphere() : c{Point3D()}, r{0} {}
 
-Sphere::Sphere(const Point3D& center, float radius) : c{center}, r{radius} {}
+Sphere::Sphere(const Point3D& center, double radius) : c{center}, r{radius} {}
 
 Sphere* Sphere::clone() const { return new Sphere(*this); }
 
@@ -51,4 +51,12 @@ bool Sphere::hit(const Ray& ray, ShadeInfo& s) const {
   }
 
   return false;
+}
+
+BoundingBox Sphere::get_bounding_box() const {
+  Vector3D offset = Vector3D(r);
+  Point3D globalmin = c - offset;
+  Point3D globalmax = c + offset;
+  BoundingBox bb(globalmin, globalmax);
+  return bb;
 }

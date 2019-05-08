@@ -30,6 +30,9 @@ class Point3D {
   Point3D(const Point3D& p) = default;
   Point3D& operator=(const Point3D& p) = default;
 
+  // Equality test
+  bool operator==(const Point3D& rhs) const;
+
   // Arithmetic.
   Point3D operator-() const;                   // unary minus.
   Vector3D operator-(const Point3D& p) const;  // vector joining two points

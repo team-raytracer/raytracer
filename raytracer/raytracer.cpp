@@ -5,11 +5,13 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include "acceleration/KDTree.hpp"
 #include "materials/Material.hpp"
 #include "samplers/Sampler.hpp"
 #include "tracers/Tracer.hpp"
 #include "utilities/Image.hpp"
 #include "utilities/ShadeInfo.hpp"
+#include "utilities/BoundingBox.hpp"
 #include "world/World.hpp"
 
 const char DEFAULT_FILENAME[10] = "scene.ppm";
@@ -76,6 +78,8 @@ int main(int argc, char** argv) {
   // Load scene
   World world;
   world.build();
+  world.set_acceleration(new KDTree(&world));
+
   ViewPlane& viewplane = world.vplane;
   Image image(viewplane);
 
