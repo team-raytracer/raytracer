@@ -93,7 +93,7 @@ int main(int argc, char** argv) {
     if (tracer) {
       std::cout << "Using simple ray tracer (primary rays only)" << std::endl;
     } else {
-      std::cout << "Using advanced ray tracer (includes secondary rays)" 
+      std::cout << "Using advanced ray tracer (includes secondary rays)"
                 << std::endl;
     }
 

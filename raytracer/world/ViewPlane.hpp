@@ -15,11 +15,11 @@
 
 class ViewPlane {
  public:
-  Point3D top_left;       // top left corner of the view plane.
-  Point3D bottom_right;   // bottom right corner of the view plane.
-  Point3D top_right;      // Option third point for viewplanes with free z
-  size_t hres;            // horizontal resolution
-  size_t vres;            // vertical resolution
+  Point3D top_left;      // top left corner of the view plane.
+  Point3D bottom_right;  // bottom right corner of the view plane.
+  Point3D top_right;     // Option third point for viewplanes with free z
+  size_t hres;           // horizontal resolution
+  size_t vres;           // vertical resolution
 
  public:
   // Constructors
@@ -37,6 +37,9 @@ class ViewPlane {
   ~ViewPlane() = default;
 
   Point3D getPixelPoint(double, double) const;
+
+  void set_from_camera(Point3D position, double x_theta, double y_theta,
+                       double fov, double near);
 };
 
 #endif  // RAYTRACER_WORLD_VIEWPLANE_HPP_
