@@ -1,5 +1,5 @@
-#ifndef RAYTRACER_MATERIALS_REFLECTION_HPP_
-#define RAYTRACER_MATERIALS_REFLECTION_HPP_
+#ifndef RAYTRACER_MATERIALS_REFLECTIVE_HPP_
+#define RAYTRACER_MATERIALS_REFLECTIVE_HPP_
 
 #include "../brdfs/PerfectSpecular.hpp"
 #include "../utilities/ShadeInfo.hpp"
@@ -23,4 +23,4 @@ class Reflective : public Phong {
   PerfectSpecular* reflective_brdf;
 };
 
-#endif
+#endif  // RAYTRACER_MATERIALS_REFLECTIVE_HPP_

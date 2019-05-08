@@ -23,4 +23,4 @@ class Phong : public Material {
   virtual RGBColor shade(const ShadeInfo& sinfo);
 };
 
-#endif
+#endif  // RAYTRACER_MATERIALS_PHONG_HPP_

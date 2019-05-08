@@ -3,7 +3,6 @@
 
 #include <math.h>
 #include <random>
-#include "../samplers/newSampler.hpp"
 #include "../utilities/Constants.hpp"
 #include "../utilities/RGBColor.hpp"
 #include "../utilities/ShadeInfo.hpp"

@@ -7,7 +7,6 @@ class GlossySpecular : public BRDF {
  private:
   float ks;
   RGBColor cs;
-  // newSampler* sampler;
 
  public:
   // constructor

@@ -32,4 +32,4 @@ class Matte : public Material {
   Lambertian* diffuse_brdf;
 };
 
-#endif
+#endif  // RAYTRACER_MATERIALS_MATTE_HPP_

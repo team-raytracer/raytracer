@@ -35,8 +35,7 @@ raytracer: obj/buildChess.o \
 	obj/SmoothTriangle.o \
 	obj/Light.o obj/Ambient.o obj/Directional.o obj/Point.o obj/Spotlight.o \
 	obj/Cosine.o obj/Matte.o obj/Phong.o obj/Reflective.o \
-	obj/newSampler.o obj/Sampler.o obj/Simple.o obj/RegularBox.o \
-	obj/JitterGaussian.o \
+	obj/Sampler.o obj/Simple.o obj/RegularBox.o obj/JitterGaussian.o \
 	obj/Tracer.o obj/BasicTracer.o obj/Whitted.o \
 	obj/ChessPiece.o obj/Image.o obj/Point2D.o obj/Point3D.o obj/Ray.o \
 	obj/RGBColor.o obj/ShadeInfo.o obj/Tracer.o obj/Vector3D.o \
@@ -108,7 +107,7 @@ obj/GlossySpecular.o: brdfs/GlossySpecular.cpp brdfs/GlossySpecular.hpp \
 
 obj/Lambertian.o: brdfs/Lambertian.cpp brdfs/Lambertian.hpp brdfs/BRDF.hpp \
 	utilities/Constants.hpp utilities/RGBColor.hpp utilities/Vector3D.hpp \
-	utilities/Point3D.hpp utilities/ShadeInfo.hpp samplers/newSampler.hpp obj
+	utilities/Point3D.hpp utilities/ShadeInfo.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ brdfs/Lambertian.cpp
 
 obj/PerfectSpecular.o: brdfs/PerfectSpecular.cpp brdfs/PerfectSpecular.hpp \
@@ -210,11 +209,6 @@ obj/Reflective.o: materials/Reflective.cpp materials/Reflective.hpp \
 ################################################################################
 # Samplers
 ################################################################################
-
-obj/newSampler.o: samplers/newSampler.cpp samplers/newSampler.hpp \
-	utilities/Point2D.hpp utilities/Point3D.hpp utilities/Maths.hpp \
-	utilities/Constants.hpp obj
-	$(CXX) -c $(CXXFLAGS) -o $@ samplers/newSampler.cpp
 
 obj/Sampler.o: samplers/Sampler.cpp samplers/Sampler.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ samplers/Sampler.cpp
