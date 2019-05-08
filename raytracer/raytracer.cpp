@@ -26,20 +26,24 @@ static std::string process_filename(const char* input) {
 }
 
 int main(int argc, char** argv) {
+  // Settings set by command line arguments
   bool useKD = true;
   bool tracer = false;
-  int c;
+  bool verbose = false;
   std::string filename = DEFAULT_FILENAME;
 
   // Process command-line arguments
-  while ((c = getopt(argc, argv, "sto:")) != -1) {
-    std::cout << c << std::endl;
+  int c;
+  while ((c = getopt(argc, argv, "stvo:")) != -1) {
     switch (c) {
       case 's':
         useKD = false;
         break;
       case 't':
         tracer = true;
+        break;
+      case 'v':
+        verbose = true;
         break;
       case 'o':
         filename = process_filename(optarg);
@@ -51,31 +55,35 @@ int main(int argc, char** argv) {
   // Load scene
   World world;
   world.build();
-  std::cout << "Scene loaded: " << world.num_polygons() << " polygons"
-            << std::endl;
   ViewPlane& viewplane = world.vplane;
   Image image(viewplane);
 
-  // Print render information to the user
-  if (useKD) {
-    std::cout << "Using a KD tree acceleration structure" << std::endl;
-  } else {
-    std::cout << "Using no acceleration structure (this may take a while)"
-          << std::endl;
+  // Print information to the user
+  if (verbose) {
+    std::cout << "Scene loaded: " << world.num_polygons() << " polygons"
+              << std::endl;
+
+    if (useKD) {
+      std::cout << "Using a KD tree acceleration structure" << std::endl;
+    } else {
+      std::cout << "Using no acceleration structure (this may take a while)"
+                << std::endl;
+    }
+
+    if (tracer) {
+      std::cout << "Using simple ray tracer (primary rays only)" << std::endl;
+    } else {
+      std::cout << "Using fancy ray tracer" << std::endl;
+    }
+
+    std::cout << "Begining rendering with " << omp_get_max_threads()
+              << " cores..." << std::endl;
   }
 
-  if (tracer) {
-    std::cout << "Using simple ray tracer (primary rays only)" << std::endl;
-  } else {
-    std::cout << "Using fancy ray tracer" << std::endl;
-  }
-
+  // Identify optimal load balancing based on the number of cores
   const size_t rowsPerChunk =
       std::max(viewplane.vres / (omp_get_max_threads() * LOAD_BALANCE_FACTOR),
                MIN_ROWS_PER_CHUNK);
-
-  std::cout << "Begining rendering with " << omp_get_max_threads()
-            << " cores..." << std::endl;
 
 #pragma omp parallel for
   for (size_t startY = 0; startY < viewplane.vres; startY += rowsPerChunk) {
@@ -104,7 +112,10 @@ int main(int argc, char** argv) {
 
   // Write image to file
   image.write_ppm(filename);
-  std::cout << "Image saved to " << filename << std::endl;
+
+  if (verbose) {
+    std::cout << "Image saved to " << filename << std::endl;
+  }
 
   return 0;
 }
