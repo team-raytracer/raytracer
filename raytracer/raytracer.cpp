@@ -1,3 +1,4 @@
+#include <getopt.h>
 #include <omp.h>
 #include <stddef.h>
 #include <algorithm>
@@ -15,7 +16,7 @@ const char DEFAULT_FILENAME[10] = "scene.ppm";
 const size_t MIN_ROWS_PER_CHUNK = 4;
 const size_t LOAD_BALANCE_FACTOR = 4;
 
-std::string processFilename(const char* input) {
+static std::string process_filename(const char* input) {
   std::string filename = input;
   if (filename.substr(filename.length() - 4) != ".ppm") {
     filename.append(".ppm");
@@ -25,13 +26,49 @@ std::string processFilename(const char* input) {
 }
 
 int main(int argc, char** argv) {
+  bool useKD = true;
+  bool tracer = false;
+  int c;
+  std::string filename = DEFAULT_FILENAME;
+
+  // Process command-line arguments
+  while ((c = getopt(argc, argv, "sto:")) != -1) {
+    std::cout << c << std::endl;
+    switch (c) {
+      case 's':
+        useKD = false;
+        break;
+      case 't':
+        tracer = true;
+        break;
+      case 'o':
+        filename = process_filename(optarg);
+      default:
+        break;
+    }
+  }
+
+  // Load scene
   World world;
   world.build();
   std::cout << "Scene loaded: " << world.num_polygons() << " polygons"
             << std::endl;
-
   ViewPlane& viewplane = world.vplane;
   Image image(viewplane);
+
+  // Print render information to the user
+  if (useKD) {
+    std::cout << "Using a KD tree acceleration structure" << std::endl;
+  } else {
+    std::cout << "Using no acceleration structure (this may take a while)"
+          << std::endl;
+  }
+
+  if (tracer) {
+    std::cout << "Using simple ray tracer (primary rays only)" << std::endl;
+  } else {
+    std::cout << "Using fancy ray tracer" << std::endl;
+  }
 
   const size_t rowsPerChunk =
       std::max(viewplane.vres / (omp_get_max_threads() * LOAD_BALANCE_FACTOR),
@@ -65,10 +102,8 @@ int main(int argc, char** argv) {
     }
   }
 
-  // Write image to file.
-  std::string filename = argc > 1 ? processFilename(argv[1]) : DEFAULT_FILENAME;
+  // Write image to file
   image.write_ppm(filename);
-
   std::cout << "Image saved to " << filename << std::endl;
 
   return 0;
