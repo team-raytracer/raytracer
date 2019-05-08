@@ -14,8 +14,8 @@
 #include <string>
 #include <vector>
 #include "../materials/Material.hpp"
-#include "../utilities/RGBColor.hpp"
 #include "../tracers/Tracer.hpp"
+#include "../utilities/RGBColor.hpp"
 #include "ViewPlane.hpp"
 
 class Geometry;

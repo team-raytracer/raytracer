@@ -4,7 +4,7 @@
 // 	Copyright (C) Kevin Suffern 2000-2007.
 //	This C++ code is for non-commercial purposes only.
 //	This C++ code is licensed under the GNU General Public License
-//Version 2. 	See the file COPYING.txt for the full license.
+// Version 2. 	See the file COPYING.txt for the full license.
 
 // This is a header file for the mathematics utility functions
 // The prototypes of any inlined functions must be placed here
@@ -27,10 +27,10 @@ float rand_float(void);
 void set_rand_seed(const int seed);
 
 float  // for multi-jittered sampling
-rand_float(int l, float h);
+    rand_float(int l, float h);
 
 int  // for multi-jittered sampling
-rand_int(int l, int h);
+    rand_int(int l, int h);
 
 double clamp(const double x, const double min, const double max);
 

@@ -37,7 +37,7 @@ class BTDF {
   virtual RGBColor sample_f(const ShadeInfo& sinfo, const Vector3D& wo,
                             Vector3D& wi, float& pdf) const = 0;
   virtual RGBColor rho(const ShadeInfo& sinfo, const Vector3D& wo) const = 0;
-  virtual bool     tir(const ShadeInfo& sinfo) const = 0;
+  virtual bool tir(const ShadeInfo& sinfo) const = 0;
 };
 
 #endif  // RAYTRACER_BTDFS_BTDF_HPP_

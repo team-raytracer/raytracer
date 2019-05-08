@@ -11,4 +11,4 @@ virtual RGBColor sample_f(const ShadeInfo& sinfo, const Vector3D& wo,
 virtual RGBColor sample_f(const ShadeInfo& sinfo, const Vector3D& wo,
                           Vector3D& wi, float& pdf) const {}
 virtual RGBColor rho(const ShadeInfo& sinfo, const Vector3D& wo) const {}
-virtual bool     tir(const ShadeInfo& sinfo) const {}
+virtual bool tir(const ShadeInfo& sinfo) const {}

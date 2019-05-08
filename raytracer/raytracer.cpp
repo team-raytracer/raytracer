@@ -80,8 +80,8 @@ int main(int argc, char** argv) {
   Image image(viewplane);
 
   const size_t rowsPerChunk =
-    std::max(viewplane.vres / (omp_get_max_threads() * LOAD_BALANCE_FACTOR),
-             MIN_ROWS_PER_CHUNK);
+      std::max(viewplane.vres / (omp_get_max_threads() * LOAD_BALANCE_FACTOR),
+               MIN_ROWS_PER_CHUNK);
 
   // Print information to the user
   if (verbose) {
@@ -109,7 +109,7 @@ int main(int argc, char** argv) {
 #pragma omp parallel for
   for (size_t startY = 0; startY < viewplane.vres; startY += rowsPerChunk) {
     for (size_t y = startY; y < std::min(viewplane.vres, startY + rowsPerChunk);
-      ++y) {
+         ++y) {
       for (size_t x = 0; x < viewplane.vres; x++) {
         // Get rays for the pixel from the sampler. The pixel color is the
         // weighted sum of the shades for each ray.

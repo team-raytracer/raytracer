@@ -42,17 +42,16 @@ class BRDF {
 
   Point3D sample_hemisphere() const;
 
-protected:
+ protected:
   float exp;
 };
 
 inline Point3D BRDF::sample_hemisphere() const {
-  std::uniform_real_distribution<double> unif(-1.0,1.0);
+  std::uniform_real_distribution<double> unif(-1.0, 1.0);
   std::random_device rd;
 
   double x = unif(rd);
   double y = unif(rd);
-
 
   float cos_phi = cos(2.0 * PI * x);
   float sin_phi = sin(2.0 * PI * x);

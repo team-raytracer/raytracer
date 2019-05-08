@@ -1,12 +1,13 @@
 #include "GlossySpecular.hpp"
 #include "../utilities/Point3D.hpp"
 
-GlossySpecular::GlossySpecular() : BRDF(), ks(0.0), cs(1.0) { //, sampler(NULL) {
+GlossySpecular::GlossySpecular()
+    : BRDF(), ks(0.0), cs(1.0) {  //, sampler(NULL) {
   BRDF::exp = 3.0;
 }
 
 GlossySpecular::GlossySpecular(const GlossySpecular& gs)
-    : BRDF(), ks(gs.ks), cs(gs.cs) {} //, sampler(NULL) {}
+    : BRDF(), ks(gs.ks), cs(gs.cs) {}  //, sampler(NULL) {}
 
 GlossySpecular* GlossySpecular::clone() const {
   return (new GlossySpecular(*this));

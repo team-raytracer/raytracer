@@ -1,9 +1,7 @@
 #include "Lambertian.hpp"
 #include "../utilities/Point3D.hpp"
 
-Lambertian::Lambertian() : BRDF(), kd(0.0), cd(0.0) {
-  BRDF::exp = 1.0;
-}
+Lambertian::Lambertian() : BRDF(), kd(0.0), cd(0.0) { BRDF::exp = 1.0; }
 
 Lambertian::Lambertian(const Lambertian& l) : BRDF(), kd(l.kd), cd(l.cd) {}
 
