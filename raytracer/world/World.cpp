@@ -12,6 +12,7 @@
 #include "../utilities/Point3D.hpp"
 #include "../utilities/ShadeInfo.hpp"
 
+World::World() : acceleration_ptr{nullptr} {}
 
 World::~World() {
   for (Geometry* geom : geometry) {
@@ -103,7 +104,19 @@ void World::set_acceleration(Acceleration* _acceleration_ptr) {
 }
 
 ShadeInfo World::hit_objects(const Ray& ray) {
-  return acceleration_ptr->hit_objects(ray);
+  if (acceleration_ptr != nullptr) {
+    return acceleration_ptr->hit_objects(ray);
+  }
+
+  ShadeInfo sinfoMin(this);
+  ShadeInfo sinfoCur(this);
+  for (Geometry* geom : geometry) {
+    if (geom->hit(ray, sinfoCur) && sinfoCur.t < sinfoMin.t) {
+      sinfoMin = sinfoCur;
+    }
+  }
+
+  return sinfoMin;
 }
 
 void World::set_ambient_light(Light* light_ptr) { ambient_ptr = light_ptr; }

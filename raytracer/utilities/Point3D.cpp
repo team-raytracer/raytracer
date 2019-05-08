@@ -58,4 +58,5 @@ Point3D Point3D::interpolate(const Point3D& a, const Point3D& b,
 
 std::ostream& Point3D::print(std::ostream& out) const {
   out << "(" << x << "," << y << "," << z << ")";
+  return out;
 }

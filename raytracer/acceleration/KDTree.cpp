@@ -1,6 +1,6 @@
 #include "KDTree.hpp"
-#include "../utilities/BoundingBox.hpp"
 #include <stack>
+#include "../utilities/BoundingBox.hpp"
 
 KDTree::KDTree(World* world)
     : world_ptr{world}, root_node{new KDNode(world->geometry)} {
@@ -21,13 +21,12 @@ ShadeInfo KDTree::hit_objects(const Ray& ray) {
   while (!frontier.empty()) {
     if (current->left == NULL || current->right == NULL) {
       // leaf node, this is where we intersect with geometry
-      for (Geometry* geom: current->primitives) {
+      for (Geometry* geom : current->primitives) {
         if (geom->hit(ray, sinfocur) && sinfocur.t < sinfomin.t) {
           sinfomin = sinfocur;
         }
       }
     } else {
-
       if (current->left->bb.hit(ray)) {
         // if the ray hits the left bounding box, look at that child later
         frontier.push(current->left);
@@ -37,7 +36,6 @@ ShadeInfo KDTree::hit_objects(const Ray& ray) {
         // if the ray hits the right bounding box, look at that child later
         frontier.push(current->right);
       }
-
     }
     // move on to next item
     current = frontier.top();

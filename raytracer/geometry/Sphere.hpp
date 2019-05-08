@@ -16,7 +16,7 @@
 class Sphere : public Geometry {
  protected:
   Point3D c;  // center.
-  double r;    // radius.
+  double r;   // radius.
 
  public:
   // Constructors.

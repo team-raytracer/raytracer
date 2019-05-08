@@ -13,11 +13,11 @@
 
 #include <string>
 #include <vector>
+#include "../acceleration/Acceleration.hpp"
+#include "../acceleration/KDTree.hpp"
 #include "../materials/Material.hpp"
 #include "../tracers/Tracer.hpp"
 #include "../utilities/RGBColor.hpp"
-#include "../acceleration/Acceleration.hpp"
-#include "../acceleration/KDTree.hpp"
 #include "ViewPlane.hpp"
 
 class Geometry;
@@ -45,7 +45,7 @@ class World {
 
  public:
   // Constructors.
-  World() = default;  // initialize members.
+  World();
 
   World(const World&) = delete;
   World& operator=(const World&) = delete;

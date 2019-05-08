@@ -32,7 +32,6 @@ int BoundingBox::max_axis() const {
   }
 
   return 2;
-
 }
 
 bool BoundingBox::intersect(const Point3D& point) const {

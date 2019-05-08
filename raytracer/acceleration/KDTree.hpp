@@ -1,11 +1,11 @@
 #ifndef RAYTRACER_ACCELERATION_KDTREE_HPP_
 #define RAYTRACER_ACCELERATION_KDTREE_HPP_
 
-#include "Acceleration.hpp"
-#include "KDNode.hpp"
-#include "../world/World.hpp"
 #include "../utilities/Ray.hpp"
 #include "../utilities/ShadeInfo.hpp"
+#include "../world/World.hpp"
+#include "Acceleration.hpp"
+#include "KDNode.hpp"
 
 class KDTree : public Acceleration {
  protected:
