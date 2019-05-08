@@ -30,7 +30,7 @@ void World::build(void) {
   vplane.vres = 400;
 
   // Set max depth higher for more reflections
-  vplane.max_depth = 0;
+  vplane.max_depth = 20;
 
   // Background color.
   bg_color = gray;
@@ -52,7 +52,7 @@ void World::build(void) {
   reflective->set_kr(.75);
 
   // sphere
-  Sphere* sphere_ptr = new Sphere(Point3D(-3, 2, 0), 5);
+  Sphere* sphere_ptr = new Sphere(Point3D(-6, 2, 0), 5);
   sphere_ptr->set_material(reflective->clone());
   add_geometry(sphere_ptr);
 
@@ -60,8 +60,8 @@ void World::build(void) {
   Point3D a(2.5, -5, 1);
   Point3D b(14, -1, 0);
   Point3D c(8.5, 5, 0.5);
-  Triangle* triangle_ptr = new Triangle(a, b, c);
-  triangle_ptr->set_material(matte->clone());
+  Sphere* triangle_ptr = new Sphere(Point3D(6, 2, 0), 5);
+  triangle_ptr->set_material(reflective->clone());
   add_geometry(triangle_ptr);
 
   // plane
