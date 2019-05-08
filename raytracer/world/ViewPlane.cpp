@@ -8,7 +8,8 @@ ViewPlane::ViewPlane()
     : top_left{320, 240, 100},
       bottom_right{-320, -240, 100},
       hres{640},
-      vres{480} {}
+      vres{480},
+      max_depth{0} {}
 
 ViewPlane::ViewPlane(Point3D top_left, Point3D bottom_right, size_t hres,
                      size_t vres)

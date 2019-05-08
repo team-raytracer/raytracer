@@ -6,6 +6,7 @@
 #include "../samplers/JitterGaussian.hpp"
 #include "../samplers/RegularBox.hpp"
 #include "../samplers/Simple.hpp"
+#include "../tracers/Whitted.hpp"
 #include "../utilities/Constants.hpp"
 #include "../world/World.hpp"
 
@@ -21,6 +22,9 @@ void World::build(void) {
   // Camera and sampler.
   set_camera(new Perspective(0, 0, 20));
   sampler_ptr = new JitterGaussian(camera_ptr, &vplane, 4, 0.25);
+
+  // Tracer
+  tracer_ptr = new Whitted(&(*this));
 
   // sphere
   Sphere* sphere_ptr = new Sphere(Point3D(-4, 4, 0), 5);

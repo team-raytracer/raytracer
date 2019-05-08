@@ -7,6 +7,7 @@
 #include <vector>
 #include "materials/Material.hpp"
 #include "samplers/Sampler.hpp"
+#include "tracers/Tracer.hpp"
 #include "utilities/Image.hpp"
 #include "utilities/ShadeInfo.hpp"
 #include "world/World.hpp"
@@ -78,6 +79,10 @@ int main(int argc, char** argv) {
   ViewPlane& viewplane = world.vplane;
   Image image(viewplane);
 
+  const size_t rowsPerChunk =
+    std::max(viewplane.vres / (omp_get_max_threads() * LOAD_BALANCE_FACTOR),
+             MIN_ROWS_PER_CHUNK);
+
   // Print information to the user
   if (verbose) {
     std::cout << "Scene loaded: " << world.num_polygons() << " polygons"
@@ -101,28 +106,17 @@ int main(int argc, char** argv) {
               << " cores..." << std::endl;
   }
 
-  // Identify optimal load balancing based on the number of cores
-  const size_t rowsPerChunk =
-      std::max(viewplane.vres / (omp_get_max_threads() * LOAD_BALANCE_FACTOR),
-               MIN_ROWS_PER_CHUNK);
-
 #pragma omp parallel for
   for (size_t startY = 0; startY < viewplane.vres; startY += rowsPerChunk) {
     for (size_t y = startY; y < std::min(viewplane.vres, startY + rowsPerChunk);
-         ++y) {
+      ++y) {
       for (size_t x = 0; x < viewplane.vres; x++) {
         // Get rays for the pixel from the sampler. The pixel color is the
         // weighted sum of the shades for each ray.
         RGBColor pixel_color(0);
         Ray* rays = world.sampler_ptr->get_rays(x, y);
         for (size_t i = 0; i < world.sampler_ptr->num_rays(); i++) {
-          double weight = rays[i].w;  // ray weight for the pixel.
-          ShadeInfo sinfo = world.hit_objects(rays[i]);
-          if (sinfo.hit) {
-            pixel_color += weight * sinfo.material_ptr->shade(sinfo);
-          } else {
-            pixel_color += weight * world.bg_color;
-          }
+          pixel_color += world.tracer_ptr->trace_ray(rays[i], 0);
         }
         delete[] rays;
         // Save color to image.

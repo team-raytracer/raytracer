@@ -25,7 +25,7 @@ class Sampler {
   // Note: we do not own either of these pointers, so are not responsible
   // for allocating/deallocating their space
   Camera* camera_ptr;        // the camera that decides the projectors.
-  ViewPlane* viewplane_ptr;  // the view plane through which rays are shot.
+  ViewPlane* viewplane_ptr;  // the view plane through which rays are shot.z
 
  public:
   // Constructors.

@@ -39,7 +39,7 @@ class Cosine : public Material {
      \theta is the angle between the normal at the hit point and the ray.
      Assuming unit vectors, cos \theta = dot product of normal and -ray.dir.
   */
-  virtual RGBColor shade(const ShadeInfo& sinfo) const;
+  virtual RGBColor shade(const ShadeInfo& sinfo);
 };
 
 #endif  // RAYTRACER_MATERIALS_COSINE_HPP_

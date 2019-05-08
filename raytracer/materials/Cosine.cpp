@@ -11,6 +11,6 @@ Cosine::Cosine(const RGBColor& c) : color{c} {}
 
 Cosine* Cosine::clone() const { return new Cosine(*this); }
 
-RGBColor Cosine::shade(const ShadeInfo& sinfo) const {
+RGBColor Cosine::shade(const ShadeInfo& sinfo) {
   return color * (sinfo.normal * -sinfo.ray.d);
 }

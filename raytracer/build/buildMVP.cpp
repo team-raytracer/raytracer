@@ -4,6 +4,7 @@
 #include "../geometry/Triangle.hpp"
 #include "../materials/Cosine.hpp"
 #include "../samplers/Simple.hpp"
+#include "../tracers/Whitted.hpp"
 #include "../utilities/Constants.hpp"
 #include "../world/World.hpp"
 
@@ -21,6 +22,9 @@ void World::build(void) {
   // Camera and sampler.
   set_camera(new Parallel(0, -1, 0));
   sampler_ptr = new Simple(camera_ptr, &vplane);
+
+  // Tracer
+  tracer_ptr = new Whitted(&(*this));
 
   for (int x = -8; x <= 8; x += 2) {
     for (int z = -8; z <= 8; z += 2) {

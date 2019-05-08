@@ -8,6 +8,7 @@
 #include "../geometry/Triangle.hpp"
 #include "../materials/Cosine.hpp"
 #include "../samplers/Simple.hpp"
+#include "../tracers/Whitted.hpp"
 #include "../utilities/Constants.hpp"
 #include "../utilities/Vector3D.hpp"
 #include "../world/World.hpp"
@@ -81,6 +82,9 @@ void World::build(void) {
   // camera and sampler.
   set_camera(new Perspective(CAMERA_POSITION));
   sampler_ptr = new Simple(camera_ptr, &vplane);
+
+  // Tracer
+  tracer_ptr = new Whitted(&(*this));
 
   // Generate chess board
   for (size_t z = 0; z < 8; ++z) {

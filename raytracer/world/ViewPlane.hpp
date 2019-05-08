@@ -15,11 +15,13 @@
 
 class ViewPlane {
  public:
+
   Point3D top_left;      // top left corner of the view plane.
   Point3D bottom_right;  // bottom right corner of the view plane.
   Point3D top_right;     // Option third point for viewplanes with free z
   size_t hres;           // horizontal resolution
   size_t vres;           // vertical resolution
+  int    max_depth;      // max ray depth
 
  public:
   // Constructors

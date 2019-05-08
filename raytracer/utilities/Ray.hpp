@@ -14,7 +14,8 @@ class Ray {
  public:
   Point3D o;   // origin
   Vector3D d;  // direction, keep normalized.
-  double w;    // weightage of ray for a particular pixel, default is 1.
+  double w;     // weightage of ray for a particular pixel, default is 1.
+  int depth;
 
  public:
   // Constructors.
