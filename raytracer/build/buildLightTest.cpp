@@ -14,6 +14,7 @@
 #include "../materials/Matte.hpp"
 #include "../materials/Reflective.hpp"
 #include "../samplers/Simple.hpp"
+#include "../tracers/Whitted.hpp"
 #include "../utilities/Constants.hpp"
 #include "../world/World.hpp"
 
@@ -28,12 +29,18 @@ void World::build(void) {
   vplane.hres = 400;
   vplane.vres = 400;
 
+  // Set max depth higher for more reflections
+  vplane.max_depth = 0;
+
   // Background color.
-  bg_color = black;
+  bg_color = gray;
 
   // Camera and sampler.
   set_camera(new Perspective(0, 0, 20));
   sampler_ptr = new Simple(camera_ptr, &vplane);
+
+  // Tracer
+  tracer_ptr = new Whitted(&(*this));
 
   // material
   Matte* matte = new Matte();
@@ -41,10 +48,12 @@ void World::build(void) {
   matte->set_ka(0.7);
   matte->set_cd(0.7);
   Reflective* reflective = new Reflective();
+  reflective->set_cr(1);
+  reflective->set_kr(.75);
 
   // sphere
   Sphere* sphere_ptr = new Sphere(Point3D(-3, 2, 0), 5);
-  sphere_ptr->set_material(matte->clone());
+  sphere_ptr->set_material(reflective->clone());
   add_geometry(sphere_ptr);
 
   // triangle
@@ -61,7 +70,7 @@ void World::build(void) {
   add_geometry(plane_ptr);
 
   // lighting
-  set_ambient_light(new Ambient());
+  set_ambient_light(new Ambient(.2));
   Point* point = new Point(0.9, 0.1, 0.2);
   point->set_position(15, 1, 5);
   add_light(point);

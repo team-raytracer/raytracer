@@ -19,6 +19,8 @@ class ViewPlane {
   Point3D bottom_right;  // bottom right corner of the view plane.
   size_t hres;           // horizontal resolution
   size_t vres;           // vertical resolution
+  int    max_depth;      // max ray depth
+
 
  public:
   // Constructor

@@ -10,6 +10,7 @@
 #include "../geometry/Triangle.hpp"
 #include "../materials/Cosine.hpp"
 #include "../samplers/Simple.hpp"
+#include "../tracers/BasicTracer.hpp"
 #include "../utilities/Constants.hpp"
 #include "../world/World.hpp"
 
@@ -30,6 +31,9 @@ void World::build(void) {
   // Camera and sampler.
   set_camera(new Perspective(0, 0, 20));
   sampler_ptr = new Simple(camera_ptr, &vplane);
+
+  // Tracer
+  tracer_ptr = new BasicTracer(&(*this));
 
   // sphere
   Sphere* sphere_ptr = new Sphere(Point3D(-3, 2, 0), 5);
