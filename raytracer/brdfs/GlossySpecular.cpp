@@ -1,10 +1,12 @@
 #include "GlossySpecular.hpp"
 #include "../utilities/Point3D.hpp"
 
-GlossySpecular::GlossySpecular() : BRDF(), ks(0.0), cs(1.0), sampler(NULL) {}
+GlossySpecular::GlossySpecular() : BRDF(), ks(0.0), cs(1.0) { //, sampler(NULL) {
+  BRDF::exp = 3.0;
+}
 
 GlossySpecular::GlossySpecular(const GlossySpecular& gs)
-    : BRDF(), ks(gs.ks), cs(gs.cs), sampler(NULL) {}
+    : BRDF(), ks(gs.ks), cs(gs.cs) {} //, sampler(NULL) {}
 
 GlossySpecular* GlossySpecular::clone() const {
   return (new GlossySpecular(*this));
@@ -35,7 +37,7 @@ RGBColor GlossySpecular::sample_f(const ShadeInfo& sinfo, const Vector3D& wo,
   u.normalize();
   Vector3D v = u ^ w;
 
-  Point3D sp = sampler_ptr->sample_hemisphere();
+  Point3D sp = BRDF::sample_hemisphere();
   wi = sp.x * u + sp.y * v + sp.z * w;  // reflected ray direction
 
   if (sinfo.normal * wi < 0.0)  // reflected ray is below tangent plane
@@ -58,7 +60,7 @@ RGBColor GlossySpecular::sample_f(const ShadeInfo& sinfo, const Vector3D& wo,
   u.normalize();
   Vector3D v = u ^ w;
 
-  Point3D sp = sampler_ptr->sample_hemisphere();
+  Point3D sp = BRDF::sample_hemisphere();
   wi = sp.x * u + sp.y * v + sp.z * w;  // reflected ray direction
 
   if (sinfo.normal * wi < 0.0)  // reflected ray is below tangent plane

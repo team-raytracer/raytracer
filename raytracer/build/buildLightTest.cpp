@@ -44,7 +44,7 @@ void World::build(void) {
 
   // sphere
   Sphere* sphere_ptr = new Sphere(Point3D(-3, 2, 0), 5);
-  sphere_ptr->set_material(matte->clone());
+  sphere_ptr->set_material(reflective->clone());
   add_geometry(sphere_ptr);
 
   // triangle
@@ -61,7 +61,7 @@ void World::build(void) {
   add_geometry(plane_ptr);
 
   // lighting
-  set_ambient_light(new Ambient());
+  set_ambient_light(new Ambient(.2));
   Point* point = new Point(0.9, 0.1, 0.2);
   point->set_position(15, 1, 5);
   add_light(point);
