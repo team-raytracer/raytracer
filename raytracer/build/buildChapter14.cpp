@@ -17,12 +17,8 @@
 
 void World::build(void) {
   // view plane
-  vplane.top_left.x = -200;
-  vplane.top_left.y = 200;
-  vplane.top_left.z = 100;
-  vplane.bottom_right.x = 200;
-  vplane.bottom_right.y = -200;
-  vplane.bottom_right.z = 100;
+  vplane.top_left = Point3D(-200, 200, 100);
+  vplane.bottom_right = Point3D(200, -200, 100);
   vplane.hres = 400;
   vplane.vres = 400;
 
@@ -178,6 +174,6 @@ void World::build(void) {
 
   // vertical plane
   Plane* plane_ptr = new Plane(Point3D(0, 0, -150), Vector3D(0, 0, 1));
-  plane_ptr->set_material(new Cosine(grey));
+  plane_ptr->set_material(new Cosine(gray));
   add_geometry(plane_ptr);
 }

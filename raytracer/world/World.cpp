@@ -114,3 +114,4 @@ void World::set_ambient_light(Light* light_ptr) { ambient_ptr = light_ptr; }
 void World::set_tracer(Tracer* t_ptr) {
   tracer_ptr = t_ptr;
 }
+size_t World::num_polygons() { return geometry.size(); }

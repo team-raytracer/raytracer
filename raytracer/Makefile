@@ -28,6 +28,7 @@ all: raytracer
 
 # Builds the executable
 # Important: Change the first dependency to the build you are using
+
 raytracer: obj/buildLightTest.o \
 	obj/Lambertian.o obj/PerfectSpecular.o obj/GlossySpecular.o \
 	obj/Parallel.o obj/Perspective.o \
@@ -303,9 +304,16 @@ clean:
 # Formats code and suggestions improvements according to cpplint
 clean-code:
 	clang-format --style=google -i **/*.*pp
+	clang-format --style=google -i raytracer.cpp
 	-cpplint **/*.cpp
 	-cpplint **/*.hpp
+	-cpplint raytracer.cpp
 
 # Creates obj folder for all object files
 obj:
 	mkdir obj
+
+# Update the happly submodule
+happly/happly.h:
+	git submodule init
+	git submodule update
