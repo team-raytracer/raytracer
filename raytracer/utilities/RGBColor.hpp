@@ -17,8 +17,8 @@ class RGBColor {
 
  public:
   // Constructors.
-  RGBColor();                              // set color to (0, 0, 0).
-  explicit RGBColor(double c);              // set color to (c, c, c).
+  RGBColor();                                 // set color to (0, 0, 0).
+  explicit RGBColor(double c);                // set color to (c, c, c).
   RGBColor(double _r, double _g, double _b);  // set color to (_r, _g, _b).
 
   // Copy constructor and assignment operator.
@@ -31,15 +31,15 @@ class RGBColor {
   // Operations.
   RGBColor operator+(const RGBColor& c) const;  // addition.
   RGBColor& operator+=(const RGBColor& c);      // compound addition.
-  RGBColor operator*(const double a) const;      // multiplication by a double.
+  RGBColor operator*(const double a) const;     // multiplication by a double.
   RGBColor operator*(
-      const RGBColor& c) const;         // component-wise multiplication.
+      const RGBColor& c) const;          // component-wise multiplication.
   RGBColor& operator*=(const double a);  // compound multiplication by a double.
-  RGBColor operator/(const double a) const;   // division by a double.
-  RGBColor& operator/=(const double a);       // compound division by a double.
+  RGBColor operator/(const double a) const;  // division by a double.
+  RGBColor& operator/=(const double a);      // compound division by a double.
   bool operator==(const RGBColor& c) const;  // equality.
-  RGBColor powc(double p) const;              // raise components to a power.
-  double average() const;                     // the average of the components.
+  RGBColor powc(double p) const;             // raise components to a power.
+  double average() const;                    // the average of the components.
 };
 
 // Front multiplication by a double.

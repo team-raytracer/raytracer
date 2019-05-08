@@ -33,7 +33,8 @@ void Image::write_ppm(std::string path) {
   double max = 0;
   for (size_t r = 0; r < vres; ++r) {
     for (size_t c = 0; c < hres; ++c) {
-      max = std::max(colors[r][c].r, std::max(colors[r][c].g, std::max(colors[r][c].b, max)));
+      max = std::max(colors[r][c].r,
+                     std::max(colors[r][c].g, std::max(colors[r][c].b, max)));
     }
   }
 

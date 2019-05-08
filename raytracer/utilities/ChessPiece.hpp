@@ -11,11 +11,10 @@
 #include <string>
 
 class ChessPiece {
- private:
+ public:
   std::string name;
   double height;
 
- public:
   // Constructors and assignment operator
   ChessPiece() = default;
   ChessPiece(const ChessPiece& other) = default;

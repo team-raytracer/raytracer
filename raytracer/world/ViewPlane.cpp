@@ -14,8 +14,11 @@ ViewPlane::ViewPlane()
 
 ViewPlane::ViewPlane(Point3D top_left, Point3D bottom_right, size_t hres,
                      size_t vres)
-    : top_left{top_left}, bottom_right{bottom_right}, hres{hres}, vres{vres},
-    max_depth{0} {}
+    : top_left{top_left},
+      bottom_right{bottom_right},
+      hres{hres},
+      vres{vres},
+      max_depth{0} {}
 
 ViewPlane::ViewPlane(Point3D top_left, Point3D bottom_right, Point3D top_right,
                      size_t hres, size_t vres)

@@ -31,9 +31,11 @@ class GlossySpecular : public BRDF {
   void set_cs(const RGBColor& c);
   void set_cs(const float r, const float g, const float b);
   void set_cs(const float c);
-  // void set_sampler(Sampler* sp, const float exp);   			// any type
+  // void set_sampler(Sampler* sp, const float exp);   			// any
+  // type
   // of
-  // sampling void set_samples(const int num_samples, const float exp); 	//
+  // sampling void set_samples(const int num_samples, const float exp);
+  // //
   // multi
   // jittered sampling void set_normal(const Normal& n);
 };

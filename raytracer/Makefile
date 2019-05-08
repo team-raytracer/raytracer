@@ -83,9 +83,9 @@ obj/buildPly.o: build/buildPly.cpp cameras/Perspective.hpp \
 	$(CXX) -c $(CXXFLAGS) -o $@ build/buildPly.cpp
 
 obj/buildChess.o: build/buildChess.cpp cameras/Perspective.hpp \
-	geometry/Plane.hpp geometry/Triangle.hpp materials/Cosine.hpp \
-	samplers/RegularBox.hpp	tracers/Whitted.hpp utilities/Constants.hpp \
-	world/World.hpp obj
+	geometry/Triangle.hpp light/Ambient.hpp lights/Point.hpp materials/Matte.hpp \
+	samplers/RegularBox.hpp	tracers/Whitted.hpp utilities/ChessPiece.hpp \
+	utilities/Constants.hpp world/World.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ build/buildChess.cpp
 
 obj/buildAntiAlias.o: build/buildAntiAlias.cpp cameras/Perspective.hpp \
@@ -251,6 +251,9 @@ obj/BasicTracer.o: tracers/BasicTracer.cpp tracers/BasicTracer.hpp \
 ################################################################################
 # Utilities
 ################################################################################
+
+obj/ChessPiece.o: utilities/ChessPiece.cpp utilities/ChessPiece.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ utilities/ChessPiece.cpp
 
 obj/Image.o: utilities/Image.cpp utilities/Image.hpp utilities/RGBColor.hpp \
 	world/ViewPlane.hpp obj
