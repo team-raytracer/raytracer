@@ -1,14 +1,17 @@
 #include "KDNode.hpp"
 #include "../utilities/Vector3D.hpp"
+#include "../utilities/Constants.hpp"
 
 KDNode::KDNode() : primitives{std::vector<Geometry*>()} {
   // nothing else to do
 }
 
-KDNode::KDNode(std::vector<Geometry*> _primitives) : primitives{_primitives} {
+KDNode::KDNode(std::vector<Geometry*> _primitives) : primitives{_primitives}, bb{BoundingBox()} {
   // compute bounding box
+  printf("Building bbox (%f, %f, %f), (%f, %f, %f)\n", bb.most_negative.x, bb.most_negative.y, bb.most_negative.z, bb.most_positive.x, bb.most_positive.y, bb.most_positive.z);
   for (Geometry* primitive: primitives) {
     bb = bb.merge(primitive->get_bounding_box());
+  printf("Building bbox (%f, %f, %f), (%f, %f, %f)\n", bb.most_negative.x, bb.most_negative.y, bb.most_negative.z, bb.most_positive.x, bb.most_positive.y, bb.most_positive.z);
   }
 }
 
@@ -27,20 +30,16 @@ void KDNode::add_primitive(Geometry* primitive, BoundingBox new_bb) {
 
 }
 
-BoundingBox KDNode::get_bounding_box() const { return bb; }
-
 void KDNode::build_kd_tree(KDNode* node) {
   // based on
   // http://www.flipcode.com/archives/Raytracing_Topics_Techniques-Part_7_Kd-Trees_and_More_Speed.shtml
 
-  if (node->primitives.size() < 2) {
+  if (node->primitives.size() < 2 || node->bb.volume() < kEpsilon) {
     printf("Hit base case -- num primitives here: %d\n", node->primitives.size());
     return;
   }
 
-  printf("node == NULL: %d\n", node == NULL);
-
-  BoundingBox current_bb = node->get_bounding_box();
+  BoundingBox current_bb = node->bb;
   int splitaxis = current_bb.max_axis();
 
   Vector3D lengths = current_bb.most_positive - current_bb.most_negative;
@@ -60,32 +59,39 @@ void KDNode::build_kd_tree(KDNode* node) {
   // offset from current_bb.most_negative, along splitaxis
   double splitoffset = axislength / 2;
 
-  Point3D midpoint = current_bb.most_negative;
+  Point3D midpoint_1 = current_bb.most_negative;
+  Point3D midpoint_2 = current_bb.most_positive;
 
   if (splitaxis == 0) {
     // x axis
-    midpoint.x += splitoffset;
+    midpoint_1.x += splitoffset;
+    midpoint_2.x -= splitoffset;
   } else if (splitaxis == 1) {
     // y axis
-    midpoint.y += splitoffset;
+    midpoint_1.y += splitoffset;
+    midpoint_2.y -= splitoffset;
   } else if (splitaxis == 2) {
     // z axis
-    midpoint.z += splitoffset;
+    midpoint_1.z += splitoffset;
+    midpoint_2.z -+ splitoffset;
   }
 
-  //printf("Building node with bbox (%f, %f, %f), (%f, %f, %f)\n", current_bb.most_negative.x, current_bb.most_negative.y, current_bb.most_negative.z, current_bb.most_positive.x, current_bb.most_positive.y, current_bb.most_positive.z);
+  printf("Building node with bbox (%f, %f, %f), (%f, %f, %f)\n", current_bb.most_negative.x, current_bb.most_negative.y, current_bb.most_negative.z, current_bb.most_positive.x, current_bb.most_positive.y, current_bb.most_positive.z);
+  printf("axis length: %f, splitoffset: %f\n",axislength, splitoffset);
 
 
   BoundingBox splitboxleft = current_bb;
-  splitboxleft.most_positive = midpoint;
+  splitboxleft.most_positive = midpoint_2;
+  //splitboxleft.most_negative = midpoint_2;
 
   BoundingBox splitboxright = current_bb;
-  splitboxright.most_negative = midpoint;
+  splitboxright.most_negative = midpoint_1;
+  //splitboxright.most_positive = midpoint_2;
 
 
-  //printf("Left bbox (%f, %f, %f), (%f, %f, %f)\n", splitboxleft.most_negative.x, splitboxleft.most_negative.y, splitboxleft.most_negative.z, splitboxleft.most_positive.x, splitboxleft.most_positive.y, splitboxleft.most_positive.z);
+  printf("Left bbox (%f, %f, %f), (%f, %f, %f)\n", splitboxleft.most_negative.x, splitboxleft.most_negative.y, splitboxleft.most_negative.z, splitboxleft.most_positive.x, splitboxleft.most_positive.y, splitboxleft.most_positive.z);
 
-  //printf("Right bbox (%f, %f, %f), (%f, %f, %f)\n", splitboxright.most_negative.x, splitboxright.most_negative.y, splitboxright.most_negative.z, splitboxright.most_positive.x, splitboxright.most_positive.y, splitboxright.most_positive.z);
+  printf("Right bbox (%f, %f, %f), (%f, %f, %f)\n", splitboxright.most_negative.x, splitboxright.most_negative.y, splitboxright.most_negative.z, splitboxright.most_positive.x, splitboxright.most_positive.y, splitboxright.most_positive.z);
 
   node->left = new KDNode();
   node->right = new KDNode();

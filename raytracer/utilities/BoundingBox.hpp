@@ -26,6 +26,8 @@ class BoundingBox {
 
   bool intersect(const BoundingBox& other) const;
 
+  double volume() const;
+
   bool hit(const Ray& ray) const;
 
  protected:

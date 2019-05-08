@@ -48,6 +48,11 @@ bool BoundingBox::intersect(const BoundingBox& other) const {
   return overlapping_x && overlapping_y && overlapping_z;
 }
 
+double BoundingBox::volume() const {
+  Vector3D offset = most_positive - most_negative;
+  return offset.x * offset.y * offset.z;
+}
+
 bool BoundingBox::hit(const Ray& ray) const {
   // modified slightly from code by Kevin Suffern
   double ox = ray.o.x;

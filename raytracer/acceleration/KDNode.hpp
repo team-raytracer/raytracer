@@ -31,8 +31,6 @@ class KDNode {
 
   std::vector<Geometry*> get_primitives() const;
 
-  BoundingBox get_bounding_box() const;
-
   ~KDNode();
 
   static void build_kd_tree(KDNode* node);

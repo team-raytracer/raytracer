@@ -51,7 +51,7 @@ obj/raytracer.o: raytracer.cpp build/buildHelloWorld.cpp \
 
 obj/KDNode.o: acceleration/KDNode.cpp acceleration/KDNode.hpp \
 	geometry/Geometry.hpp utilities/Vector3D.hpp utilities/Point3D.hpp \
-	utilities/BoundingBox.hpp obj
+	utilities/BoundingBox.hpp utilities/Constants.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ acceleration/KDNode.cpp
 
 

@@ -57,6 +57,7 @@ BoundingBox Sphere::get_bounding_box() const {
   Vector3D offset = Vector3D(r);
   Point3D globalmin = c - offset;
   Point3D globalmax = c + offset;
-  BoundingBox b(globalmin, globalmax);
-  return b;
+  BoundingBox bb(globalmin, globalmax);
+  printf("Sphere bbox (%f, %f, %f), (%f, %f, %f)\n", bb.most_negative.x, bb.most_negative.y, bb.most_negative.z, bb.most_positive.x, bb.most_positive.y, bb.most_positive.z);
+  return bb;
 }
