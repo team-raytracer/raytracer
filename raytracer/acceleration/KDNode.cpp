@@ -2,7 +2,8 @@
 #include "../utilities/Constants.hpp"
 #include "../utilities/Vector3D.hpp"
 
-KDNode::KDNode() : primitives{std::vector<Geometry*>()} {
+KDNode::KDNode()
+    : left{NULL}, right{NULL}, primitives{std::vector<Geometry*>()} {
   // nothing else to do
 }
 

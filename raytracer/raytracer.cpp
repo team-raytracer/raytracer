@@ -75,10 +75,13 @@ int main(int argc, char** argv) {
     return 1;
   }
 
-  // Load scene
+  // Load scene and prepare for rendering
   World world;
   world.build();
-  // world.set_acceleration(new KDTree(&world));
+
+  if (useKD) {
+    world.set_acceleration(new KDTree(&world));
+  }
 
   ViewPlane& viewplane = world.vplane;
   Image image(viewplane);

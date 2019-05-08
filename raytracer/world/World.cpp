@@ -104,10 +104,12 @@ void World::set_acceleration(Acceleration* _acceleration_ptr) {
 }
 
 ShadeInfo World::hit_objects(const Ray& ray) {
+  // If we have an acceleration structure, use it
   if (acceleration_ptr != nullptr) {
     return acceleration_ptr->hit_objects(ray);
   }
 
+  // Otherwise, check for collisions with all primitives
   ShadeInfo sinfoMin(this);
   ShadeInfo sinfoCur(this);
   for (Geometry* geom : geometry) {
