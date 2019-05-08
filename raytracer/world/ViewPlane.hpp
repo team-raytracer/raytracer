@@ -17,7 +17,7 @@ class ViewPlane {
  public:
   Point3D top_left;       // top left corner of the view plane.
   Point3D bottom_right;   // bottom right corner of the view plane.
-  Point3D top_left_back;  // Option third point for viewplanes with freed z
+  Point3D top_right;      // Option third point for viewplanes with free z
   size_t hres;            // horizontal resolution
   size_t vres;            // vertical resolution
 
@@ -26,7 +26,7 @@ class ViewPlane {
   ViewPlane();  // default: 640 x 480 view plane at (-320, -240) with pixel
                 // size 1.
   ViewPlane(Point3D top_left, Point3D bottom_right, size_t hres, size_t vres);
-  ViewPlane(Point3D top_left, Point3D bottom_right, Point3D top_left_back,
+  ViewPlane(Point3D top_left, Point3D bottom_right, Point3D top_right,
             size_t hres, size_t vres);
 
   // Copy constructor and assignment operator.

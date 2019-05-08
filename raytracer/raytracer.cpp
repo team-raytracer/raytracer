@@ -93,7 +93,8 @@ int main(int argc, char** argv) {
     if (tracer) {
       std::cout << "Using simple ray tracer (primary rays only)" << std::endl;
     } else {
-      std::cout << "Using fancy ray tracer" << std::endl;
+      std::cout << "Using advanced ray tracer (includes secondary rays)" 
+                << std::endl;
     }
 
     std::cout << "Begining rendering with " << omp_get_max_threads()

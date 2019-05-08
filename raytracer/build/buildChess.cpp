@@ -70,15 +70,16 @@ void World::build(void) {
   std::map<char, std::string> dict = initializeDictionary();
 
   // view plane
-  vplane.top_left = Point3D(1, 7, 5);
-  vplane.bottom_right = Point3D(7, 1, 5);
+  vplane.top_left = Point3D(1, 10, 7);
+  vplane.top_right = Point3D(7, 10, 7);
+  vplane.bottom_right = Point3D(7, 5, -3);
   vplane.hres = RESOLUTION;
   vplane.vres = RESOLUTION;
 
   bg_color = gray;  // background color.
 
   // camera and sampler.
-  set_camera(new Perspective(4, 4, 10));
+  set_camera(new Perspective(4, 16, 3));
   sampler_ptr = new Simple(camera_ptr, &vplane);
 
   // Generate chess board
