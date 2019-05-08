@@ -5,7 +5,8 @@ ViewPlane::ViewPlane()
     : top_left{320, 240, 100},
       bottom_right{-320, -240, 100},
       hres{640},
-      vres{480} {}
+      vres{480},
+      max_depth{0} {}
 
 Point3D ViewPlane::getPixelPoint(double px, double py) const {
   Vector3D dif = bottom_right - top_left;

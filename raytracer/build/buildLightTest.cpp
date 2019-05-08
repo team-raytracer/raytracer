@@ -14,6 +14,7 @@
 #include "../materials/Matte.hpp"
 #include "../materials/Reflective.hpp"
 #include "../samplers/Simple.hpp"
+#include "../tracers/Whitted.hpp"
 #include "../utilities/Constants.hpp"
 #include "../world/World.hpp"
 
@@ -28,12 +29,18 @@ void World::build(void) {
   vplane.hres = 400;
   vplane.vres = 400;
 
+  // Set max depth higher for reflections!
+  vplane.max_depth = 0;
+
   // Background color.
   bg_color = black;
 
   // Camera and sampler.
   set_camera(new Perspective(0, 0, 20));
   sampler_ptr = new Simple(camera_ptr, &vplane);
+
+  // Tracer
+  tracer_ptr = new Whitted(&(*this));
 
   // material
   Matte* matte = new Matte();

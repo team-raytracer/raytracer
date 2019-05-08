@@ -28,7 +28,7 @@ all: raytracer
 
 # Builds the executable
 # Important: Change the first dependency to the build you are using
-raytracer: obj/buildLightTest.o \
+raytracer: obj/buildPly.o \
 	obj/Lambertian.o obj/PerfectSpecular.o obj/GlossySpecular.o \
 	obj/Parallel.o obj/Perspective.o \
 	obj/Geometry.o obj/Plane.o obj/Sphere.o obj/Triangle.o obj/SmoothTriangle.o \
@@ -36,14 +36,14 @@ raytracer: obj/buildLightTest.o \
 	obj/Cosine.o obj/Matte.o obj/Phong.o obj/Reflective.o \
 	obj/newSampler.o obj/Sampler.o obj/Simple.o obj/RegularBox.o obj/JitterGaussian.o \
 	obj/Image.o obj/Point2D.o obj/Point3D.o obj/Ray.o	obj/RGBColor.o \
-	obj/ShadeInfo.o obj/Vector3D.o \
-	obj/ViewPlane.o obj/World.o \
+	obj/ShadeInfo.o obj/Tracer.o obj/Vector3D.o \
+	obj/ViewPlane.o obj/Whitted.o obj/World.o \
 	obj/raytracer.o
 	$(CXX) $(OMPFLAGS) -o $@ $^
 
 obj/raytracer.o: raytracer.cpp build/buildLightTest.cpp \
-	materials/Material.hpp samplers/Sampler.hpp utilities/Image.hpp \
-	utilities/ShadeInfo.hpp	world/World.hpp obj
+	materials/Material.hpp samplers/Sampler.hpp tracers/Tracer.hpp \
+	utilities/Image.hpp utilities/ShadeInfo.hpp	world/World.hpp obj
 	$(CXX) $(OMPFLAGS) -c $(CXXFLAGS) -o $@ raytracer.cpp
 
 ################################################################################
@@ -52,44 +52,45 @@ obj/raytracer.o: raytracer.cpp build/buildLightTest.cpp \
 
 obj/buildHelloWorld.o: build/buildHelloWorld.cpp cameras/Perspective.hpp \
 	geometry/Plane.hpp geometry/Sphere.hpp geometry/Triangle.hpp \
-	materials/Cosine.hpp samplers/Simple.hpp utilities/Constants.hpp \
-	world/World.hpp obj
+	materials/Cosine.hpp samplers/Simple.hpp tracers/Whitted.hpp \
+	utilities/Constants.hpp world/World.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ build/buildHelloWorld.cpp
 
 obj/buildChapter14.o: build/buildChapter14.cpp cameras/Parallel.hpp \
 	geometry/Plane.hpp geometry/Sphere.hpp \
-	materials/Cosine.hpp samplers/Simple.hpp utilities/Constants.hpp \
-	world/World.hpp obj
+	materials/Cosine.hpp samplers/Simple.hpp tracers/Whitted.hpp \
+	utilities/Constants.hpp world/World.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ build/buildChapter14.cpp
 
 obj/buildLightTest.o: build/buildLightTest.cpp cameras/Perspective.hpp \
 	geometry/Plane.hpp geometry/Sphere.hpp geometry/Triangle.hpp \
 	materials/Matte.hpp samplers/Simple.hpp utilities/Constants.hpp \
 	world/World.hpp lights/Ambient.hpp lights/Point.hpp lights/Directional.hpp \
-	materials/Reflective.hpp obj
+	materials/Reflective.hpp tracers/Whitted.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ build/buildLightTest.cpp
 
 # Add any addition builds you make here
 obj/buildMVP.o: build/buildMVP.cpp cameras/Perspective.hpp \
 	geometry/Plane.hpp geometry/Sphere.hpp geometry/Triangle.hpp \
-	materials/Cosine.hpp samplers/Simple.hpp utilities/Constants.hpp \
-	world/World.hpp obj
+	materials/Cosine.hpp samplers/Simple.hpp tracers/Whitted.hpp \
+	utilities/Constants.hpp world/World.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ build/buildMVP.cpp
 
 obj/buildPly.o: build/buildPly.cpp cameras/Perspective.hpp \
 	geometry/Plane.hpp materials/Cosine.hpp samplers/Simple.hpp \
-	utilities/Constants.hpp world/World.hpp obj
+	tracers/Whitted.hpp utilities/Constants.hpp world/World.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ build/buildPly.cpp
 
 obj/buildChess.o: build/buildChess.cpp cameras/Perspective.hpp \
 	geometry/Plane.hpp geometry/Triangle.hpp materials/Cosine.hpp \
-	samplers/Simple.hpp	utilities/Constants.hpp world/World.hpp obj
+	samplers/Simple.hpp	tracers/Whitted.hpp utilities/Constants.hpp \
+	world/World.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ build/buildChess.cpp
 
 obj/buildAntiAlias.o: build/buildAntiAlias.cpp cameras/Perspective.hpp \
 	geometry/Plane.hpp geometry/Sphere.hpp geometry/Triangle.hpp \
 	materials/Cosine.hpp samplers/RegularBox.hpp samplers/Simple.hpp \
-	utilities/Constants.hpp	world/World.hpp obj
+	tracers/Whitted.hpp utilities/Constants.hpp	world/World.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ build/buildAntiAlias.cpp
 
 ################################################################################
@@ -235,7 +236,11 @@ obj/JitterGaussian.o: samplers/JitterGaussian.cpp samplers/JitterGaussian.hpp \
 
 obj/Tracer.o: tracers/Tracer.cpp tracers/Tracer.hpp utilities/Constants.hpp \
 	utilities/Ray.hpp utilities/RGBColor.hpp obj
-	$(CXX) -c $(CXXFLAGS) -o $@ tracers/Tracers.cpp
+	$(CXX) -c $(CXXFLAGS) -o $@ tracers/Tracer.cpp
+
+obj/Whitted.o: tracers/Whitted.cpp tracers/Whitted.hpp tracers/Tracer.hpp \
+	utilities/Constants.hpp utilities/Ray.hpp utilities/RGBColor.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ tracers/Whitted.cpp
 
 ################################################################################
 # Utilities
