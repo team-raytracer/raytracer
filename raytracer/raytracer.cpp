@@ -9,7 +9,10 @@
 #include "utilities/ShadeInfo.hpp"
 #include "world/World.hpp"
 
-const std::string defaultFilename = "scene.ppm";
+const std::string DEFAULT_FILENAME = "scene.ppm";
+
+const size_t MIN_ROWS_PER_CHUNK = 4;
+const size_t LOAD_BALANCE_FACTOR = 4;
 
 std::string processFilename(const char* input) {
   std::string filename = input;
@@ -27,20 +30,21 @@ int main(int argc, char** argv) {
   ViewPlane& viewplane = world.vplane;
   Image image(viewplane);
 
-  const size_t chunks = omp_get_max_threads();
-  const size_t rowsPerChunk = viewplane.vres / chunks;
+  const size_t rowsPerChunk = 
+    std::max(viewplane.vres / (omp_get_max_threads() * LOAD_BALANCE_FACTOR), 
+             MIN_ROWS_PER_CHUNK);
 
   #pragma omp parallel for
-  for (size_t chunk = 0; chunk < chunks; chunk++) {
-      for (size_t y = chunk * rowsPerChunk; 
-      y < std::min(viewplane.vres, (chunk + 1) * rowsPerChunk); y++) {
+  for (size_t startY = 0; startY < viewplane.vres; startY += rowsPerChunk) {
+    for (size_t y = startY; y < std::min(viewplane.vres, startY + rowsPerChunk); 
+      ++y) {
       for (size_t x = 0; x < viewplane.vres; x++) {
         // Get rays for the pixel from the sampler. The pixel color is the
         // weighted sum of the shades for each ray.
         RGBColor pixel_color(0);
         Ray* rays = world.sampler_ptr->get_rays(x, y);
         for (size_t i = 0; i < world.sampler_ptr->num_rays(); i++) {
-          float weight = rays[i].w;  // ray weight for the pixel.
+          double weight = rays[i].w;  // ray weight for the pixel.
           ShadeInfo sinfo = world.hit_objects(rays[i]);
           if (sinfo.hit) {
             pixel_color += weight * sinfo.material_ptr->shade(sinfo);
@@ -56,7 +60,7 @@ int main(int argc, char** argv) {
   }
 
   // Write image to file.
-  std::string filename = argc > 1 ? processFilename(argv[1]) : defaultFilename;
+  std::string filename = argc > 1 ? processFilename(argv[1]) : DEFAULT_FILENAME;
   image.write_ppm(filename);
 
   return 0;

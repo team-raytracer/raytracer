@@ -27,7 +27,7 @@ class Material {
   virtual ~Material() = default;
 
   // Get color.
-  virtual RGBColor shade(const ShadeInfo& sinfo) const = 0;
+  virtual RGBColor shade(const ShadeInfo& sinfo) = 0;
 };
 
 #endif  // RAYTRACER_MATERIALS_MATERIAL_HPP_

@@ -14,16 +14,13 @@
 #include "Sampler.hpp"
 
 class Simple : public Sampler {
- protected:
-  // add members to cache values to avoid recomputation in get_rays().
-
  public:
   // Constructors.
   Simple() = default;
   Simple(Camera* c_ptr, ViewPlane* v_ptr);
 
   // Copy constuctor and assignment operator.
-  Simple(const Simple& camera) = default;
+  Simple(const Simple& other) = default;
   Simple& operator=(const Simple& other) = default;
 
   // Virtual copy constructor.
