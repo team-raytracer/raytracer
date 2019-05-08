@@ -29,11 +29,11 @@ void World::build(void) {
   vplane.hres = 400;
   vplane.vres = 400;
 
-  // Set max depth higher for reflections!
+  // Set max depth higher for more reflections
   vplane.max_depth = 0;
 
   // Background color.
-  bg_color = black;
+  bg_color = gray;
 
   // Camera and sampler.
   set_camera(new Perspective(0, 0, 20));
@@ -48,6 +48,8 @@ void World::build(void) {
   matte->set_ka(0.7);
   matte->set_cd(0.7);
   Reflective* reflective = new Reflective();
+  reflective->set_cr(1);
+  reflective->set_kr(.75);
 
   // sphere
   Sphere* sphere_ptr = new Sphere(Point3D(-3, 2, 0), 5);

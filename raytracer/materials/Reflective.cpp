@@ -49,7 +49,7 @@ RGBColor Reflective::shade(const ShadeInfo& sinfo) {
 	Ray reflected_ray(sinfo.hit_point, wi);
 	reflected_ray.depth = sinfo.depth + 1;
 
-	L += fr * sinfo.w->tracer_ptr->trace_ray(reflected_ray, sinfo.depth + 1)
+	L += fr * sinfo.w->tracer_ptr->trace_ray(reflected_ray, reflected_ray.depth)
 			 * (sinfo.normal * wi);
 
 	return (L);

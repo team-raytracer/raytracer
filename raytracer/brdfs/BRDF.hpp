@@ -47,7 +47,7 @@ protected:
 };
 
 inline Point3D BRDF::sample_hemisphere() const {
-  std::uniform_real_distribution<double> unif(0.0,1.0);
+  std::uniform_real_distribution<double> unif(-1.0,1.0);
   std::random_device rd;
 
   double x = unif(rd);
