@@ -15,6 +15,8 @@
 #include <vector>
 #include "../materials/Material.hpp"
 #include "../utilities/RGBColor.hpp"
+#include "../acceleration/Acceleration.hpp"
+#include "../acceleration/KDTree.hpp"
 #include "ViewPlane.hpp"
 
 class Geometry;
@@ -38,7 +40,7 @@ class World {
 
   // Light* ambient_ptr;
   // Tracer* tracer_ptr;
-  // Acceleration* ;
+  Acceleration* acceleration_ptr;
 
  public:
   // Constructors.
@@ -59,7 +61,7 @@ class World {
   void set_camera(Camera* c_ptr);
   // void set_ambient_light(Light* light_ptr);
   // void set_tracer(Tracer* tracer_ptr);
-  // void set_acceleration(Acceleration* acceleration_ptr);
+  void set_acceleration(Acceleration* acceleration_ptr);
 
   // Build scene - add all geometry, materials, lights, viewplane, camera,
   // samplers, and acceleration structures

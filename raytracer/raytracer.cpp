@@ -3,6 +3,7 @@
 #include <stddef.h>
 #include <string>
 #include <vector>
+#include "acceleration/KDTree.hpp"
 #include "materials/Material.hpp"
 #include "samplers/Sampler.hpp"
 #include "utilities/Image.hpp"
@@ -23,6 +24,7 @@ std::string processFilename(const char* input) {
 int main(int argc, char** argv) {
   World world;
   world.build();
+  world.set_acceleration(new KDTree(&world));
 
   ViewPlane& viewplane = world.vplane;
   Image image(viewplane);
@@ -30,7 +32,7 @@ int main(int argc, char** argv) {
   const size_t chunks = omp_get_max_threads();
   const size_t rowsPerChunk = viewplane.vres / chunks;
 
-  #pragma omp parallel for
+  //#pragma omp parallel for
   for (size_t chunk = 0; chunk < chunks; chunk++) {
     for (size_t y = chunk * rowsPerChunk;
       y < std::min(viewplane.vres, (chunk + 1) * rowsPerChunk); y++) {

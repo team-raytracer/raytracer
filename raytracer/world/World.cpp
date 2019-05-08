@@ -12,6 +12,7 @@
 #include "../utilities/Point3D.hpp"
 #include "../utilities/ShadeInfo.hpp"
 
+
 World::~World() {
   for (Geometry* geom : geometry) {
     delete geom;
@@ -94,15 +95,10 @@ void World::add_ply(std::string fname, Material* mPtr, Point3D bottom,
 
 void World::set_camera(Camera* c_ptr) { camera_ptr = c_ptr; }
 
+void World::set_acceleration(Acceleration* _acceleration_ptr) {
+  acceleration_ptr = _acceleration_ptr;
+}
+
 ShadeInfo World::hit_objects(const Ray& ray) {
-  ShadeInfo sinfoMin(this);
-  ShadeInfo sinfoCur(this);
-
-  for (Geometry* geom : geometry) {
-    if (geom->hit(ray, sinfoCur) && sinfoCur.t < sinfoMin.t) {
-      sinfoMin = sinfoCur;
-    }
-  }
-
-  return sinfoMin;
+  return acceleration_ptr->hit_objects(ray);
 }

@@ -52,3 +52,11 @@ bool Sphere::hit(const Ray& ray, ShadeInfo& s) const {
 
   return false;
 }
+
+BoundingBox Sphere::get_bounding_box() const {
+  Vector3D offset = Vector3D(r);
+  Point3D globalmin = c - offset;
+  Point3D globalmax = c + offset;
+  BoundingBox b(globalmin, globalmax);
+  return b;
+}

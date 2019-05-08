@@ -35,7 +35,8 @@ raytracer: obj/buildMVP.o \
 	obj/Cosine.o \
 	obj/Sampler.o obj/Simple.o obj/Quad.o \
 	obj/Image.o obj/Point3D.o obj/Ray.o	obj/RGBColor.o obj/ShadeInfo.o \
-	obj/Vector3D.o \
+	obj/KDNode.o obj/KDTree.o \
+	obj/Vector3D.o obj/BoundingBox.o \
 	obj/ViewPlane.o obj/World.o \
 	obj/raytracer.o
 	$(CXX) $(OMPFLAGS) -o $@ $^
@@ -44,6 +45,20 @@ obj/raytracer.o: raytracer.cpp build/buildHelloWorld.cpp \
 	materials/Material.hpp samplers/Sampler.hpp utilities/Image.hpp \
 	utilities/ShadeInfo.hpp	world/World.hpp obj
 	$(CXX) $(OMPFLAGS) -c $(CXXFLAGS) -o $@ raytracer.cpp
+################################################################################
+# Acceleration
+################################################################################
+
+obj/KDNode.o: acceleration/KDNode.cpp acceleration/KDNode.hpp \
+	geometry/Geometry.hpp utilities/Vector3D.hpp utilities/Point3D.hpp \
+	utilities/BoundingBox.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ acceleration/KDNode.cpp
+
+
+obj/KDTree.o: acceleration/KDTree.cpp acceleration/KDTree.hpp \
+	acceleration/Acceleration.hpp utilities/ShadeInfo.hpp \
+	utilities/Ray.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ acceleration/KDTree.cpp
 
 ################################################################################
 # Builds
@@ -95,29 +110,32 @@ obj/Perspective.o: cameras/Perspective.cpp cameras/Perspective.hpp \
 ################################################################################
 
 obj/Geometry.o: geometry/Geometry.cpp geometry/Geometry.hpp \
-	materials/Material.hpp utilities/Ray.hpp utilities/ShadeInfo.hpp obj
+	materials/Material.hpp utilities/Ray.hpp utilities/ShadeInfo.hpp \
+	utilities/BoundingBox.o obj
 	$(CXX) -c $(CXXFLAGS) -o $@ geometry/Geometry.cpp
 
 obj/Plane.o: geometry/Plane.cpp geometry/Plane.hpp geometry/Geometry.hpp \
 	materials/Material.hpp utilities/Constants.hpp utilities/Point3D.hpp \
-	utilities/Ray.hpp utilities/ShadeInfo.hpp utilities/Vector3D.hpp obj
+	utilities/Ray.hpp utilities/ShadeInfo.hpp utilities/Vector3D.hpp \
+	utilities/BoundingBox.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ geometry/Plane.cpp
 
 obj/Sphere.o: geometry/Sphere.cpp geometry/Sphere.hpp geometry/Geometry.hpp \
 	materials/Material.hpp utilities/Constants.hpp utilities/Point3D.hpp \
-	utilities/Ray.hpp utilities/ShadeInfo.hpp utilities/Vector3D.hpp obj
+	utilities/Ray.hpp utilities/ShadeInfo.hpp utilities/Vector3D.hpp \
+	utilities/BoundingBox.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ geometry/Sphere.cpp
 
 obj/Triangle.o: geometry/Triangle.cpp geometry/Triangle.hpp \
 	geometry/Geometry.hpp materials/Material.hpp utilities/Constants.hpp \
 	utilities/Point3D.hpp utilities/Ray.hpp utilities/ShadeInfo.hpp \
-	utilities/Vector3D.hpp obj
+	utilities/Vector3D.hpp utilities/BoundingBox.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ geometry/Triangle.cpp
 
 obj/SmoothTriangle.o: geometry/SmoothTriangle.cpp geometry/SmoothTriangle.hpp \
 	geometry/Geometry.hpp materials/Material.hpp utilities/Constants.hpp \
 	utilities/Point3D.hpp utilities/Ray.hpp utilities/ShadeInfo.hpp \
-	utilities/Vector3D.hpp obj
+	utilities/Vector3D.hpp utilities/BoundingBox.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ geometry/SmoothTriangle.cpp
 
 ################################################################################
@@ -171,6 +189,10 @@ obj/Quad.o: samplers/Quad.cpp samplers/Quad.hpp cameras/Camera.hpp \
 ################################################################################
 # Utilities
 ################################################################################
+
+obj/BoundingBox.o: utilities/BoundingBox.cpp utilities/BoundingBox.hpp \
+	utilities/Point3D.hpp utilities/Ray.hpp utilities/Constants.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ utilities/BoundingBox.cpp
 
 obj/Image.o: utilities/Image.cpp utilities/Image.hpp utilities/RGBColor.hpp \
 	world/ViewPlane.hpp obj

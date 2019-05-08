@@ -37,6 +37,9 @@ class Triangle : public Geometry {
 
   // Ray intersection. Set sinfo as per intersection with this object.
   virtual bool hit(const Ray& ray, ShadeInfo& s) const;
+
+  // Bounding box computation.
+  virtual BoundingBox get_bounding_box() const;
 };
 
 #endif  // RAYTRACER_GEOMETRY_TRIANGLE_HPP_

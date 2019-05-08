@@ -40,6 +40,9 @@ class SmoothTriangle : public Geometry {
   // Ray intersection. Set sinfo as per intersection with this object.
   virtual bool hit(const Ray& ray, ShadeInfo& s) const;
 
+  // Bounding box computation.
+  virtual BoundingBox get_bounding_box() const;
+
   // Calculates the normal for a given beta and gamma.
   Vector3D interpolate_normal(const double beta, const double gamma) const;
 };
