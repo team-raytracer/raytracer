@@ -66,7 +66,5 @@ Vector3D SmoothTriangle::interpolate_normal(const double beta,
 BoundingBox SmoothTriangle::get_bounding_box() const {
   Point3D globalmax = Point3D::max(Point3D::max(v0, v1), v2);
   Point3D globalmin = Point3D::min(Point3D::min(v0, v1), v2);
-  BoundingBox b;
-  (globalmin, globalmax);
-  return b;
+  return BoundingBox(globalmin, globalmax);
 }

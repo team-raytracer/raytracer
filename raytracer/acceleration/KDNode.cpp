@@ -46,7 +46,7 @@ void KDNode::build_kd_tree(KDNode* node) {
   } else if (splitaxis == 1) {
     // y axis
     axislength = lengths.y;
-  } else if (splitaxis == 2) {
+  } else {
     // z axis
     axislength = lengths.z;
   }
