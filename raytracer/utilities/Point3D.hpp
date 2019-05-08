@@ -9,6 +9,7 @@
 
 #include <algorithm>
 #include <array>
+#include <ostream>
 
 class Vector3D;
 
@@ -48,6 +49,8 @@ class Point3D {
   Point3D static interpolate(const Point3D& a, const Point3D& b,
                              const Point3D& c, const Point3D& x,
                              const Point3D& y);
+
+  std::ostream& print(std::ostream& out) const;
 };
 
 // Scale pt by a factor, s.

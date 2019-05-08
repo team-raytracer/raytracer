@@ -22,6 +22,8 @@ World::~World() {
   }
   delete camera_ptr;
   delete sampler_ptr;
+  delete ambient_ptr;
+  delete tracer_ptr;
 }
 
 void World::add_geometry(Geometry* geom_ptr) { geometry.push_back(geom_ptr); }
@@ -102,3 +104,8 @@ void World::set_acceleration(Acceleration* _acceleration_ptr) {
 ShadeInfo World::hit_objects(const Ray& ray) {
   return acceleration_ptr->hit_objects(ray);
 }
+
+void World::set_ambient_light(Light* light_ptr) { ambient_ptr = light_ptr; }
+
+void World::set_tracer(Tracer* t_ptr) { tracer_ptr = t_ptr; }
+size_t World::num_polygons() { return geometry.size(); }

@@ -10,17 +10,14 @@
 #include "../geometry/Triangle.hpp"
 #include "../materials/Cosine.hpp"
 #include "../samplers/Simple.hpp"
+#include "../tracers/BasicTracer.hpp"
 #include "../utilities/Constants.hpp"
 #include "../world/World.hpp"
 
 void World::build(void) {
   // View plane  .
-  vplane.top_left.x = -10;
-  vplane.top_left.y = 10;
-  vplane.top_left.z = 10;
-  vplane.bottom_right.x = 10;
-  vplane.bottom_right.y = -10;
-  vplane.bottom_right.z = 10;
+  vplane.top_left = Point3D(-10, 10, 10);
+  vplane.bottom_right = Point3D(10, -10, 10);
   vplane.hres = 400;
   vplane.vres = 400;
 
@@ -30,6 +27,9 @@ void World::build(void) {
   // Camera and sampler.
   set_camera(new Perspective(0, 0, 20));
   sampler_ptr = new Simple(camera_ptr, &vplane);
+
+  // Tracer
+  tracer_ptr = new BasicTracer(&(*this));
 
   // sphere
   Sphere* sphere_ptr = new Sphere(Point3D(-3, 2, 0), 5);

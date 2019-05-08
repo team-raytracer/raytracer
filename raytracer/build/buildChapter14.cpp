@@ -10,18 +10,15 @@
 #include "../geometry/Sphere.hpp"
 #include "../materials/Cosine.hpp"
 #include "../samplers/Simple.hpp"
+#include "../tracers/Whitted.hpp"
 #include "../utilities/Constants.hpp"
 #include "../utilities/Vector3D.hpp"
 #include "../world/World.hpp"
 
 void World::build(void) {
   // view plane
-  vplane.top_left.x = -200;
-  vplane.top_left.y = 200;
-  vplane.top_left.z = 100;
-  vplane.bottom_right.x = 200;
-  vplane.bottom_right.y = -200;
-  vplane.bottom_right.z = 100;
+  vplane.top_left = Point3D(-200, 200, 100);
+  vplane.bottom_right = Point3D(200, -200, 100);
   vplane.hres = 400;
   vplane.vres = 400;
 
@@ -30,6 +27,9 @@ void World::build(void) {
   // camera and sampler.
   set_camera(new Parallel(0, 0, -1));
   sampler_ptr = new Simple(camera_ptr, &vplane);
+
+  // Tracer
+  tracer_ptr = new Whitted(&(*this));
 
   // spheres
   Sphere* sphere_ptr1 = new Sphere(Point3D(5, 3, 0), 30);
@@ -174,6 +174,6 @@ void World::build(void) {
 
   // vertical plane
   Plane* plane_ptr = new Plane(Point3D(0, 0, -150), Vector3D(0, 0, 1));
-  plane_ptr->set_material(new Cosine(grey));
+  plane_ptr->set_material(new Cosine(gray));
   add_geometry(plane_ptr);
 }

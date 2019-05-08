@@ -14,6 +14,7 @@
 #include <string>
 #include <vector>
 #include "../materials/Material.hpp"
+#include "../tracers/Tracer.hpp"
 #include "../utilities/RGBColor.hpp"
 #include "../acceleration/Acceleration.hpp"
 #include "../acceleration/KDTree.hpp"
@@ -38,9 +39,9 @@ class World {
   Camera* camera_ptr;
   Sampler* sampler_ptr;
 
-  // Light* ambient_ptr;
-  // Tracer* tracer_ptr;
   Acceleration* acceleration_ptr;
+  Light* ambient_ptr;
+  Tracer* tracer_ptr;
 
  public:
   // Constructors.
@@ -59,9 +60,9 @@ class World {
   void add_ply(std::string fname, Material* mPtr, Point3D bottom, Point3D top,
                bool makeSmooth);
   void set_camera(Camera* c_ptr);
-  // void set_ambient_light(Light* light_ptr);
-  // void set_tracer(Tracer* tracer_ptr);
   void set_acceleration(Acceleration* acceleration_ptr);
+  void set_ambient_light(Light* light_ptr);
+  void set_tracer(Tracer* t_ptr);
 
   // Build scene - add all geometry, materials, lights, viewplane, camera,
   // samplers, and acceleration structures
@@ -70,6 +71,8 @@ class World {
   // Returns appropriate shading information corresponding to intersection of
   // the ray with the scene geometry.
   ShadeInfo hit_objects(const Ray& ray);
+
+  size_t num_polygons();
 };
 
 #endif  // RAYTRACER_WORLD_WORLD_HPP_

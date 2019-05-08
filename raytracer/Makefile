@@ -17,6 +17,9 @@
 # not responsible for any issues it may cause
 ################################################################################
 
+# Note: On macs, g++ point to clang still, which does not have Open MP. To
+# solve this you can install gcc with homebrew and specify the version here
+# 	i.e. g++-9
 CXX = g++
 CXXFLAGS = -g -std=c++1z -Wall -Wextra -pedantic -O3
 
@@ -28,22 +31,25 @@ all: raytracer
 
 # Builds the executable
 # Important: Change the first dependency to the build you are using
-raytracer: obj/buildMVP.o \
+
+raytracer: obj/buildChess.o \
+	obj/Lambertian.o obj/PerfectSpecular.o obj/GlossySpecular.o \
 	obj/Parallel.o obj/Perspective.o \
 	obj/Geometry.o obj/Plane.o obj/Sphere.o obj/Triangle.o obj/SmoothTriangle.o \
 	obj/Light.o obj/Ambient.o obj/Directional.o obj/Point.o obj/Spotlight.o \
-	obj/Cosine.o \
-	obj/Sampler.o obj/Simple.o obj/Quad.o \
-	obj/Image.o obj/Point3D.o obj/Ray.o	obj/RGBColor.o obj/ShadeInfo.o \
 	obj/KDNode.o obj/KDTree.o \
-	obj/Vector3D.o obj/BoundingBox.o \
-	obj/ViewPlane.o obj/World.o \
+	obj/BoundingBox.o \
+	obj/Cosine.o obj/Matte.o obj/Phong.o obj/Reflective.o \
+	obj/newSampler.o obj/Sampler.o obj/Simple.o obj/RegularBox.o obj/JitterGaussian.o \
+	obj/Image.o obj/Point2D.o obj/Point3D.o obj/Ray.o	obj/RGBColor.o \
+	obj/ShadeInfo.o obj/Tracer.o obj/Vector3D.o \
+	obj/ViewPlane.o obj/Whitted.o obj/World.o obj/BasicTracer.o \
 	obj/raytracer.o
 	$(CXX) $(OMPFLAGS) -o $@ $^
 
-obj/raytracer.o: raytracer.cpp build/buildHelloWorld.cpp \
-	materials/Material.hpp samplers/Sampler.hpp utilities/Image.hpp \
-	utilities/ShadeInfo.hpp	world/World.hpp obj
+obj/raytracer.o: raytracer.cpp build/buildLightTest.cpp \
+	materials/Material.hpp samplers/Sampler.hpp tracers/Tracer.hpp \
+	utilities/Image.hpp utilities/ShadeInfo.hpp	world/World.hpp obj
 	$(CXX) $(OMPFLAGS) -c $(CXXFLAGS) -o $@ raytracer.cpp
 ################################################################################
 # Acceleration
@@ -66,32 +72,67 @@ obj/KDTree.o: acceleration/KDTree.cpp acceleration/KDTree.hpp \
 
 obj/buildHelloWorld.o: build/buildHelloWorld.cpp cameras/Perspective.hpp \
 	geometry/Plane.hpp geometry/Sphere.hpp geometry/Triangle.hpp \
-	materials/Cosine.hpp samplers/Simple.hpp utilities/Constants.hpp \
-	world/World.hpp obj
+	materials/Cosine.hpp samplers/Simple.hpp tracers/BasicTracer.hpp \
+	utilities/Constants.hpp world/World.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ build/buildHelloWorld.cpp
 
 obj/buildChapter14.o: build/buildChapter14.cpp cameras/Parallel.hpp \
 	geometry/Plane.hpp geometry/Sphere.hpp \
-	materials/Cosine.hpp samplers/Simple.hpp utilities/Constants.hpp \
-	world/World.hpp obj
+	materials/Cosine.hpp samplers/Simple.hpp tracers/Whitted.hpp \
+	utilities/Constants.hpp world/World.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ build/buildChapter14.cpp
+
+obj/buildLightTest.o: build/buildLightTest.cpp cameras/Perspective.hpp \
+	geometry/Plane.hpp geometry/Sphere.hpp geometry/Triangle.hpp \
+	materials/Matte.hpp samplers/Simple.hpp utilities/Constants.hpp \
+	world/World.hpp lights/Ambient.hpp lights/Point.hpp lights/Directional.hpp \
+	materials/Reflective.hpp tracers/Whitted.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ build/buildLightTest.cpp
 
 # Add any addition builds you make here
 obj/buildMVP.o: build/buildMVP.cpp cameras/Perspective.hpp \
 	geometry/Plane.hpp geometry/Sphere.hpp geometry/Triangle.hpp \
-	materials/Cosine.hpp samplers/Simple.hpp utilities/Constants.hpp \
-	world/World.hpp obj
+	materials/Cosine.hpp samplers/Simple.hpp tracers/Whitted.hpp \
+	utilities/Constants.hpp world/World.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ build/buildMVP.cpp
 
-obj/ply_testing.o: build/ply_testing.cpp cameras/Perspective.hpp \
+obj/buildPly.o: build/buildPly.cpp cameras/Perspective.hpp \
 	geometry/Plane.hpp materials/Cosine.hpp samplers/Simple.hpp \
-	utilities/Constants.hpp world/World.hpp obj
-	$(CXX) -c $(CXXFLAGS) -o $@ build/ply_testing.cpp
+	tracers/Whitted.hpp utilities/Constants.hpp world/World.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ build/buildPly.cpp
 
 obj/buildChess.o: build/buildChess.cpp cameras/Perspective.hpp \
 	geometry/Plane.hpp geometry/Triangle.hpp materials/Cosine.hpp \
-	samplers/Simple.hpp	utilities/Constants.hpp world/World.hpp obj
+	samplers/RegularBox.hpp	tracers/Whitted.hpp utilities/Constants.hpp \
+	world/World.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ build/buildChess.cpp
+
+obj/buildAntiAlias.o: build/buildAntiAlias.cpp cameras/Perspective.hpp \
+	geometry/Plane.hpp geometry/Sphere.hpp geometry/Triangle.hpp \
+	materials/Cosine.hpp samplers/RegularBox.hpp samplers/Simple.hpp \
+	tracers/Whitted.hpp utilities/Constants.hpp	world/World.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ build/buildAntiAlias.cpp
+
+################################################################################
+# BRDFs
+################################################################################
+
+obj/GlossySpecular.o: brdfs/GlossySpecular.cpp brdfs/GlossySpecular.hpp \
+	brdfs/BRDF.hpp utilities/Constants.hpp utilities/RGBColor.hpp \
+	utilities/Vector3D.hpp utilities/Point3D.hpp utilities/ShadeInfo.hpp \
+	samplers/Sampler.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ brdfs/GlossySpecular.cpp
+
+obj/Lambertian.o: brdfs/Lambertian.cpp brdfs/Lambertian.hpp brdfs/BRDF.hpp \
+	utilities/Constants.hpp utilities/RGBColor.hpp utilities/Vector3D.hpp \
+	utilities/Point3D.hpp utilities/ShadeInfo.hpp samplers/newSampler.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ brdfs/Lambertian.cpp
+
+obj/PerfectSpecular.o: brdfs/PerfectSpecular.cpp brdfs/PerfectSpecular.hpp \
+	brdfs/BRDF.hpp utilities/Constants.hpp utilities/RGBColor.hpp \
+	utilities/Vector3D.hpp utilities/Point3D.hpp utilities/ShadeInfo.hpp \
+	samplers/Sampler.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ brdfs/PerfectSpecular.cpp
 
 ################################################################################
 # Cameras
@@ -170,9 +211,30 @@ obj/Cosine.o: materials/Cosine.cpp materials/Cosine.hpp materials/Material.hpp \
 	utilities/RGBColor.hpp utilities/ShadeInfo.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ materials/Cosine.cpp
 
+obj/Matte.o: materials/Matte.cpp materials/Matte.hpp materials/Material.hpp \
+	utilities/RGBColor.hpp utilities/ShadeInfo.hpp world/World.hpp \
+	lights/Light.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ materials/Matte.cpp
+
+obj/Phong.o: materials/Phong.cpp materials/Phong.hpp \
+	materials/Material.hpp utilities/RGBColor.hpp utilities/ShadeInfo.hpp \
+	world/World.hpp brdfs/Lambertian.hpp brdfs/GlossySpecular.hpp \
+	lights/Light.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ materials/Phong.cpp
+
+obj/Reflective.o: materials/Reflective.cpp materials/Reflective.hpp \
+	materials/Phong.hpp utilities/RGBColor.hpp utilities/ShadeInfo.hpp \
+	world/World.hpp lights/Light.hpp brdfs/PerfectSpecular.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ materials/Reflective.cpp
+
 ################################################################################
 # Samplers
 ################################################################################
+
+obj/newSampler.o: samplers/newSampler.cpp samplers/newSampler.hpp \
+	utilities/Point2D.hpp utilities/Point3D.hpp utilities/Maths.hpp \
+	utilities/Constants.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ samplers/newSampler.cpp
 
 obj/Sampler.o: samplers/Sampler.cpp samplers/Sampler.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ samplers/Sampler.cpp
@@ -182,9 +244,31 @@ obj/Simple.o: samplers/Simple.cpp samplers/Simple.hpp cameras/Camera.hpp \
 	$(CXX) -c $(CXXFLAGS) -o $@ samplers/Simple.cpp
 
 # Add any additional samplers you make here
-obj/Quad.o: samplers/Quad.cpp samplers/Quad.hpp cameras/Camera.hpp \
-	samplers/Sampler.hpp utilities/Ray.hpp obj
-	$(CXX) -c $(CXXFLAGS) -o $@ samplers/Quad.cpp
+obj/RegularBox.o: samplers/RegularBox.cpp samplers/RegularBox.hpp \
+	cameras/Camera.hpp samplers/Sampler.hpp utilities/Ray.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ samplers/RegularBox.cpp
+
+obj/JitterGaussian.o: samplers/JitterGaussian.cpp samplers/JitterGaussian.hpp \
+	cameras/Camera.hpp samplers/Sampler.hpp utilities/Constants.hpp \
+	utilities/Ray.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ samplers/JitterGaussian.cpp
+
+################################################################################
+# Tracers
+################################################################################
+
+obj/Tracer.o: tracers/Tracer.cpp tracers/Tracer.hpp utilities/Constants.hpp \
+	utilities/Ray.hpp utilities/RGBColor.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ tracers/Tracer.cpp
+
+obj/Whitted.o: tracers/Whitted.cpp tracers/Whitted.hpp tracers/Tracer.hpp \
+	utilities/Constants.hpp utilities/Ray.hpp utilities/RGBColor.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ tracers/Whitted.cpp
+
+obj/BasicTracer.o: tracers/BasicTracer.cpp tracers/BasicTracer.hpp \
+	tracers/Tracer.hpp utilities/Constants.hpp utilities/Ray.hpp \
+	utilities/RGBColor.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ tracers/BasicTracer.cpp
 
 ################################################################################
 # Utilities
@@ -197,6 +281,9 @@ obj/BoundingBox.o: utilities/BoundingBox.cpp utilities/BoundingBox.hpp \
 obj/Image.o: utilities/Image.cpp utilities/Image.hpp utilities/RGBColor.hpp \
 	world/ViewPlane.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ utilities/Image.cpp
+
+obj/Point2D.o: utilities/Point2D.cpp utilities/Point2D.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ utilities/Point2D.cpp
 
 obj/Point3D.o: utilities/Point3D.cpp utilities/Point3D.hpp \
 	utilities/Vector3D.hpp obj
@@ -243,9 +330,16 @@ clean:
 # Formats code and suggestions improvements according to cpplint
 clean-code:
 	clang-format --style=google -i **/*.*pp
+	clang-format --style=google -i raytracer.cpp
 	-cpplint **/*.cpp
 	-cpplint **/*.hpp
+	-cpplint raytracer.cpp
 
 # Creates obj folder for all object files
 obj:
 	mkdir obj
+
+# Update the happly submodule
+happly/happly.h:
+	git submodule init
+	git submodule update
