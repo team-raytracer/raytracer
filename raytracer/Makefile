@@ -28,23 +28,25 @@ all: raytracer
 
 # Builds the executable
 # Important: Change the first dependency to the build you are using
-
 raytracer: obj/buildChess.o \
 	obj/Lambertian.o obj/PerfectSpecular.o obj/GlossySpecular.o \
 	obj/Parallel.o obj/Perspective.o \
-	obj/Geometry.o obj/Plane.o obj/Sphere.o obj/Triangle.o obj/SmoothTriangle.o \
+	obj/Geometry.o obj/Plane.o obj/Sphere.o obj/Triangle.o \
+	obj/SmoothTriangle.o \
 	obj/Light.o obj/Ambient.o obj/Directional.o obj/Point.o obj/Spotlight.o \
 	obj/Cosine.o obj/Matte.o obj/Phong.o obj/Reflective.o \
-	obj/newSampler.o obj/Sampler.o obj/Simple.o obj/RegularBox.o obj/JitterGaussian.o \
-	obj/Image.o obj/Point2D.o obj/Point3D.o obj/Ray.o	obj/RGBColor.o \
-	obj/ShadeInfo.o obj/Tracer.o obj/Vector3D.o \
-	obj/ViewPlane.o obj/Whitted.o obj/World.o obj/BasicTracer.o \
+	obj/newSampler.o obj/Sampler.o obj/Simple.o obj/RegularBox.o \
+	obj/JitterGaussian.o \
+	obj/Tracer.o obj/BasicTracer.o obj/Whitted.o \
+	obj/ChessPiece.o obj/Image.o obj/Point2D.o obj/Point3D.o obj/Ray.o \
+	obj/RGBColor.o obj/ShadeInfo.o obj/Tracer.o obj/Vector3D.o \
+	obj/ViewPlane.o obj/World.o \
 	obj/raytracer.o
 	$(CXX) $(OMPFLAGS) -o $@ $^
 
-obj/raytracer.o: raytracer.cpp build/buildLightTest.cpp \
-	materials/Material.hpp samplers/Sampler.hpp tracers/Tracer.hpp \
-	utilities/Image.hpp utilities/ShadeInfo.hpp	world/World.hpp obj
+obj/raytracer.o: raytracer.cpp materials/Material.hpp samplers/Sampler.hpp \
+	tracers/Tracer.hpp utilities/Image.hpp utilities/ShadeInfo.hpp \
+	world/World.hpp obj
 	$(CXX) $(OMPFLAGS) -c $(CXXFLAGS) -o $@ raytracer.cpp
 
 ################################################################################
@@ -83,9 +85,9 @@ obj/buildPly.o: build/buildPly.cpp cameras/Perspective.hpp \
 	$(CXX) -c $(CXXFLAGS) -o $@ build/buildPly.cpp
 
 obj/buildChess.o: build/buildChess.cpp cameras/Perspective.hpp \
-	geometry/Triangle.hpp light/Ambient.hpp lights/Point.hpp materials/Matte.hpp \
-	samplers/RegularBox.hpp	tracers/Whitted.hpp utilities/ChessPiece.hpp \
-	utilities/Constants.hpp world/World.hpp obj
+	geometry/Triangle.hpp lights/Ambient.hpp lights/Point.hpp \
+	materials/Matte.hpp	samplers/RegularBox.hpp	tracers/Whitted.hpp \
+	utilities/ChessPiece.hpp utilities/Constants.hpp world/World.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ build/buildChess.cpp
 
 obj/buildAntiAlias.o: build/buildAntiAlias.cpp cameras/Perspective.hpp \
