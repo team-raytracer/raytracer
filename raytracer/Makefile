@@ -84,7 +84,7 @@ obj/buildPly.o: build/buildPly.cpp cameras/Perspective.hpp \
 
 obj/buildChess.o: build/buildChess.cpp cameras/Perspective.hpp \
 	geometry/Plane.hpp geometry/Triangle.hpp materials/Cosine.hpp \
-	samplers/Simple.hpp	tracers/Whitted.hpp utilities/Constants.hpp \
+	samplers/RegularBox.hpp	tracers/Whitted.hpp utilities/Constants.hpp \
 	world/World.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ build/buildChess.cpp
 
