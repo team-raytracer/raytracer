@@ -29,7 +29,7 @@ all: raytracer
 # Builds the executable
 # Important: Change the first dependency to the build you are using
 raytracer: obj/buildLightTest.o \
-	obj/Lambertian.o obj/PerfectSpecular.o \
+	obj/Lambertian.o obj/PerfectSpecular.o obj/GlossySpecular.o \
 	obj/Parallel.o obj/Perspective.o \
 	obj/Geometry.o obj/Plane.o obj/Sphere.o obj/Triangle.o obj/SmoothTriangle.o \
 	obj/Light.o obj/Ambient.o obj/Directional.o obj/Point.o obj/Spotlight.o \
