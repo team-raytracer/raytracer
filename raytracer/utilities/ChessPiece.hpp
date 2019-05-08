@@ -18,7 +18,7 @@ class ChessPiece {
   // Constructors and assignment operator
   ChessPiece() = default;
   ChessPiece(const ChessPiece& other) = default;
-  ChessPiece& operator=(const ChessPiece& other);
+  ChessPiece& operator=(const ChessPiece& other) = default;
 
   ChessPiece(std::string name, double height);
 

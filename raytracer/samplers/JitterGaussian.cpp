@@ -6,8 +6,7 @@
 #include "../utilities/Ray.hpp"
 #include "../world/ViewPlane.hpp"
 
-// std::mt19937 JitterGaussian::generator(std::random_device{}());
-std::mt19937 JitterGaussian::generator(11);
+std::mt19937 JitterGaussian::generator(std::random_device{}());
 
 JitterGaussian::JitterGaussian(Camera* c_ptr, ViewPlane* v_ptr, size_t degree,
                                double sigma)

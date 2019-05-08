@@ -65,6 +65,19 @@ obj/buildChapter14.o: build/buildChapter14.cpp cameras/Parallel.hpp \
 	utilities/Constants.hpp world/World.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ build/buildChapter14.cpp
 
+# Add any addition builds you make here
+obj/buildAntiAlias.o: build/buildAntiAlias.cpp cameras/Perspective.hpp \
+	geometry/Plane.hpp geometry/Sphere.hpp geometry/Triangle.hpp \
+	materials/Cosine.hpp samplers/RegularBox.hpp samplers/Simple.hpp \
+	tracers/Whitted.hpp utilities/Constants.hpp	world/World.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ build/buildAntiAlias.cpp
+
+obj/buildChess.o: build/buildChess.cpp cameras/Perspective.hpp \
+	geometry/Triangle.hpp lights/Ambient.hpp lights/Point.hpp \
+	materials/Matte.hpp	samplers/JitterGaussian.hpp	tracers/Whitted.hpp \
+	utilities/ChessPiece.hpp utilities/Constants.hpp world/World.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ build/buildChess.cpp
+
 obj/buildLightTest.o: build/buildLightTest.cpp cameras/Perspective.hpp \
 	geometry/Plane.hpp geometry/Sphere.hpp geometry/Triangle.hpp \
 	materials/Matte.hpp samplers/Simple.hpp utilities/Constants.hpp \
@@ -72,7 +85,6 @@ obj/buildLightTest.o: build/buildLightTest.cpp cameras/Perspective.hpp \
 	materials/Reflective.hpp tracers/Whitted.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ build/buildLightTest.cpp
 
-# Add any addition builds you make here
 obj/buildMVP.o: build/buildMVP.cpp cameras/Perspective.hpp \
 	geometry/Plane.hpp geometry/Sphere.hpp geometry/Triangle.hpp \
 	materials/Cosine.hpp samplers/Simple.hpp tracers/Whitted.hpp \
@@ -83,18 +95,6 @@ obj/buildPly.o: build/buildPly.cpp cameras/Perspective.hpp \
 	geometry/Plane.hpp materials/Cosine.hpp samplers/Simple.hpp \
 	tracers/Whitted.hpp utilities/Constants.hpp world/World.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ build/buildPly.cpp
-
-obj/buildChess.o: build/buildChess.cpp cameras/Perspective.hpp \
-	geometry/Triangle.hpp lights/Ambient.hpp lights/Point.hpp \
-	materials/Matte.hpp	samplers/RegularBox.hpp	tracers/Whitted.hpp \
-	utilities/ChessPiece.hpp utilities/Constants.hpp world/World.hpp obj
-	$(CXX) -c $(CXXFLAGS) -o $@ build/buildChess.cpp
-
-obj/buildAntiAlias.o: build/buildAntiAlias.cpp cameras/Perspective.hpp \
-	geometry/Plane.hpp geometry/Sphere.hpp geometry/Triangle.hpp \
-	materials/Cosine.hpp samplers/RegularBox.hpp samplers/Simple.hpp \
-	tracers/Whitted.hpp utilities/Constants.hpp	world/World.hpp obj
-	$(CXX) -c $(CXXFLAGS) -o $@ build/buildAntiAlias.cpp
 
 ################################################################################
 # BRDFs
@@ -294,8 +294,9 @@ obj/ViewPlane.o: world/ViewPlane.cpp world/ViewPlane.hpp utilities/Point3D.hpp \
 
 obj/World.o: world/World.cpp world/World.hpp cameras/Camera.hpp \
 	geometry/Geometry.hpp geometry/SmoothTriangle.hpp geometry/Triangle.hpp \
-	happly/happly.h lights/Light.hpp materials/Material.hpp samplers/Sampler.hpp \
-	utilities/Point3D.hpp utilities/RGBColor.hpp utilities/ShadeInfo.hpp obj
+	happly/happly.h lights/Light.hpp materials/Material.hpp \
+	samplers/Sampler.hpp utilities/Point3D.hpp utilities/RGBColor.hpp \
+	utilities/ShadeInfo.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ world/World.cpp
 
 ################################################################################

@@ -8,16 +8,16 @@
 #include "../lights/Ambient.hpp"
 #include "../lights/Point.hpp"
 #include "../materials/Matte.hpp"
-#include "../samplers/RegularBox.hpp"
+#include "../samplers/JitterGaussian.hpp"
 #include "../tracers/Whitted.hpp"
-#include "../utilites/ChessPiece.hpp"
+#include "../utilities/ChessPiece.hpp"
 #include "../utilities/Constants.hpp"
 #include "../world/World.hpp"
 
 const RGBColor TEAM_COLORS[2] = {RGBColor(0.3, 0.56, 0.64),
                                  RGBColor(1, 0.56, 0.52)};
 const Point3D CAMERA_POSITION = Point3D(9, 4, -3.25);
-const size_t RESOLUTION = 1920 / 4;
+const size_t RESOLUTION = 1920;
 const double PIECE_SIZE_OFFSET = 0.1;
 const double KA = 0.2;
 const double KD = 3;
@@ -58,7 +58,7 @@ void parseBoard(World* world, std::istream& board,
       std::getline(rowStream, piece, ' ');
       if (piece.length() >= 2 && dict.count(piece[0]) > 0 &&
           (piece[1] == '0' || piece[1] == '1')) {
-        addPiece(world, dict[piece[0]].name, piece[1] - '0', x, z);
+        addPiece(world, dict[piece[0]], piece[1] - '0', x, z);
       }
     }
   }
@@ -66,14 +66,14 @@ void parseBoard(World* world, std::istream& board,
 
 std::map<char, ChessPiece> initializeDictionary() {
   std::map<char, ChessPiece> dict;
-  dict['p'] = ChessPiece("pawn", 1.0);
-  dict['h'] = ChessPiece("knight", 1.2);
+  dict['p'] = ChessPiece("pawn", 1.2);
+  dict['h'] = ChessPiece("knight", 1.3);
   dict['b'] = ChessPiece("bishop", 1.7);
-  dict['r'] = ChessPiece("rook", 1.3);
+  dict['r'] = ChessPiece("rook", 1.4);
   dict['q'] = ChessPiece("queen", 1.85);
-  dict['k'] = ChessPiece("king", 2.0)
+  dict['k'] = ChessPiece("king", 2.0);
 
-      return dict;
+  return dict;
 }
 
 void World::build(void) {
@@ -87,7 +87,7 @@ void World::build(void) {
 
   // Camera, Sampler, and Tracer
   set_camera(new Perspective(CAMERA_POSITION));
-  sampler_ptr = new RegularBox(camera_ptr, &vplane, 2);
+  sampler_ptr = new JitterGaussian(camera_ptr, &vplane, 3, 0.25);
   tracer_ptr = new Whitted(&(*this));
 
   // Lights
