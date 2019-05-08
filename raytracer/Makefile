@@ -28,7 +28,7 @@ all: raytracer
 
 # Builds the executable
 # Important: Change the first dependency to the build you are using
-raytracer: obj/buildPly.o \
+raytracer: obj/buildHelloWorld.o \
 	obj/Lambertian.o obj/PerfectSpecular.o obj/GlossySpecular.o \
 	obj/Parallel.o obj/Perspective.o \
 	obj/Geometry.o obj/Plane.o obj/Sphere.o obj/Triangle.o obj/SmoothTriangle.o \
@@ -37,7 +37,7 @@ raytracer: obj/buildPly.o \
 	obj/newSampler.o obj/Sampler.o obj/Simple.o obj/RegularBox.o obj/JitterGaussian.o \
 	obj/Image.o obj/Point2D.o obj/Point3D.o obj/Ray.o	obj/RGBColor.o \
 	obj/ShadeInfo.o obj/Tracer.o obj/Vector3D.o \
-	obj/ViewPlane.o obj/Whitted.o obj/World.o \
+	obj/ViewPlane.o obj/Whitted.o obj/World.o obj/BasicTracer.o \
 	obj/raytracer.o
 	$(CXX) $(OMPFLAGS) -o $@ $^
 
@@ -52,7 +52,7 @@ obj/raytracer.o: raytracer.cpp build/buildLightTest.cpp \
 
 obj/buildHelloWorld.o: build/buildHelloWorld.cpp cameras/Perspective.hpp \
 	geometry/Plane.hpp geometry/Sphere.hpp geometry/Triangle.hpp \
-	materials/Cosine.hpp samplers/Simple.hpp tracers/Whitted.hpp \
+	materials/Cosine.hpp samplers/Simple.hpp tracers/BasicTracer.hpp \
 	utilities/Constants.hpp world/World.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ build/buildHelloWorld.cpp
 
@@ -241,6 +241,11 @@ obj/Tracer.o: tracers/Tracer.cpp tracers/Tracer.hpp utilities/Constants.hpp \
 obj/Whitted.o: tracers/Whitted.cpp tracers/Whitted.hpp tracers/Tracer.hpp \
 	utilities/Constants.hpp utilities/Ray.hpp utilities/RGBColor.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ tracers/Whitted.cpp
+
+obj/BasicTracer.o: tracers/BasicTracer.cpp tracers/BasicTracer.hpp \
+	tracers/Tracer.hpp utilities/Constants.hpp utilities/Ray.hpp \
+	utilities/RGBColor.hpp obj
+	$(CXX) -c $(CXXFLAGS) -o $@ tracers/BasicTracer.cpp
 
 ################################################################################
 # Utilities
