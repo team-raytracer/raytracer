@@ -24,6 +24,7 @@ World::~World() {
   delete sampler_ptr;
   delete ambient_ptr;
   delete tracer_ptr;
+  delete acceleration_ptr;
 }
 
 void World::add_geometry(Geometry* geom_ptr) { geometry.push_back(geom_ptr); }
