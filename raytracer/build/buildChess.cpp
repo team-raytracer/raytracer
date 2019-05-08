@@ -17,7 +17,7 @@
 #include "../cameras/Parallel.hpp"
 
 const RGBColor TEAM_COLORS[2] = {blue, red};
-const Point3D CAMERA_POSITION = Point3D(9, 3, -3.25);
+const Point3D CAMERA_POSITION = Point3D(9, 4, -3.25);
 const size_t RESOLUTION = 200;
 const double PIECE_SIZE_OFFSET = 0.1;
 const char CHESS_FILE_NAME[16] = "chessLayout.txt";

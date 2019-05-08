@@ -1,4 +1,5 @@
 #include "ViewPlane.hpp"
+#include <cmath>
 #include "../utilities/Constants.hpp"
 #include "../utilities/Vector3D.hpp"
 
