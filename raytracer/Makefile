@@ -65,7 +65,8 @@ obj/buildChapter14.o: build/buildChapter14.cpp cameras/Parallel.hpp \
 obj/buildLightTest.o: build/buildLightTest.cpp cameras/Perspective.hpp \
 	geometry/Plane.hpp geometry/Sphere.hpp geometry/Triangle.hpp \
 	materials/Matte.hpp samplers/Simple.hpp utilities/Constants.hpp \
-	world/World.hpp lights/Ambient.hpp lights/Point.hpp lights/Directional.hpp obj
+	world/World.hpp lights/Ambient.hpp lights/Point.hpp lights/Directional.hpp \
+	materials/Reflective.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ build/buildLightTest.cpp
 
 # Add any addition builds you make here

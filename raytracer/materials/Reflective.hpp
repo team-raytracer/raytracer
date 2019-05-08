@@ -6,7 +6,7 @@
 #include "../brdfs/PerfectSpecular.hpp"
 #include "../world/World.hpp"
 
-class Reflective : Phong {
+class Reflective : public Phong {
  public:
 	Reflective();
 	Reflective(const Reflective& rm);

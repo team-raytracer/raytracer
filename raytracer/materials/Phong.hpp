@@ -8,7 +8,7 @@
 #include "../world/World.hpp"
 #include "../lights/Light.hpp"
 
-class Phong : Material {
+class Phong : public Material {
 protected:
   Lambertian* ambient_brdf;
   Lambertian* diffuse_brdf;
