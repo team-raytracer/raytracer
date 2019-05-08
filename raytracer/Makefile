@@ -240,3 +240,8 @@ clean-code:
 # Creates obj folder for all object files
 obj:
 	mkdir obj
+
+# Update the happly submodule
+happly/happly.h: 
+	git submodule init
+	git submodule update
