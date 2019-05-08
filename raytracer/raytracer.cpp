@@ -25,6 +25,17 @@ static std::string process_filename(const char* input) {
   return filename;
 }
 
+static void show_usage(std::string programName) {
+  std::cerr << "Usage: " << programName << " [-s] [-t] [-v] [-o <filename>]\n"
+            << "Options:\n"
+            << "\t-h\t\tShow this help message\n"
+            << "\t-s\t\tSlow render without acceleration structure\n"
+            << "\t-t\t\tUse simple tracer with only primary rays\n"
+            << "\t-v\t\tVerbose, print render information\n"
+            << "\t-o <filename>\tSpecifies output filename" 
+            << std::endl;
+}
+
 int main(int argc, char** argv) {
   // Settings set by command line arguments
   bool useKD = true;
@@ -34,7 +45,8 @@ int main(int argc, char** argv) {
 
   // Process command-line arguments
   int c;
-  while ((c = getopt(argc, argv, "stvo:")) != -1) {
+  opterr = 0;
+  while ((c = getopt(argc, argv, "stvho:")) != -1) {
     switch (c) {
       case 's':
         useKD = false;
@@ -47,9 +59,18 @@ int main(int argc, char** argv) {
         break;
       case 'o':
         filename = process_filename(optarg);
-      default:
         break;
+      case 'h':
+      case '?':
+      default:
+        show_usage(argv[0]);
+        return 1;
     }
+  }
+
+  if (optind < argc) {
+    show_usage(argv[0]);
+    return 1;
   }
 
   // Load scene
