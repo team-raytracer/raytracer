@@ -32,8 +32,7 @@ static void show_usage(std::string programName) {
             << "\t-s\t\tSlow render without acceleration structure\n"
             << "\t-t\t\tUse simple tracer with only primary rays\n"
             << "\t-v\t\tVerbose, print render information\n"
-            << "\t-o <filename>\tSpecifies output filename" 
-            << std::endl;
+            << "\t-o <filename>\tSpecifies output filename" << std::endl;
 }
 
 int main(int argc, char** argv) {

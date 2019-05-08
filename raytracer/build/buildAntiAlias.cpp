@@ -10,13 +10,8 @@
 #include "../world/World.hpp"
 
 void World::build(void) {
-  // View plane  .
-  vplane.top_left.x = -10;
-  vplane.top_left.y = 10;
-  vplane.top_left.z = 10;
-  vplane.bottom_right.x = 10;
-  vplane.bottom_right.y = -10;
-  vplane.bottom_right.z = 10;
+  vplane.top_left = Point3D(-10, 10, 10);
+  vplane.bottom_right = Point3D(10, -10, 10);
   vplane.hres = 100;
   vplane.vres = 100;
 

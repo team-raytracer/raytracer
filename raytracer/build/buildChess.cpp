@@ -70,12 +70,8 @@ void World::build(void) {
   std::map<char, std::string> dict = initializeDictionary();
 
   // view plane
-  vplane.top_left.x = 1;
-  vplane.top_left.y = 7;
-  vplane.top_left.z = 5;
-  vplane.bottom_right.x = 7;
-  vplane.bottom_right.y = 1;
-  vplane.bottom_right.z = 5;
+  vplane.top_left = Point3D(1, 7, 5);
+  vplane.bottom_right = Point3D(7, 1, 5);
   vplane.hres = RESOLUTION;
   vplane.vres = RESOLUTION;
 

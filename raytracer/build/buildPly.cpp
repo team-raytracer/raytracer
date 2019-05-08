@@ -8,12 +8,8 @@
 
 void World::build(void) {
   // view plane
-  vplane.top_left.x = -1;
-  vplane.top_left.y = 1;
-  vplane.top_left.z = 2;
-  vplane.bottom_right.x = 1;
-  vplane.bottom_right.y = -1;
-  vplane.bottom_right.z = 2;
+  vplane.top_left = Point3D(-1, 1, 2);
+  vplane.bottom_right = Point3D(1, -1, 2);
   vplane.hres = 800;
   vplane.vres = 800;
 
