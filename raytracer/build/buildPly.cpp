@@ -17,7 +17,7 @@ void World::build(void) {
   vplane.hres = 800;
   vplane.vres = 800;
 
-  bg_color = black;  // background color.
+  bg_color = gray;  // background color.
 
   // camera and sampler.
   set_camera(new Perspective(0, 0, 10));
@@ -26,9 +26,4 @@ void World::build(void) {
   // filename goes here
   add_ply("models/bun_zipper_res2.ply", new Cosine(blue), Point3D(-1, -1, -1),
           Point3D(1, 1, 1), true);
-
-  // vertical plane
-  Plane* plane_ptr = new Plane(Point3D(0, 0, -150), Vector3D(0, 0, 1));
-  plane_ptr->set_material(new Cosine(grey));
-  add_geometry(plane_ptr);
 }

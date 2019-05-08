@@ -174,6 +174,6 @@ void World::build(void) {
 
   // vertical plane
   Plane* plane_ptr = new Plane(Point3D(0, 0, -150), Vector3D(0, 0, 1));
-  plane_ptr->set_material(new Cosine(grey));
+  plane_ptr->set_material(new Cosine(gray));
   add_geometry(plane_ptr);
 }
