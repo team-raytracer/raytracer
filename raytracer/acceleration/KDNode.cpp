@@ -6,14 +6,12 @@ KDNode::KDNode() : primitives{std::vector<Geometry*>()} {
   // nothing else to do
 }
 
-// KDNode::KDNode(std::vector<Geometry*> _primitives) : primitives{_primitives}, bb{BoundingBox()} {
-//   // compute bounding box
-//   printf("Building bbox (%f, %f, %f), (%f, %f, %f)\n", bb.most_negative.x, bb.most_negative.y, bb.most_negative.z, bb.most_positive.x, bb.most_positive.y, bb.most_positive.z);
-//   for (Geometry* primitive: primitives) {
-//     bb = bb.merge(primitive->get_bounding_box());
-//   printf("Building bbox (%f, %f, %f), (%f, %f, %f)\n", bb.most_negative.x, bb.most_negative.y, bb.most_negative.z, bb.most_positive.x, bb.most_positive.y, bb.most_positive.z);
-//   }
-// }
+KDNode::KDNode(std::vector<Geometry*> _primitives) : primitives{_primitives}, bb{BoundingBox()} {
+  // compute bounding box
+  for (Geometry* primitive: primitives) {
+    bb = bb.merge(primitive->get_bounding_box());
+  }
+}
 
 KDNode::KDNode(std::vector<Geometry*> _primitives, BoundingBox _bb)
     : primitives{_primitives}, bb{_bb} {
@@ -52,7 +50,7 @@ void KDNode::build_kd_tree(KDNode* node) {
     axislength = lengths.z;
   }
 
-  if (node->primitives.size() < 2 || axislength < 0.01) {
+  if (node->primitives.size() < 3 || axislength < 0.01) {
     //printf("Hit base case -- num primitives here: %d\n", node->primitives.size());
     return;
   }
@@ -114,7 +112,9 @@ void KDNode::build_kd_tree(KDNode* node) {
     }
   }
 
-  std::vector<Geometry*>().swap(node->primitives);
+  //std::vector<Geometry*>().swap(node->primitives);
+  node->primitives.clear();
+  node->primitives.shrink_to_fit();
 
   //printf("Num left vertices: %d, Num right vertices: %d\n", node->left->primitives.size(), node->right->primitives.size());
 

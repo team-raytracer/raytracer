@@ -25,8 +25,8 @@ std::string processFilename(const char* input) {
 int main(int argc, char** argv) {
   World world;
   world.build();
-  BoundingBox bb = BoundingBox(Point3D(-20), Point3D(20));
-  world.set_acceleration(new KDTree(&world, bb));
+  //BoundingBox bb = BoundingBox(Point3D(-20), Point3D(20));
+  world.set_acceleration(new KDTree(&world));
 
   ViewPlane& viewplane = world.vplane;
   Image image(viewplane);

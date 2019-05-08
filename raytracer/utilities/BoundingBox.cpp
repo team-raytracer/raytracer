@@ -10,10 +10,10 @@ BoundingBox::BoundingBox(const Point3D& _most_negative,
 }
 
 BoundingBox BoundingBox::merge(const BoundingBox& other) const {
-  Point3D most_negative = Point3D::min(most_negative, other.most_negative);
-  Point3D most_positive = Point3D::max(most_positive, other.most_positive);
+  Point3D most_negative_ = Point3D::min(most_negative, other.most_negative);
+  Point3D most_positive_ = Point3D::max(most_positive, other.most_positive);
 
-  return BoundingBox(most_negative, most_positive);
+  return BoundingBox(most_negative_, most_positive_);
 }
 
 int BoundingBox::max_axis() const {
@@ -22,11 +22,6 @@ int BoundingBox::max_axis() const {
   double x_length = most_positive.x - most_negative.x;
   double y_length = most_positive.y - most_negative.y;
   double z_length = most_positive.z - most_negative.z;
-
-  //static const double axis_lengths[] = {x_length, y_length, z_length};
-
-  //return std::distance(axis_lengths,
-  //                     std::max_element(axis_lengths, axis_lengths + 3));
 
   if (x_length >= y_length && x_length >= z_length) {
     return 0;
