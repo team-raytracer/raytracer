@@ -111,7 +111,7 @@ obj/Perspective.o: cameras/Perspective.cpp cameras/Perspective.hpp \
 
 obj/Geometry.o: geometry/Geometry.cpp geometry/Geometry.hpp \
 	materials/Material.hpp utilities/Ray.hpp utilities/ShadeInfo.hpp \
-	utilities/BoundingBox.o obj
+	utilities/BoundingBox.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ geometry/Geometry.cpp
 
 obj/Plane.o: geometry/Plane.cpp geometry/Plane.hpp geometry/Geometry.hpp \

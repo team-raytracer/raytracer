@@ -14,7 +14,7 @@ class KDTree : public Acceleration {
 
  public:
   // Constructor
-  KDTree(World* world);
+  KDTree(World* world, BoundingBox bb);
 
   KDTree() = delete;
 

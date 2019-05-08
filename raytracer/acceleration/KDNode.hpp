@@ -21,7 +21,7 @@ class KDNode {
  public:
   KDNode();
 
-  KDNode(std::vector<Geometry*> _primitives);
+  //KDNode(std::vector<Geometry*> _primitives);
 
   KDNode(std::vector<Geometry*> _primitives, BoundingBox _bb);
 

@@ -16,12 +16,12 @@
 class Sphere : public Geometry {
  protected:
   Point3D c;  // center.
-  float r;    // radius.
+  double r;    // radius.
 
  public:
   // Constructors.
   Sphere();  // sphere at origin with radius 0.
-  Sphere(const Point3D& center, float radius);  // set center and radius,
+  Sphere(const Point3D& center, double radius);  // set center and radius,
 
   // Copy constructor and assignment operator.
   Sphere(const Sphere& object) = default;

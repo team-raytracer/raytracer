@@ -2,8 +2,8 @@
 #include "../utilities/BoundingBox.hpp"
 #include <stack>
 
-KDTree::KDTree(World* world)
-    : world_ptr{world}, root_node{new KDNode(world->geometry)} {
+KDTree::KDTree(World* world, BoundingBox bb)
+    : world_ptr{world}, root_node{new KDNode(world->geometry, bb)} {
   KDNode::build_kd_tree(root_node);
 }
 

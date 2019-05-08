@@ -23,10 +23,21 @@ int BoundingBox::max_axis() const {
   double y_length = most_positive.y - most_negative.y;
   double z_length = most_positive.z - most_negative.z;
 
-  static const double axis_lengths[] = {x_length, y_length, z_length};
+  //static const double axis_lengths[] = {x_length, y_length, z_length};
 
-  return std::distance(axis_lengths,
-                       std::max_element(axis_lengths, axis_lengths + 3));
+  //return std::distance(axis_lengths,
+  //                     std::max_element(axis_lengths, axis_lengths + 3));
+
+  if (x_length >= y_length && x_length >= z_length) {
+    return 0;
+  }
+
+  if (y_length >= x_length && y_length >= z_length) {
+    return 1;
+  }
+
+  return 2;
+
 }
 
 bool BoundingBox::intersect(const Point3D& point) const {

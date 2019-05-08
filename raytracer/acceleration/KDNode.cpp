@@ -6,14 +6,14 @@ KDNode::KDNode() : primitives{std::vector<Geometry*>()} {
   // nothing else to do
 }
 
-KDNode::KDNode(std::vector<Geometry*> _primitives) : primitives{_primitives}, bb{BoundingBox()} {
-  // compute bounding box
-  printf("Building bbox (%f, %f, %f), (%f, %f, %f)\n", bb.most_negative.x, bb.most_negative.y, bb.most_negative.z, bb.most_positive.x, bb.most_positive.y, bb.most_positive.z);
-  for (Geometry* primitive: primitives) {
-    bb = bb.merge(primitive->get_bounding_box());
-  printf("Building bbox (%f, %f, %f), (%f, %f, %f)\n", bb.most_negative.x, bb.most_negative.y, bb.most_negative.z, bb.most_positive.x, bb.most_positive.y, bb.most_positive.z);
-  }
-}
+// KDNode::KDNode(std::vector<Geometry*> _primitives) : primitives{_primitives}, bb{BoundingBox()} {
+//   // compute bounding box
+//   printf("Building bbox (%f, %f, %f), (%f, %f, %f)\n", bb.most_negative.x, bb.most_negative.y, bb.most_negative.z, bb.most_positive.x, bb.most_positive.y, bb.most_positive.z);
+//   for (Geometry* primitive: primitives) {
+//     bb = bb.merge(primitive->get_bounding_box());
+//   printf("Building bbox (%f, %f, %f), (%f, %f, %f)\n", bb.most_negative.x, bb.most_negative.y, bb.most_negative.z, bb.most_positive.x, bb.most_positive.y, bb.most_positive.z);
+//   }
+// }
 
 KDNode::KDNode(std::vector<Geometry*> _primitives, BoundingBox _bb)
     : primitives{_primitives}, bb{_bb} {
@@ -34,15 +34,11 @@ void KDNode::build_kd_tree(KDNode* node) {
   // based on
   // http://www.flipcode.com/archives/Raytracing_Topics_Techniques-Part_7_Kd-Trees_and_More_Speed.shtml
 
-  if (node->primitives.size() < 2 || node->bb.volume() < kEpsilon) {
-    printf("Hit base case -- num primitives here: %d\n", node->primitives.size());
-    return;
-  }
-
   BoundingBox current_bb = node->bb;
   int splitaxis = current_bb.max_axis();
-
   Vector3D lengths = current_bb.most_positive - current_bb.most_negative;
+
+  //printf("split axis: %d\n", splitaxis);
 
   double axislength;
   if (splitaxis == 0) {
@@ -54,6 +50,11 @@ void KDNode::build_kd_tree(KDNode* node) {
   } else if (splitaxis == 2) {
     // z axis
     axislength = lengths.z;
+  }
+
+  if (node->primitives.size() < 2 || axislength < 0.01) {
+    //printf("Hit base case -- num primitives here: %d\n", node->primitives.size());
+    return;
   }
 
   // offset from current_bb.most_negative, along splitaxis
@@ -73,11 +74,11 @@ void KDNode::build_kd_tree(KDNode* node) {
   } else if (splitaxis == 2) {
     // z axis
     midpoint_1.z += splitoffset;
-    midpoint_2.z -+ splitoffset;
+    midpoint_2.z -= splitoffset;
   }
 
-  printf("Building node with bbox (%f, %f, %f), (%f, %f, %f)\n", current_bb.most_negative.x, current_bb.most_negative.y, current_bb.most_negative.z, current_bb.most_positive.x, current_bb.most_positive.y, current_bb.most_positive.z);
-  printf("axis length: %f, splitoffset: %f\n",axislength, splitoffset);
+  //printf("Building node with bbox (%f, %f, %f), (%f, %f, %f)\n", current_bb.most_negative.x, current_bb.most_negative.y, current_bb.most_negative.z, current_bb.most_positive.x, current_bb.most_positive.y, current_bb.most_positive.z);
+  //printf("axis length: %f, splitoffset: %f\n",axislength, splitoffset);
 
 
   BoundingBox splitboxleft = current_bb;
@@ -89,31 +90,30 @@ void KDNode::build_kd_tree(KDNode* node) {
   //splitboxright.most_positive = midpoint_2;
 
 
-  printf("Left bbox (%f, %f, %f), (%f, %f, %f)\n", splitboxleft.most_negative.x, splitboxleft.most_negative.y, splitboxleft.most_negative.z, splitboxleft.most_positive.x, splitboxleft.most_positive.y, splitboxleft.most_positive.z);
+  //printf("Left bbox (%f, %f, %f), (%f, %f, %f)\n", splitboxleft.most_negative.x, splitboxleft.most_negative.y, splitboxleft.most_negative.z, splitboxleft.most_positive.x, splitboxleft.most_positive.y, splitboxleft.most_positive.z);
 
-  printf("Right bbox (%f, %f, %f), (%f, %f, %f)\n", splitboxright.most_negative.x, splitboxright.most_negative.y, splitboxright.most_negative.z, splitboxright.most_positive.x, splitboxright.most_positive.y, splitboxright.most_positive.z);
+  //printf("Right bbox (%f, %f, %f), (%f, %f, %f)\n", splitboxright.most_negative.x, splitboxright.most_negative.y, splitboxright.most_negative.z, splitboxright.most_positive.x, splitboxright.most_positive.y, splitboxright.most_positive.z);
 
   node->left = new KDNode();
   node->right = new KDNode();
 
-  printf("made it past new nodes\n");
-  printf("size: %d\n", node->primitives.size());
+  //printf("size: %d\n", node->primitives.size());
 
   //for (Geometry* primitive : node->primitives) {
   for (int i = 0; i < node->primitives.size(); ++i) {
     Geometry* primitive = node->primitives[i];
-    printf("Examining primitive %d\n", i);
+    //printf("Examining primitive %d\n", i);
     if (splitboxleft.intersect(primitive->get_bounding_box())) {
-      printf("Primitive matches left child\n");
+      //printf("Primitive matches left child\n");
       node->left->add_primitive(primitive, splitboxleft);
     }
     if (splitboxright.intersect(primitive->get_bounding_box())) {
-      printf("Primitive matches right child\n");
+      //printf("Primitive matches right child\n");
       node->right->add_primitive(primitive, splitboxright);
     }
   }
 
-  printf("Num left vertices: %d, Num right vertices: %d\n", node->left->primitives.size(), node->right->primitives.size());
+  //printf("Num left vertices: %d, Num right vertices: %d\n", node->left->primitives.size(), node->right->primitives.size());
 
   build_kd_tree(node->left);
   build_kd_tree(node->right);

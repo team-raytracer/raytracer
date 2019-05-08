@@ -6,7 +6,7 @@
 
 Sphere::Sphere() : c{Point3D()}, r{0} {}
 
-Sphere::Sphere(const Point3D& center, float radius) : c{center}, r{radius} {}
+Sphere::Sphere(const Point3D& center, double radius) : c{center}, r{radius} {}
 
 Sphere* Sphere::clone() const { return new Sphere(*this); }
 
@@ -58,6 +58,5 @@ BoundingBox Sphere::get_bounding_box() const {
   Point3D globalmin = c - offset;
   Point3D globalmax = c + offset;
   BoundingBox bb(globalmin, globalmax);
-  printf("Sphere bbox (%f, %f, %f), (%f, %f, %f)\n", bb.most_negative.x, bb.most_negative.y, bb.most_negative.z, bb.most_positive.x, bb.most_positive.y, bb.most_positive.z);
   return bb;
 }
