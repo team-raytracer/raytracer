@@ -10,7 +10,7 @@
 #include "utilities/ShadeInfo.hpp"
 #include "world/World.hpp"
 
-const std::string DEFAULT_FILENAME = "scene.ppm";
+const char DEFAULT_FILENAME[10] = "scene.ppm";
 
 const size_t MIN_ROWS_PER_CHUNK = 4;
 const size_t LOAD_BALANCE_FACTOR = 4;
@@ -37,7 +37,7 @@ int main(int argc, char** argv) {
       std::max(viewplane.vres / (omp_get_max_threads() * LOAD_BALANCE_FACTOR),
                MIN_ROWS_PER_CHUNK);
 
-  std::cout << "Begin rendering with " << omp_get_max_threads() << " cores..."
+  std::cout << "Begining rendering with " << omp_get_max_threads() << " cores..."
             << std::endl;
 
 #pragma omp parallel for
