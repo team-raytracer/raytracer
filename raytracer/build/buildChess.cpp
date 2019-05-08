@@ -17,11 +17,11 @@
 const RGBColor TEAM_COLORS[2] = {RGBColor(0.3, 0.56, 0.64),
                                  RGBColor(1, 0.56, 0.52)};
 const Point3D CAMERA_POSITION = Point3D(9, 4, -3.25);
-const size_t RESOLUTION = 1920 / 4;
+const size_t RESOLUTION = 1920;
 const double PIECE_SIZE_OFFSET = 0.1;
 const double KA = 0.2;
 const double KD = 3;
-const std::string PIECE_RESOLUTION = "low";
+const std::string PIECE_RESOLUTION = "high";
 const char CHESS_FILE_NAME[16] = "chessLayout.txt";
 const char DEFAULT_BOARD[193] =
     "r1 h1 b1 q1 k1 b1 h1 r1\n"
@@ -77,7 +77,7 @@ std::map<char, ChessPiece> initializeDictionary() {
 }
 
 void World::build(void) {
-  bg_color = darkGray;
+  bg_color = gray;
   std::map<char, ChessPiece> dict = initializeDictionary();
 
   // View plane
