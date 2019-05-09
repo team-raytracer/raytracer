@@ -19,7 +19,6 @@ const RGBColor TEAM_COLORS[2] = {RGBColor(0.3, 0.56, 0.64),
 const Point3D CAMERA_POSITION = Point3D(9, 4, -3.25);
 const double KA = 0.2;
 const double KD = 3;
-const std::string PIECE_RESOLUTION = "high";
 const char CHESS_FILE_NAME[16] = "chessLayout.txt";
 const char DEFAULT_BOARD[193] =
     "r1 h1 b1 q1 k1 b1 h1 r1\n"
@@ -38,8 +37,8 @@ void addPiece(World* world, ChessPiece piece, size_t team, size_t x, size_t z) {
   matte->set_cd(TEAM_COLORS[team]);
 
   double offset = (1.0 - piece.diameter) / 2.0;
-  world->add_ply("models/" + PIECE_RESOLUTION + "/" + piece.name + ".ply",
-                 matte, Point3D(x + offset, 0, z + offset),
+  world->add_ply("models/high/" + piece.name + ".ply", matte,
+                 Point3D(x + offset, 0, z + offset),
                  Point3D(x + 1 - offset, piece.height, z + 1 - offset), true);
 }
 
@@ -118,9 +117,8 @@ void World::build(void) {
   for (size_t z = 0; z < 8; ++z) {
     for (size_t x = 0; x < 8; ++x) {
       matte->set_cd((x + z) % 2 == 0 ? white : black);
-      reflective->set_kr(
-          (x + z) % 2 == 0 ? .9 : .5);  // sets amount of light
-                                        // reflected depending on square
+      reflective->set_kr((x + z) % 2 == 0 ? .9 : .5);  // sets amount of light
+      // reflected depending on square
 
       Triangle* triangle = new Triangle(Point3D(x, 0, z), Point3D(x, 0, z + 1),
                                         Point3D(x + 1, 0, z));
