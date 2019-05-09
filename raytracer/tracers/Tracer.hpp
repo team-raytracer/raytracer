@@ -14,9 +14,8 @@ class Tracer {
  public:
   Tracer() = default;
   explicit Tracer(World* _world_ptr);
-  ~Tracer(void) = default;
+  virtual ~Tracer() = default;
 
-  virtual RGBColor trace_ray(const Ray& ray) const = 0;
   virtual RGBColor trace_ray(const Ray ray, const int depth) const = 0;
 };
 

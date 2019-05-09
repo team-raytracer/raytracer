@@ -44,7 +44,7 @@ class Light {
   virtual Vector3D get_direction(const ShadeInfo& sinfo) const = 0;
 
   // Luminance from this light source at hit point.
-  virtual RGBColor L(const ShadeInfo& sinfo) const = 0;
+  virtual RGBColor L() const = 0;
 };
 
 #endif  // RAYTRACER_LIGHTS_LIGHT_HPP_

@@ -74,7 +74,7 @@ Phong::~Phong() {
 
 RGBColor Phong::shade(const ShadeInfo& sinfo) {
   Vector3D wo = sinfo.ray.d;
-  RGBColor L = ambient_brdf->rho(sinfo, wo) * sinfo.w->ambient_ptr->L(sinfo);
+  RGBColor L = ambient_brdf->rho(sinfo, wo) * sinfo.w->ambient_ptr->L();
   int num_lights = sinfo.w->lights.size();
 
   for (int j = 0; j < num_lights; j++) {
@@ -82,7 +82,7 @@ RGBColor Phong::shade(const ShadeInfo& sinfo) {
     float ndotwi = sinfo.normal * wi;
     if (ndotwi > 0.0) {
       L += (diffuse_brdf->f(sinfo, wo, wi) +
-            specular_brdf->f(sinfo, wo, wi) * sinfo.w->lights[j]->L(sinfo) *
+            specular_brdf->f(sinfo, wo, wi) * sinfo.w->lights[j]->L() *
                 ndotwi);
     }
   }

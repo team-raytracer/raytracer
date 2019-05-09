@@ -45,7 +45,7 @@ class Spotlight : public Point {
   virtual Vector3D get_direction(const ShadeInfo& sinfo) const;
 
   // Luminance from this light source at hit point.
-  virtual RGBColor L(const ShadeInfo& sinfo) const;
+  virtual RGBColor L() const;
 };
 
 #endif  // RAYTRACER_LIGHTS_SPOTLIGHT_HPP_

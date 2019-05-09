@@ -11,14 +11,16 @@ Directional::Directional(const RGBColor& _color) : Light(_color) {}
 Directional* Directional::clone() const { return new Directional(*this); }
 
 void Directional::set_direction(float x, float y, float z) {
-  dir = Vector3D(x, y, z);
+  dir = Vector3D(x, y, z).normalize();
 }
 
-void Directional::set_direction(const Vector3D& d) { dir = d; }
+void Directional::set_direction(const Vector3D& d) {
+  dir = Vector3D(d).normalize();
+}
 
-// normalized direction vector from light source to hit point
 Vector3D Directional::get_direction(const ShadeInfo& sinfo) const {
+  (void)sinfo;  // directional lights do not need sinfo to get direction
   return dir;
 }
 
-RGBColor Directional::L(const ShadeInfo& sinfo) const { return color; }
+RGBColor Directional::L() const { return color; }

@@ -29,4 +29,4 @@ Vector3D Spotlight::get_direction(const ShadeInfo& sinfo) const {
   return dir;
 }
 
-RGBColor Spotlight::L(const ShadeInfo& sinfo) const { return ls * color; }
+RGBColor Spotlight::L() const { return ls * color; }

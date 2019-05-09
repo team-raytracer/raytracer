@@ -19,4 +19,7 @@ Parallel::Parallel(const Vector3D& d) : dir{Vector3D(d).normalize()} {
 
 Parallel* Parallel::clone() const { return new Parallel(*this); }
 
-Vector3D Parallel::get_direction(const Point3D& p) const { return dir; }
+Vector3D Parallel::get_direction(const Point3D& p) const {
+  (void)p;  // A parallel camera has the same direction for all points
+  return dir;
+}

@@ -17,4 +17,4 @@ Vector3D Ambient::get_direction(const ShadeInfo& sinfo) const {
 }
 
 // luminance from this light source at hit point
-RGBColor Ambient::L(const ShadeInfo& sinfo) const { return color; }
+RGBColor Ambient::L() const { return color; }
