@@ -149,7 +149,7 @@ void World::build(void) {
   // Matte* matte = new Matte();
   // matte->set_kd(KD);
   // matte->set_ka(KA);
-  
+
   // Generate chess board with reflective material
   Reflective* reflective = new Reflective();
   reflective->set_cr(1);
@@ -157,13 +157,13 @@ void World::build(void) {
   for (size_t z = 0; z < 8; ++z) {
     for (size_t x = 0; x < 8; ++x) {
       // matte->set_cd((x + z) % 2 == 0 ? white : black);
-      reflective->set_kr((x + z) % 2 == 0 ? .9 : .5); // sets amount of light
-                                            // reflected depending on square
+      reflective->set_kr(
+          (x + z) % 2 == 0 ? .9 : .5);  // sets amount of light
+                                        // reflected depending on square
 
       Triangle* triangle = new Triangle(Point3D(x, 0, z), Point3D(x, 0, z + 1),
                                         Point3D(x + 1, 0, z));
-      if (true)
-        triangle->set_material(reflective->clone());
+      if (true) triangle->set_material(reflective->clone());
       // else
       //   triangle->set_material(matte->clone());
       add_geometry(triangle);
@@ -171,8 +171,7 @@ void World::build(void) {
       triangle = new Triangle(Point3D(x + 1, 0, z + 1), Point3D(x + 1, 0, z),
                               Point3D(x, 0, z + 1));
 
-      if (true)
-        triangle->set_material(reflective->clone());
+      if (true) triangle->set_material(reflective->clone());
       // else
       //   triangle->set_material(matte->clone());
       add_geometry(triangle);

@@ -81,9 +81,9 @@ RGBColor Phong::shade(const ShadeInfo& sinfo) {
     Vector3D wi = sinfo.w->lights[j]->get_direction(sinfo);
     float ndotwi = sinfo.normal * wi;
     if (ndotwi > 0.0) {
-      L += (diffuse_brdf->f(sinfo, wo, wi) +
-            specular_brdf->f(sinfo, wo, wi) * sinfo.w->lights[j]->L(sinfo) *
-                ndotwi);
+      L += (diffuse_brdf->f(sinfo, wo, wi) + specular_brdf->f(sinfo, wo, wi) *
+                                                 sinfo.w->lights[j]->L(sinfo) *
+                                                 ndotwi);
     }
   }
 
