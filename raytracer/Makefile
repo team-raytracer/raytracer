@@ -17,7 +17,7 @@
 # not responsible for any issues it may cause
 ################################################################################
 
-# Note: On macs, g++ point to clang still, which does not have Open MP. To
+# Note: On macs, g++ points to clang still, which does not have Open MP. To
 # solve this you can install gcc with homebrew and specify the version here
 # 	i.e. g++-9
 CXX = g++
