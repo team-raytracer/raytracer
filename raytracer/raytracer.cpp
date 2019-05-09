@@ -79,6 +79,7 @@ int main(int argc, char** argv) {
 
   // Load scene and prepare for rendering
   World world;
+  world.basicTracer = basicTracer;
   world.build();
 
   if (useKD) {

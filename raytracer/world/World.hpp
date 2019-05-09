@@ -43,6 +43,8 @@ class World {
   Light* ambient_ptr;
   Tracer* tracer_ptr;
 
+  bool basicTracer;
+
  public:
   // Constructors.
   World();

@@ -19,6 +19,7 @@ const RGBColor TEAM_COLORS[2] = {RGBColor(0.3, 0.56, 0.64),
 const Point3D CAMERA_POSITION = Point3D(9, 4, -3.25);
 const double KA = 0.2;
 const double KD = 3;
+const std::string PIECE_RESOLUTION = "high";
 const char CHESS_FILE_NAME[16] = "chessLayout.txt";
 const char DEFAULT_BOARD[193] =
     "r1 h1 b1 q1 k1 b1 h1 r1\n"
@@ -37,8 +38,8 @@ void addPiece(World* world, ChessPiece piece, size_t team, size_t x, size_t z) {
   matte->set_cd(TEAM_COLORS[team]);
 
   double offset = (1.0 - piece.diameter) / 2.0;
-  world->add_ply("models/high/" + piece.name + ".ply", matte,
-                 Point3D(x + offset, 0, z + offset),
+  world->add_ply("models/" + PIECE_RESOLUTION + "/" + piece.name + ".ply",
+                 matte, Point3D(x + offset, 0, z + offset),
                  Point3D(x + 1 - offset, piece.height, z + 1 - offset), true);
 }
 
@@ -105,73 +106,37 @@ void World::build(void) {
   point->set_position(9, 4, -1);
   add_light(point);
 
-  // add a big reflective sphere on top of the board
-  // Reflective* reflective = new Reflective();
-  // reflective->set_cr(1);
-  // reflective->set_kr(1);
-  //
-  // Sphere* sphere_ptr = new Sphere(Point3D(1, 7, 7), 5);
-  // sphere_ptr->set_material(reflective);
-  // add_geometry(sphere_ptr);
-
-  // // Add 4 Triangles bordering the chess board with a refelctive material
-  // Reflective* reflective = new Reflective();
-  // reflective->set_cr(1, .1, .1);
-  // reflective->set_kr(1);
-  //
-  // Triangle* triangle_ptr = new Triangle(Point3D(0, 0, 0), Point3D(0, 0, 8),
-  //                                       Point3D(0, 8, 8));
-  // triangle_ptr->set_material(reflective->clone());
-  // add_geometry(triangle_ptr);
-  //
-  // triangle_ptr = new Triangle(Point3D(0, 0, 0), Point3D(0, 8, 8),
-  //                             Point3D(0, 8, 0));
-  // triangle_ptr->set_material(reflective->clone());
-  // add_geometry(triangle_ptr);
-  //
-  // reflective->set_cr(.1, 1, .1);
-  // reflective->set_kr(1);
-  //
-  // triangle_ptr = new Triangle(Point3D(0, 0, 8), Point3D(8, 0, 8),
-  //                             Point3D(0, 8, 8));
-  // triangle_ptr->set_material(reflective->clone());
-  // add_geometry(triangle_ptr);
-  //
-  // triangle_ptr = new Triangle(Point3D(0, 8, 8), Point3D(8, 0, 8),
-  //                             Point3D(8, 8, 8));
-  // triangle_ptr->set_material(reflective->clone());
-  // add_geometry(triangle_ptr);
-  //
-  // delete reflective;
-
   // Generate chess board with matte material
-  // Matte* matte = new Matte();
-  // matte->set_kd(KD);
-  // matte->set_ka(KA);
+  Matte* matte = new Matte();
+  matte->set_kd(KD);
+  matte->set_ka(KA);
 
   // Generate chess board with reflective material
   Reflective* reflective = new Reflective();
   reflective->set_cr(1);
-  reflective->set_kr(1);
+
   for (size_t z = 0; z < 8; ++z) {
     for (size_t x = 0; x < 8; ++x) {
-      // matte->set_cd((x + z) % 2 == 0 ? white : black);
-      reflective->set_kr((x + z) % 2 == 0 ? .9 : .5);  // sets amount of light
-      // reflected depending on square
+      matte->set_cd((x + z) % 2 == 0 ? white : black);
+      reflective->set_kr(
+          (x + z) % 2 == 0 ? .9 : .5);  // sets amount of light
+                                        // reflected depending on square
 
       Triangle* triangle = new Triangle(Point3D(x, 0, z), Point3D(x, 0, z + 1),
                                         Point3D(x + 1, 0, z));
-      if (true) triangle->set_material(reflective->clone());
-      // else
-      //   triangle->set_material(matte->clone());
+      if (basicTracer)
+        triangle->set_material(matte->clone());
+      else
+        triangle->set_material(reflective->clone());
       add_geometry(triangle);
 
       triangle = new Triangle(Point3D(x + 1, 0, z + 1), Point3D(x + 1, 0, z),
                               Point3D(x, 0, z + 1));
 
-      if (true) triangle->set_material(reflective->clone());
-      // else
-      //   triangle->set_material(matte->clone());
+      if (basicTracer)
+        triangle->set_material(matte->clone());
+      else
+        triangle->set_material(reflective->clone());
       add_geometry(triangle);
     }
   }
@@ -187,6 +152,6 @@ void World::build(void) {
     parseBoard(this, stream, dict);
   }
 
-  // delete matte;
+  delete matte;
   delete reflective;
 }
