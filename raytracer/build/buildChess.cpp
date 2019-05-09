@@ -106,7 +106,6 @@ void World::build(void) {
   point->set_position(9, 4, -1);
   add_light(point);
 
-
   // Generate chess board with matte material
   Matte* matte = new Matte();
   matte->set_kd(KD);
@@ -119,8 +118,9 @@ void World::build(void) {
   for (size_t z = 0; z < 8; ++z) {
     for (size_t x = 0; x < 8; ++x) {
       matte->set_cd((x + z) % 2 == 0 ? white : black);
-      reflective->set_kr((x + z) % 2 == 0 ? .9 : .5); // sets amount of light
-                                            // reflected depending on square
+      reflective->set_kr(
+          (x + z) % 2 == 0 ? .9 : .5);  // sets amount of light
+                                        // reflected depending on square
 
       Triangle* triangle = new Triangle(Point3D(x, 0, z), Point3D(x, 0, z + 1),
                                         Point3D(x + 1, 0, z));
