@@ -16,7 +16,6 @@
 const RGBColor TEAM_COLORS[2] = {RGBColor(0.3, 0.56, 0.64),
                                  RGBColor(1, 0.56, 0.52)};
 const Point3D CAMERA_POSITION = Point3D(9, 4, -3.25);
-const size_t RESOLUTION = 1920;
 const double KA = 0.2;
 const double KD = 3;
 const std::string PIECE_RESOLUTION = "high";
