@@ -8,6 +8,7 @@
 #include "../lights/Ambient.hpp"
 #include "../lights/Point.hpp"
 #include "../materials/Matte.hpp"
+#include "../materials/Reflective.hpp"
 #include "../samplers/JitterGaussian.hpp"
 #include "../utilities/ChessPiece.hpp"
 #include "../utilities/Constants.hpp"
@@ -81,6 +82,8 @@ void World::build(void) {
   vplane.set_from_camera(CAMERA_POSITION, 20, -30, 60, 0.3);
   vplane.hres = RESOLUTION;
   vplane.vres = RESOLUTION;
+  // Set max depth higher for more reflections
+  vplane.max_depth = 20;
 
   // Camera, Sampler, and Tracer
   set_camera(new Perspective(CAMERA_POSITION));
@@ -104,22 +107,75 @@ void World::build(void) {
   point->set_position(9, 4, -1);
   add_light(point);
 
+  // add a big reflective sphere on top of the board
+  // Reflective* reflective = new Reflective();
+  // reflective->set_cr(1);
+  // reflective->set_kr(1);
+  //
+  // Sphere* sphere_ptr = new Sphere(Point3D(1, 7, 7), 5);
+  // sphere_ptr->set_material(reflective);
+  // add_geometry(sphere_ptr);
+
+  // // Add 4 Triangles bordering the chess board with a refelctive material
+  // Reflective* reflective = new Reflective();
+  // reflective->set_cr(1, .1, .1);
+  // reflective->set_kr(1);
+  //
+  // Triangle* triangle_ptr = new Triangle(Point3D(0, 0, 0), Point3D(0, 0, 8),
+  //                                       Point3D(0, 8, 8));
+  // triangle_ptr->set_material(reflective->clone());
+  // add_geometry(triangle_ptr);
+  //
+  // triangle_ptr = new Triangle(Point3D(0, 0, 0), Point3D(0, 8, 8),
+  //                             Point3D(0, 8, 0));
+  // triangle_ptr->set_material(reflective->clone());
+  // add_geometry(triangle_ptr);
+  //
+  // reflective->set_cr(.1, 1, .1);
+  // reflective->set_kr(1);
+  //
+  // triangle_ptr = new Triangle(Point3D(0, 0, 8), Point3D(8, 0, 8),
+  //                             Point3D(0, 8, 8));
+  // triangle_ptr->set_material(reflective->clone());
+  // add_geometry(triangle_ptr);
+  //
+  // triangle_ptr = new Triangle(Point3D(0, 8, 8), Point3D(8, 0, 8),
+  //                             Point3D(8, 8, 8));
+  // triangle_ptr->set_material(reflective->clone());
+  // add_geometry(triangle_ptr);
+  //
+  // delete reflective;
+
   // Generate chess board with matte material
-  Matte* matte = new Matte();
-  matte->set_kd(KD);
-  matte->set_ka(KA);
+  // Matte* matte = new Matte();
+  // matte->set_kd(KD);
+  // matte->set_ka(KA);
+  
+  // Generate chess board with reflective material
+  Reflective* reflective = new Reflective();
+  reflective->set_cr(1);
+  reflective->set_kr(1);
   for (size_t z = 0; z < 8; ++z) {
     for (size_t x = 0; x < 8; ++x) {
-      matte->set_cd((x + z) % 2 == 0 ? white : black);
+      // matte->set_cd((x + z) % 2 == 0 ? white : black);
+      reflective->set_kr((x + z) % 2 == 0 ? .9 : .5); // sets amount of light
+                                            // reflected depending on square
 
       Triangle* triangle = new Triangle(Point3D(x, 0, z), Point3D(x, 0, z + 1),
                                         Point3D(x + 1, 0, z));
-      triangle->set_material(matte->clone());
+      if (true)
+        triangle->set_material(reflective->clone());
+      // else
+      //   triangle->set_material(matte->clone());
       add_geometry(triangle);
 
       triangle = new Triangle(Point3D(x + 1, 0, z + 1), Point3D(x + 1, 0, z),
                               Point3D(x, 0, z + 1));
-      triangle->set_material(matte->clone());
+
+      if (true)
+        triangle->set_material(reflective->clone());
+      // else
+      //   triangle->set_material(matte->clone());
       add_geometry(triangle);
     }
   }
@@ -135,5 +191,6 @@ void World::build(void) {
     parseBoard(this, stream, dict);
   }
 
-  delete matte;
+  // delete matte;
+  delete reflective;
 }

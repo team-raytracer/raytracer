@@ -92,8 +92,9 @@ obj/buildAntiAlias.o: build/buildAntiAlias.cpp cameras/Perspective.hpp \
 
 obj/buildChess.o: build/buildChess.cpp cameras/Perspective.hpp \
 	geometry/Triangle.hpp lights/Ambient.hpp lights/Point.hpp \
-	materials/Matte.hpp	samplers/JitterGaussian.hpp	tracers/Whitted.hpp \
-	utilities/ChessPiece.hpp utilities/Constants.hpp world/World.hpp obj
+	materials/Matte.hpp	materials/Reflective.hpp samplers/JitterGaussian.hpp \
+	tracers/Whitted.hpp utilities/ChessPiece.hpp utilities/Constants.hpp \
+	world/World.hpp obj
 	$(CXX) -c $(CXXFLAGS) -o $@ build/buildChess.cpp
 
 obj/buildLightTest.o: build/buildLightTest.cpp cameras/Perspective.hpp \
