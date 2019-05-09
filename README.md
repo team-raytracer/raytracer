@@ -2,6 +2,39 @@
 
 ## CSCI 155 Computer Graphics, Spring 2019
 
+### Team Website
+https://team-raytracer.github.io/
+
+### Execution Instructions
+
+After cloning this repository, take the following steps to build and execute the program:
+1. cd into the `raytracer` directory
+2. run `make` to build the executable file `raytracer`
+3. run `./raytracer` to execute the ray tracer.  For full usage instructions, run `./raytracer -h`.  
+
+We encourage you to run with the `-v` flag, as this prints useful render information such as the polygon count, number of cores, type of tracer, etc. 
+
+### Usage 
+`./raytracer [-s] [-t] [-v] [-o <filename>]`
+
+#### Options
+* -h = show the usage information
+* -s = "slow render" with no acceleration structure
+* -t = use "basic tracer" with primary rays only
+* -v = verbose, prints render information
+
+### Extra Credit Features
+We implemented the following features which we believe go beyond the assignment requirements:
+
+- **Multithreading:** We implemented multithreading with OpenMp, which increased our execution speed by over 32 times.
+- **Loading PLYs:** We can load any arbitrary triangle mesh ply file.
+- **Smooth Shading:** When loading a triangle mesh, we can choose between smooth or flat shading.
+- **Regular Sampling with Box Filter:** For simple anti-aliasing, we implemented regular sampling with a box filter.  We can specify the degree (number of rays) as a parameter of the sampler.
+- **Jitter Sampling with a Gaussian Filter:** For advanced anti-aliasing, we implemented jitter sampling with a gaussian filter.  We can specify the degree and standard deviation as parameters of the sampler.
+- **Command-line Interface:** The user can customize many aspects of the program by passing command line flags.  For example, they can specify the output file name or enter "verbose" which prints render information.
+- **Generalized camera viewing** While the default infrastructure requires that the viewing plane have a constant z, we generalized the viewing plane to support non constant z.  We can support specifying the camera and viewing plane in terms of a camera position, camera angle, and field of view.
+- **Configurable Chess Layout:** The layout of the pieces on the chess board is read at runtime from the file "chessLayout.txt".  This way, we can change the layout simply by changing the layout file without having to recompile the raytracer. 
+
 ### Purpose
 
 This project brings together many of the ray tracing topics we have covered and are about to cover. It builds an extendable ray tracing engine by using principles of Object Oriented design. The included ray tracing features are
