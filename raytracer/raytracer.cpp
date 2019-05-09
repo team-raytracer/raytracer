@@ -117,7 +117,7 @@ int main(int argc, char** argv) {
                 << std::endl;
     }
 
-    std::cout << "Begining rendering with " << omp_get_max_threads()
+    std::cout << "Beginning rendering with " << omp_get_max_threads()
               << " cores..." << std::endl;
   }
 
