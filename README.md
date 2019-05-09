@@ -8,7 +8,7 @@ https://team-raytracer.github.io/
 ### Execution Instructions
 
 After cloning this repository, take the following steps to build and execute the program:
-1. cd into the `raytracer` directory
+1. `cd` into the `raytracer` directory
 2. run `make` to build the executable file `raytracer`
 3. run `./raytracer` to execute the ray tracer.  For full usage instructions, run `./raytracer -h`.  
 
@@ -32,7 +32,7 @@ We implemented the following features which we believe go beyond the assignment 
 - **Regular Sampling with Box Filter:** For simple anti-aliasing, we implemented regular sampling with a box filter.  We can specify the degree (number of rays) as a parameter of the sampler.
 - **Jitter Sampling with a Gaussian Filter:** For advanced anti-aliasing, we implemented jitter sampling with a gaussian filter.  We can specify the degree and standard deviation as parameters of the sampler.
 - **Command-line Interface:** The user can customize many aspects of the program by passing command line flags.  For example, they can specify the output file name or enter "verbose" which prints render information.
-- **Generalized camera viewing** While the default infrastructure requires that the viewing plane have a constant z, we generalized the viewing plane to support non constant z.  We can support specifying the camera and viewing plane in terms of a camera position, camera angle, and field of view.
+- **Generalized Camera Viewing** While the default infrastructure requires that the viewing plane have a constant z, we generalized the viewing plane to support non constant z.  We can support specifying the camera and viewing plane in terms of a camera position, camera angle, and field of view.
 - **Configurable Chess Layout:** The layout of the pieces on the chess board is read at runtime from the file "chessLayout.txt".  This way, we can change the layout simply by changing the layout file without having to recompile the raytracer. 
 
 ### Purpose
