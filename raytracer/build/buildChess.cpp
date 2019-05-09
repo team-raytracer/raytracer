@@ -106,21 +106,28 @@ void World::build(void) {
   point->set_position(9, 4, -1);
   add_light(point);
 
-
   // Generate chess board with matte material
+<<<<<<< HEAD
   Matte* matte = new Matte();
   matte->set_kd(KD);
   matte->set_ka(KA);
+  == == == =
+               // Matte* matte = new Matte();
+               // matte->set_kd(KD);
+               // matte->set_ka(KA);
+>>>>>>> e0e0b20c810ab514f1d65c7cca8c3908c028cc36
 
-  // Generate chess board with reflective material
-  Reflective* reflective = new Reflective();
+      // Generate chess board with reflective material
+      Reflective* reflective = new Reflective();
   reflective->set_cr(1);
 
   for (size_t z = 0; z < 8; ++z) {
     for (size_t x = 0; x < 8; ++x) {
+<<<<<<< HEAD
       matte->set_cd((x + z) % 2 == 0 ? white : black);
-      reflective->set_kr((x + z) % 2 == 0 ? .9 : .5); // sets amount of light
-                                            // reflected depending on square
+      reflective->set_kr(
+          (x + z) % 2 == 0 ? .9 : .5);  // sets amount of light
+                                        // reflected depending on square
 
       Triangle* triangle = new Triangle(Point3D(x, 0, z), Point3D(x, 0, z + 1),
                                         Point3D(x + 1, 0, z));
@@ -128,15 +135,32 @@ void World::build(void) {
         triangle->set_material(matte->clone());
       else
         triangle->set_material(reflective->clone());
+      == == == =
+                   // matte->set_cd((x + z) % 2 == 0 ? white : black);
+          reflective->set_kr(
+              (x + z) % 2 == 0 ? .9 : .5);  // sets amount of light
+                                            // reflected depending on square
+
+      Triangle* triangle = new Triangle(Point3D(x, 0, z), Point3D(x, 0, z + 1),
+                                        Point3D(x + 1, 0, z));
+      if (true) triangle->set_material(reflective->clone());
+      // else
+      //   triangle->set_material(matte->clone());
+>>>>>>> e0e0b20c810ab514f1d65c7cca8c3908c028cc36
       add_geometry(triangle);
 
       triangle = new Triangle(Point3D(x + 1, 0, z + 1), Point3D(x + 1, 0, z),
                               Point3D(x, 0, z + 1));
 
+<<<<<<< HEAD
       if (basicTracer)
         triangle->set_material(matte->clone());
       else
         triangle->set_material(reflective->clone());
+      == == == = if (true) triangle->set_material(reflective->clone());
+      // else
+      //   triangle->set_material(matte->clone());
+>>>>>>> e0e0b20c810ab514f1d65c7cca8c3908c028cc36
       add_geometry(triangle);
     }
   }
