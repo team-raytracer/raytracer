@@ -18,10 +18,10 @@ We encourage you to run with the `-v` flag, as this prints useful render informa
 `./raytracer [-s] [-t] [-v] [-o <filename>]`
 
 #### Options
-* -h = show the usage information
-* -s = "slow render" with no acceleration structure
-* -t = use "basic tracer" with primary rays only
-* -v = verbose, prints render information
+* `-h` = show usage information
+* `-s` = "slow render" with no acceleration structure
+* `-t` = use "basic tracer" with primary rays only
+* `-v` = verbose, prints render information
 
 ### Extra Credit Features
 We implemented the following features which we believe go beyond the assignment requirements:
