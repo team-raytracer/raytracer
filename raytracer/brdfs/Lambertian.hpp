@@ -7,6 +7,7 @@ class Lambertian : public BRDF {
  private:
   float kd;     // diffuse coefficient
   RGBColor cd;  // diffuse color
+
  public:
   // constructor
   Lambertian();

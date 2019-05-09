@@ -1,4 +1,5 @@
 #include "SmoothTriangle.hpp"
+#include <algorithm>
 #include "../utilities/Constants.hpp"
 #include "../utilities/Point3D.hpp"
 #include "../utilities/Ray.hpp"

@@ -8,15 +8,16 @@
 class World;
 
 class Tracer {
- public:
-  Tracer(void);
-  Tracer(World* _world_ptr);
-  virtual ~Tracer(void);
-  virtual RGBColor trace_ray(const Ray& ray) const;
-  virtual RGBColor trace_ray(const Ray ray, const int depth) const;
-
  protected:
   World* world_ptr;
+
+ public:
+  Tracer() = default;
+  explicit Tracer(World* _world_ptr);
+  ~Tracer(void) = default;
+
+  virtual RGBColor trace_ray(const Ray& ray) const = 0;
+  virtual RGBColor trace_ray(const Ray ray, const int depth) const = 0;
 };
 
-#endif
+#endif  // RAYTRACER_TRACERS_TRACER_HPP_

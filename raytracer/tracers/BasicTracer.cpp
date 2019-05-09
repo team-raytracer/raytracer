@@ -11,16 +11,17 @@ BasicTracer::BasicTracer(World* _worldPtr) : Tracer(_worldPtr) {}
 BasicTracer::~BasicTracer() {}
 
 RGBColor BasicTracer::trace_ray(const Ray ray, const int depth) const {
-  if (depth > 0)
+  if (depth > 0) {
     return (black);
-  else {
+  } else {
     ShadeInfo sr(world_ptr->hit_objects(ray));
 
     if (sr.hit) {
       sr.depth = depth;
       sr.ray = ray;
       return ray.w * (sr.material_ptr->shade(sr));
-    } else
+    } else {
       return (ray.w * world_ptr->bg_color);
+    }
   }
 }

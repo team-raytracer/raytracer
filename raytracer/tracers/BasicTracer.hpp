@@ -8,9 +8,9 @@
 class BasicTracer : public Tracer {
  public:
   BasicTracer(void);
-  BasicTracer(World* _worldPtr);
+  explicit BasicTracer(World* _worldPtr);
   virtual ~BasicTracer(void);
   virtual RGBColor trace_ray(const Ray ray, const int depth) const;
 };
 
-#endif
+#endif  // RAYTRACER_TRACERS_BASICTRACER_HPP_

@@ -16,7 +16,7 @@ class Acceleration {
 
  public:
   // Constructor
-  Acceleration(World* _world);
+  explicit Acceleration(World* _world);
 
   Acceleration() = default;
 

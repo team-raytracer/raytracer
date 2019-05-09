@@ -3,8 +3,6 @@
 #include "../utilities/Constants.hpp"
 #include "../utilities/Vector3D.hpp"
 
-#include <iostream>
-
 ViewPlane::ViewPlane()
     : top_left{320, 240, 100},
       bottom_right{-320, -240, 100},
@@ -34,10 +32,8 @@ Point3D ViewPlane::getPixelPoint(double px, double py) const {
   if (top_left.z == bottom_right.z) {
     Vector3D dif = bottom_right - top_left;
     return top_left + Vector3D(px / hres * dif.x, py / vres * dif.y, 0);
-  }
-
-  // 3 point case with free z
-  else {
+  } else {
+    // 3 point case with free z
     Vector3D xVec = top_right - top_left;
     Vector3D yVec = bottom_right - top_right;
     return top_left + (px / hres) * xVec + (py / vres) * yVec;
