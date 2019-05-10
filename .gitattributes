@@ -1,0 +1,10 @@
+* text=auto
+
+*.cpp text
+*.hpp text
+*.md text
+*.cfg text
+LICENSE text
+Makefile text
+
+*.ply binary
