@@ -4,6 +4,7 @@
 *.hpp text
 *.md text
 *.cfg text
+*.txt text
 LICENSE text
 Makefile text
 
