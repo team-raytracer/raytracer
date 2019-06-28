@@ -333,8 +333,8 @@ clean:
 
 # Formats code and suggestions improvements according to cpplint
 clean-code:
-	clang-format --style=google -i **/*.*pp
-	clang-format --style=google -i raytracer.cpp
+	clang-format --style=file -i **/*.*pp
+	clang-format --style=file -i raytracer.cpp
 	-cpplint **/*.cpp
 	-cpplint **/*.hpp
 	-cpplint raytracer.cpp
