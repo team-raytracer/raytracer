@@ -45,13 +45,13 @@ void ViewPlane::set_from_camera(Point3D position, double x_theta,
   double x_deg = -x_theta * PI / 180.0;
   double y_deg = y_theta * PI / 180.0;
   double fov_deg = fov * PI / 360.0;
-  top_left = position +
-             near * Vector3D(sin(y_deg - fov_deg), sin(x_deg + fov_deg),
-                             cos(y_deg - fov_deg) * cos(x_deg + fov_deg));
-  top_right = position +
-              near * Vector3D(sin(y_deg + fov_deg), sin(x_deg + fov_deg),
-                              cos(y_deg + fov_deg) * cos(x_deg + fov_deg));
-  bottom_right = position +
-                 near * Vector3D(sin(y_deg + fov_deg), sin(x_deg - fov_deg),
+  top_left =
+      position + near * Vector3D(sin(y_deg - fov_deg), sin(x_deg + fov_deg),
+                                 cos(y_deg - fov_deg) * cos(x_deg + fov_deg));
+  top_right =
+      position + near * Vector3D(sin(y_deg + fov_deg), sin(x_deg + fov_deg),
+                                 cos(y_deg + fov_deg) * cos(x_deg + fov_deg));
+  bottom_right =
+      position + near * Vector3D(sin(y_deg + fov_deg), sin(x_deg - fov_deg),
                                  cos(y_deg + fov_deg) * cos(x_deg - fov_deg));
 }
