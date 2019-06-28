@@ -40,6 +40,12 @@ static void show_usage(std::string programName) {
             << "\t-o <filename>\tSpecifies output filename" << std::endl;
 }
 
+static void print_status(std::string statusMessage, bool verbose) {
+  if (verbose) {
+    std::cout << statusMessage << std::endl;
+  }
+}
+
 int main(int argc, char** argv) {
   // Settings set by command line arguments
   bool useKD = true;
@@ -100,27 +106,27 @@ int main(int argc, char** argv) {
                MIN_ROWS_PER_CHUNK);
 
   // Print information to the user
-  if (verbose) {
-    std::cout << "Scene loaded: " << world.num_polygons() << " polygons"
-              << std::endl;
+  print_status(
+      "Scene loaded: " + std::to_string(world.num_polygons()) + " polygons",
+      verbose);
 
-    if (useKD) {
-      std::cout << "Using a KD tree acceleration structure" << std::endl;
-    } else {
-      std::cout << "Using no acceleration structure (this may take a while)"
-                << std::endl;
-    }
-
-    if (basicTracer) {
-      std::cout << "Using basic ray tracer (primary rays only)" << std::endl;
-    } else {
-      std::cout << "Using advanced ray tracer (includes secondary rays)"
-                << std::endl;
-    }
-
-    std::cout << "Beginning rendering with " << omp_get_max_threads()
-              << " cores..." << std::endl;
+  if (useKD) {
+    print_status("Using a KD tree acceleration structure", verbose);
+  } else {
+    print_status("Using no acceleration structure (this may take a while)",
+                 verbose);
   }
+
+  if (basicTracer) {
+    print_status("Using basic ray tracer (primary rays only)", verbose);
+  } else {
+    print_status("Using advanced ray tracer (includes secondary rays)",
+                 verbose);
+  }
+
+  print_status("Beginning rendering with " +
+                   std::to_string(omp_get_max_threads()) + " cores...",
+               verbose);
 
 #pragma omp parallel for
   for (size_t startY = 0; startY < viewplane.vres; startY += rowsPerChunk) {
@@ -144,9 +150,7 @@ int main(int argc, char** argv) {
   // Write image to file
   image.write_ppm(filename);
 
-  if (verbose) {
-    std::cout << "Image saved to " << filename << std::endl;
-  }
+  print_status("Image saved to " + filename, verbose);
 
   return 0;
 }
