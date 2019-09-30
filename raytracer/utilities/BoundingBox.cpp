@@ -17,21 +17,19 @@ BoundingBox BoundingBox::merge(const BoundingBox& other) const {
 }
 
 int BoundingBox::max_axis() const {
-  // 0 for x, 1 for y, 2 for z
-
   double x_length = most_positive.x - most_negative.x;
   double y_length = most_positive.y - most_negative.y;
   double z_length = most_positive.z - most_negative.z;
 
   if (x_length >= y_length && x_length >= z_length) {
-    return 0;
+    return X_AXIS;
   }
 
   if (y_length >= x_length && y_length >= z_length) {
-    return 1;
+    return Y_AXIS;
   }
 
-  return 2;
+  return Z_AXIS;
 }
 
 bool BoundingBox::intersect(const Point3D& point) const {
@@ -41,14 +39,14 @@ bool BoundingBox::intersect(const Point3D& point) const {
 
 bool BoundingBox::intersect(const BoundingBox& other) const {
   bool overlapping_x =
-      overlapping1D(most_negative.x, most_positive.x, other.most_negative.x,
-                    other.most_positive.x);
+      BoundingBox::overlapping1D(most_negative.x, most_positive.x,
+                                 other.most_negative.x, other.most_positive.x);
   bool overlapping_y =
-      overlapping1D(most_negative.y, most_positive.y, other.most_negative.y,
-                    other.most_positive.y);
+      BoundingBox::overlapping1D(most_negative.y, most_positive.y,
+                                 other.most_negative.y, other.most_positive.y);
   bool overlapping_z =
-      overlapping1D(most_negative.z, most_positive.z, other.most_negative.z,
-                    other.most_positive.z);
+      BoundingBox::overlapping1D(most_negative.z, most_positive.z,
+                                 other.most_negative.z, other.most_positive.z);
 
   return overlapping_x && overlapping_y && overlapping_z;
 }
@@ -107,7 +105,6 @@ bool BoundingBox::hit(const Ray& ray) const {
   double t0, t1;
 
   // find largest entering t value
-
   if (tx_min > ty_min)
     t0 = tx_min;
   else
@@ -116,7 +113,6 @@ bool BoundingBox::hit(const Ray& ray) const {
   if (tz_min > t0) t0 = tz_min;
 
   // find smallest exiting t value
-
   if (tx_max < ty_max)
     t1 = tx_max;
   else
@@ -128,6 +124,6 @@ bool BoundingBox::hit(const Ray& ray) const {
 }
 
 bool BoundingBox::overlapping1D(double min1, double max1, double min2,
-                                double max2) const {
+                                double max2) {
   return (max1 >= min2 && max2 >= min1);
 }

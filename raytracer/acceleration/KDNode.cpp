@@ -9,7 +9,7 @@ KDNode::KDNode()
 
 KDNode::KDNode(std::vector<Geometry*> _primitives)
     : primitives{_primitives}, bb{BoundingBox()} {
-  // compute bounding box
+  // compute overall bounding box
   for (Geometry* primitive : primitives) {
     bb = bb.merge(primitive->get_bounding_box());
   }
@@ -34,21 +34,22 @@ void KDNode::build_kd_tree(KDNode* node) {
   // Raytracing_Topics_Techniques-Part_7_Kd-Trees_and_More_Speed.shtml
 
   BoundingBox current_bb = node->bb;
+
+  // this should eventually split smarter than just half of the longest axis,
+  // but for now it will have to do
   int splitaxis = current_bb.max_axis();
   Vector3D lengths = current_bb.most_positive - current_bb.most_negative;
 
   double axislength;
-  if (splitaxis == 0) {
-    // x axis
+  if (splitaxis == X_AXIS) {
     axislength = lengths.x;
-  } else if (splitaxis == 1) {
-    // y axis
+  } else if (splitaxis == Y_AXIS) {
     axislength = lengths.y;
-  } else {
-    // z axis
+  } else {  // z axis
     axislength = lengths.z;
   }
 
+  // condition to stop splitting
   if (node->primitives.size() < 3 || axislength < 0.01) {
     return;
   }
@@ -56,19 +57,18 @@ void KDNode::build_kd_tree(KDNode* node) {
   // offset from current_bb.most_negative, along splitaxis
   double splitoffset = axislength / 2;
 
+  // compute midpoints for bounding box, where each half will be a new node
+
   Point3D midpoint_1 = current_bb.most_negative;
   Point3D midpoint_2 = current_bb.most_positive;
 
-  if (splitaxis == 0) {
-    // x axis
+  if (splitaxis == X_AXIS) {
     midpoint_1.x += splitoffset;
     midpoint_2.x -= splitoffset;
-  } else if (splitaxis == 1) {
-    // y axis
+  } else if (splitaxis == Y_AXIS) {
     midpoint_1.y += splitoffset;
     midpoint_2.y -= splitoffset;
-  } else if (splitaxis == 2) {
-    // z axis
+  } else if (splitaxis == Z_AXIS) {
     midpoint_1.z += splitoffset;
     midpoint_2.z -= splitoffset;
   }
@@ -82,8 +82,9 @@ void KDNode::build_kd_tree(KDNode* node) {
   node->left = new KDNode();
   node->right = new KDNode();
 
-  for (auto it = node->primitives.begin(); it != node->primitives.end(); it++) {
-    Geometry* primitive = *it;
+  // put primitives into appropriate bounding box, duplicating if necessary
+
+  for (Geometry* primitive : node->primitives) {
     if (splitboxleft.intersect(primitive->get_bounding_box())) {
       node->left->add_primitive(primitive, splitboxleft);
     }
@@ -92,6 +93,8 @@ void KDNode::build_kd_tree(KDNode* node) {
     }
   }
 
+  // deallocate space from vector because we don't need to hold on to primitives
+  // as they now belong to the children
   node->primitives.clear();
   node->primitives.shrink_to_fit();
 

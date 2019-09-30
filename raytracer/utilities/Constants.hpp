@@ -42,4 +42,9 @@ const RGBColor yellow(1, 1, 0);
 // Useful for scaling the output of rand() to [0,1].
 const float invRAND_MAX = 1.0 / static_cast<float>(RAND_MAX);
 
+// Useful for specifying axes in more readable fashion
+const size_t X_AXIS = 0;
+const size_t Y_AXIS = 1;
+const size_t Z_AXIS = 2;
+
 #endif  // RAYTRACER_UTILITIES_CONSTANTS_HPP_

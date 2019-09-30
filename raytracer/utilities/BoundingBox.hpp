@@ -31,7 +31,7 @@ class BoundingBox {
   bool hit(const Ray& ray) const;
 
  protected:
-  bool overlapping1D(double min1, double max1, double min2, double max2) const;
+  static bool overlapping1D(double min1, double max1, double min2, double max2);
 };
 
 #endif  // RAYTRACER_UTILITIES_BOUNDINGBOX_HPP_
